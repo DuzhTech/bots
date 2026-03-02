@@ -79,7 +79,7 @@
         }
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
         
-        .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); animation: none; }
+        .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
         .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
 
         @keyframes heartbeat {
@@ -246,9 +246,9 @@
         .case-card#case-gran .case-visual { order: 2; }
         .case-card#case-gran .case-dashboard { order: 1; }
 
-        .case-card#case-boso { grid-template-columns: 1fr 1.2fr; }
-        .case-card#case-boso .case-visual { order: 1; }
-        .case-card#case-boso .case-dashboard { order: 2; }
+        .case-card#case-boso { grid-template-columns: 1.2fr 1fr; }
+        .case-card#case-boso .case-visual { order: 2; }
+        .case-card#case-boso .case-dashboard { order: 1; }
 
         .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .case-visual img { max-width: 90%; max-height: 380px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));}
@@ -280,9 +280,8 @@
         .data-box.result .box-icon { border: 1px solid var(--accent); color: var(--accent);}
         .data-box.result strong { color: var(--accent); }
 
-        /* Корегуємо hover напрямок для кейсів де текст зліва */
-        .case-card#case-gnome .data-box:hover,
-        .case-card#case-gran .data-box:hover { transform: translateX(-10px); }
+        /* Виправляємо hover напрямок для кейсів, де текст зліва */
+        .case-card#case-resthill .data-box:hover { transform: translateX(-10px); }
 
         /* --- Тарифи --- */
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -389,7 +388,6 @@
             }
             .case-visual { order: 1 !important; }
             .case-dashboard { order: 2 !important; }
-            .case-card#case-gnome .data-box:hover, .case-card#case-gran .data-box:hover { transform: translateX(10px); } 
 
             .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
             .price-card.featured { transform: scale(1); }

@@ -9,7 +9,7 @@
     
     <style>
         :root {
-            var(--bg-main): #060B19; 
+            --bg-main: #060B19; 
             --bg-card: rgba(15, 23, 42, 0.6); 
             --accent: #00E5FF; 
             --accent-glow: rgba(0, 229, 255, 0.3);
@@ -84,7 +84,7 @@
             font-weight: 800; font-size: 1.05rem; letter-spacing: 0.5px;
             text-decoration: none; display: inline-block; 
             cursor: none; position: relative;
-            animation: heartbeat 2.5s infinite; /* Подвійний удар */
+            animation: heartbeat 2.5s infinite;
         }
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
         
@@ -118,27 +118,55 @@
         .hero-text { flex: 1.2; }
         .hero-tag { color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
         
-        /* Ефект друкування */
-        .hero-text h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 25px; min-height: 160px; }
-        #typewriter { color: var(--text-main); }
-        #typewriter span { color: var(--accent); text-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
-        .cursor-blink { display: inline-block; width: 4px; height: 1em; background-color: var(--accent); margin-left: 5px; animation: blink 1s step-end infinite; vertical-align: text-bottom;}
+        /* 🔥 НОВИЙ Дизайнерський заголовок */
+        .hero-text h1 { 
+            font-size: clamp(2.5rem, 4vw, 4.2rem);
+            line-height: 1.15; margin-bottom: 25px; 
+            font-weight: 900; color: var(--text-main);
+            text-wrap: balance;
+        }
+        .accent-typewriter { color: var(--accent); text-shadow: 0 0 25px rgba(0, 229, 255, 0.4); display: inline-block; margin-top: 5px; }
+        .cursor-blink { display: inline-block; width: 4px; height: 0.9em; background-color: var(--accent); margin-left: 5px; animation: blink 1s step-end infinite; vertical-align: text-bottom;}
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .hero-text p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px; }
-        .manifesto { border-left: 3px solid var(--accent); padding-left: 20px; font-style: italic; color: #cbd5e1; margin-bottom: 40px; }
+        .hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; max-width: 90%; }
         
-        /* Зменшений герой, щоб був якісним */
+        /* 🔥 НОВЕ: Інтерактивні "Пігулки" переваг */
+        .hero-features { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 35px; }
+        .feature-pill { 
+            background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border); 
+            padding: 10px 18px; border-radius: 50px; font-size: 0.95rem; color: var(--text-main); 
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .feature-pill:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,229,255,0.15); background: rgba(0, 229, 255, 0.1);}
+        
+        /* 🔥 НОВЕ: Дизайнерська картка Маніфесту */
+        .manifesto-card { 
+            display: flex; gap: 20px; align-items: center; padding: 25px; margin-bottom: 40px; 
+            border-radius: 20px; border-left: 4px solid var(--accent);
+            background: linear-gradient(145deg, rgba(15,23,42,0.8), rgba(0,229,255,0.03));
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .manifesto-icon { 
+            font-size: 2rem; background: rgba(0,229,255,0.1); padding: 15px; 
+            border-radius: 16px; display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 0 20px rgba(0,229,255,0.2); border: 1px solid rgba(0,229,255,0.3);
+        }
+        .manifesto-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;}
+        .manifesto-text strong { color: #fff; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        
+        /* Зменшений герой */
         .hero-img { flex: 0.8; display: flex; justify-content: center; position: relative; }
         .hero-img img { max-width: 85%; height: auto; z-index: 5; animation: breathe 6s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.2)); }
-        
         @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
         /* --- Болі та Рішення --- */
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .bento-card h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.4rem; }
 
-        /* --- Наші Герої (Великі текстові блоки) --- */
+        /* --- Наші Герої --- */
         .cases-wrapper { position: relative; padding-bottom: 50px; }
         .case-card { 
             position: sticky; top: 100px; 
@@ -199,12 +227,12 @@
 
         @media (max-width: 1024px) {
             .hero, .case-card { flex-direction: column; text-align: center; }
+            .hero-features { justify-content: center; }
+            .manifesto-card { flex-direction: column; text-align: center; }
             .case-card, .case-boso { grid-template-columns: 1fr; position: relative; top: 0; }
             .case-boso .case-info { order: 2; } .case-boso .case-img { order: 1; position: static; }
             .case-img { position: static; }
             .bento-grid, .pricing-grid { grid-template-columns: 1fr; }
-            .hero-text h1 { font-size: 3rem; min-height: auto; }
-            .price-card.featured { transform: scale(1); }
             body, .btn, a, input { cursor: auto; }
             .custom-cursor { display: none; }
         }
@@ -223,11 +251,28 @@
     <section class="hero reveal">
         <div class="hero-text">
             <span class="hero-tag">🚀 DuzhTech — Екосистема цифрової гостинності</span>
-            <h1><span id="typewriter"></span><span class="cursor-blink"></span></h1>
-            <p>Ми не просто створюємо ботів — ми даруємо вашому бізнесу «цифрову душу» та затишок. DuzhTech розробляє інтелектуальні Telegram-системи, які звільняють власників готелів від операційної рутини, збільшують прибуток на 30% та змушують гостей закохуватися у ваш сервіс ще до заїзду.</p>
             
-            <div class="manifesto">
-                Наш маніфест: Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою.
+            <h1>
+                Ваші гості вже в майбутньому.<br>
+                <span class="accent-typewriter">
+                    <span id="typewriter"></span><span class="cursor-blink"></span>
+                </span>
+            </h1>
+            
+            <p>Ми не просто створюємо ботів — ми даруємо вашому бізнесу «цифрову душу» та затишок. DuzhTech розробляє інтелектуальні Telegram-системи, які:</p>
+            
+            <div class="hero-features">
+                <div class="feature-pill custom-hover"><span>🛡️</span> Звільняють власника від рутини</div>
+                <div class="feature-pill custom-hover"><span>📈</span> Збільшують прибуток на 30%</div>
+                <div class="feature-pill custom-hover"><span>❤️</span> Закохують гостей ще до заїзду</div>
+            </div>
+
+            <div class="manifesto-card custom-hover">
+                <div class="manifesto-icon">💡</div>
+                <div class="manifesto-text">
+                    <strong>Наш маніфест</strong>
+                    Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою.
+                </div>
             </div>
 
             <a href="#contact" class="btn custom-hover">ХОЧУ БЕЗКОШТОВНИЙ МАКЕТ БОТА</a>
@@ -417,6 +462,24 @@
         </div>
     </section>
 
+    <section id="faq">
+        <h2 class="section-title reveal">Відповіді на те, що вас зупиняє (FAQ)</h2>
+        <div class="faq-grid">
+            <div class="glass-panel faq-item reveal">
+                <h4>Чи зможе мій персонал цим користуватися?</h4>
+                <p>— Якщо вони вміють писати повідомлення в Telegram, вони вже професіонали в нашій системі.</p>
+            </div>
+            <div class="glass-panel faq-item reveal delay-1">
+                <h4>Що робити після місяця підтримки?</h4>
+                <p>— Ми передаємо всі ключі вам. Ви стаєте повним господарем системи. Або ми продовжуємо адмініструвати все за символічні 2000 грн/міс.</p>
+            </div>
+             <div class="glass-panel faq-item reveal delay-2">
+                <h4>А якщо мені потрібна особлива функція?</h4>
+                <p>— Ми обожнюємо виклики! Напишіть нам, і ми знайдемо технічне рішення.</p>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" style="padding-bottom: 100px; padding-top: 100px;" class="reveal">
         <h2 class="section-title">Готові побачити свій готель на новому рівні?</h2>
         <div class="glass-panel contact-form custom-hover-card">
@@ -449,41 +512,22 @@
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // 3. Ефект друкування тексту (Typewriter)
-        const textParts = [
-            { text: "Ваші гості вже в майбутньому.", color: "var(--text-main)" },
-            { text: "\nА ваш готель?", color: "var(--accent)" }
-        ];
-        let partIndex = 0;
+        // 3. Ефект друкування (Тільки для другої фрази)
+        const textToType = "А ваш готель?";
         let charIndex = 0;
-        const speed = 70;
+        const speed = 100;
         const typewriterEl = document.getElementById("typewriter");
 
         function typeWriter() {
-            if (partIndex < textParts.length) {
-                const currentPart = textParts[partIndex];
-                if (charIndex < currentPart.text.length) {
-                    let char = currentPart.text.charAt(charIndex);
-                    if (char === "\n") char = "<br>";
-                    
-                    if (charIndex === 0) {
-                        typewriterEl.innerHTML += `<span style="color: ${currentPart.color};">${char}</span>`;
-                    } else {
-                        typewriterEl.lastChild.innerHTML += char;
-                    }
-                    charIndex++;
-                    setTimeout(typeWriter, speed);
-                } else {
-                    partIndex++;
-                    charIndex = 0;
-                    setTimeout(typeWriter, speed + 200); // Пауза між частинами
-                }
+            if (charIndex < textToType.length) {
+                typewriterEl.innerHTML += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, speed);
             }
         }
-        // Запуск друкування після завантаження сторінки
-        window.addEventListener('load', () => { setTimeout(typeWriter, 500); });
+        window.addEventListener('load', () => { setTimeout(typeWriter, 600); });
 
-        // Тільки для ПК (вимикаємо курсор на мобільному)
+        // 4. Кастомний курсор та Spotlight
         if(window.innerWidth > 900) {
             const cursor = document.getElementById('cursor');
             document.addEventListener('mousemove', e => {

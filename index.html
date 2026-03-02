@@ -107,7 +107,6 @@
         .hero-text { flex: 1.2; }
         .hero-tag { color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
         
-        /* 🔥 Дизайнерський заголовок */
         .hero-text h1 { 
             font-size: clamp(2.5rem, 4vw, 4.2rem);
             line-height: 1.15; margin-bottom: 25px; 
@@ -120,10 +119,10 @@
 
         .hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; max-width: 90%; }
         
-        /* 🔥 НОВЕ: Інтерактивні блоки (Пігулки переваг) - ПОФІКШЕНО КОМПОНУВАННЯ */
+        /* Пігулки переваг */
         .hero-features { 
             display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 35px; 
-            justify-content: flex-start; /* Вирівнювання по лівому краю як текст */
+            justify-content: flex-start; 
         }
         .feature-pill { 
             background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border); 
@@ -149,13 +148,13 @@
         .manifesto-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;}
         .manifesto-text strong { color: #fff; display: block; margin-bottom: 5px; font-size: 1.1rem;}
         
-        /* 🔥 ПОФІКШЕНО: Персонаж зменшений і ПІДНЯТИЙ НА РІВЕНЬ З ТЕКСТОМ заголовка */
+        /* Персонаж (Піднято на рівень тексту) */
         .hero-img { flex: 0.8; display: flex; justify-content: center; position: relative; }
         .hero-img img { 
             max-width: 85%; height: auto; z-index: 5; 
             animation: breathe 6s ease-in-out infinite; 
             filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.2)); 
-            transform: translateY(-80px); /* 🔥 ПІДЙОМ ВГОРУ */
+            transform: translateY(-80px); 
         }
         
         @keyframes breathe { 0%, 100% { transform: translateY(-80px); } 50% { transform: translateY(-95px); } }
@@ -169,7 +168,7 @@
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .bento-card h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.4rem; }
 
-        /* --- Наші Герої (Великі текстові блоки) --- */
+        /* --- Наші Герої --- */
         .cases-wrapper { position: relative; padding-bottom: 50px; }
         .case-card { 
             position: sticky; top: 100px; 
@@ -189,7 +188,6 @@
         .case-info h4 { color: var(--accent); font-size: 1.1rem; margin-bottom: 25px; font-style: italic; }
         .case-info p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 15px; }
         
-        /* Виділення слів у кейсах */
         .highlight-pain { color: #ff4d4d; font-weight: 700; }
         .highlight-solution { color: #4caf50; font-weight: 700; }
         .highlight-feature { color: #ffeb3b; font-weight: 700; }
@@ -212,50 +210,74 @@
         .price-card li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
         .price-card.featured li { color: #fff; }
 
-        /* --- Процес (Premium Bento Grid) --- */
-        .process-bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; }
-        .process-card { 
-            position: relative; overflow: hidden; 
-            display: flex; flex-direction: column; justify-content: center;
+        /* 🔥 НОВИЙ ПРЕМІАЛЬНИЙ TIMELINE ДЛЯ ПРОЦЕСУ 🔥 */
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding-left: 40px;
         }
-        .process-card:last-child { grid-column: 1 / -1; text-align: center; align-items: center; }
+        /* Статична лінія фону */
+        .timeline-container::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 2px; height: 100%; background: rgba(255, 255, 255, 0.05);
+        }
+        /* Сяюча лінія, що заповнюється при скролі */
+        .timeline-progress {
+            position: absolute; top: 0; left: 0;
+            width: 2px; height: 0%; 
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
+            z-index: 1; transition: height 0.2s ease-out;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
         
-        /* Гігантська цифра на фоні */
-        .step-watermark {
-            position: absolute; top: -15px; right: 10px;
-            font-size: 9rem; font-weight: 900; line-height: 1; font-family: 'Montserrat', sans-serif;
+        /* Неонова крапка (Радар) */
+        .timeline-dot {
+            position: absolute;
+            top: 25px; left: -49px; /* Центруємо на лінії */
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: var(--bg-main);
+            border: 3px solid var(--accent);
+            z-index: 2; transition: 0.4s;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        }
+        .timeline-item:hover .timeline-dot { background: var(--accent); box-shadow: 0 0 25px var(--accent); transform: scale(1.2); }
+        
+        /* Картка кроку */
+        .timeline-content {
+            background: linear-gradient(145deg, rgba(15,23,42,0.6), rgba(0,229,255,0.02));
+            border: 1px solid var(--border);
+            border-radius: 20px; padding: 40px;
+            position: relative; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .timeline-item:hover .timeline-content {
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,229,255,0.05);
+            transform: translateX(10px);
+        }
+        
+        /* Гігантська цифра-водяний знак */
+        .timeline-watermark {
+            position: absolute; right: 20px; top: -15px;
+            font-size: 8rem; font-weight: 900; line-height: 1; font-family: 'Montserrat', sans-serif;
             color: rgba(255, 255, 255, 0.02);
             transition: color 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 0; user-select: none; pointer-events: none;
+            z-index: 0; pointer-events: none; user-select: none;
         }
-        .process-card:hover .step-watermark { color: rgba(0, 229, 255, 0.08); transform: translateY(-10px) scale(1.05); }
-        
-        .step-content { position: relative; z-index: 1; }
-        .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .process-card:last-child .step-header { justify-content: center; }
-        
-        /* Пульсуючий радар біля заголовка */
-        .step-dot {
-            width: 12px; height: 12px; border-radius: 50%;
-            background: var(--accent); box-shadow: 0 0 15px var(--accent-glow);
-            position: relative; flex-shrink: 0;
+        .timeline-item:hover .timeline-watermark {
+            color: rgba(0, 229, 255, 0.05); transform: translateY(10px) scale(1.05);
         }
-        .step-dot::after {
-            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 50%; border: 1px solid var(--accent); opacity: 0;
-            animation: radar-ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-        }
-        @keyframes radar-ping { 75%, 100% { transform: scale(2.5); opacity: 0; } }
         
-        .step-header h4 { font-size: 1.4rem; color: #fff; margin: 0; }
-        .step-content p { color: var(--text-muted); font-size: 1.05rem; margin: 0; line-height: 1.6; }
+        .timeline-content h4 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; position: relative; z-index: 1; display: flex; align-items: center; gap: 15px;}
+        .timeline-content p { color: var(--text-muted); font-size: 1.05rem; margin: 0; position: relative; z-index: 1; max-width: 85%; line-height: 1.6;}
 
-        @media (max-width: 900px) {
-            .process-bento { grid-template-columns: 1fr; }
-            .process-card:last-child { grid-column: auto; text-align: left; align-items: flex-start; }
-            .process-card:last-child .step-header { justify-content: flex-start; }
-            .step-watermark { font-size: 7rem; right: 0; }
-        }
         /* --- FAQ --- */
         .faq-grid { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
         .faq-item h4 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
@@ -269,8 +291,7 @@
 
         @media (max-width: 1024px) {
             .hero, .case-card { flex-direction: column; text-align: center; }
-            .hero-features { justify-content: center; }
-            .hero-img img, @keyframes breathe { transform: translateY(0); } /* Вимикаємо підйом на мобільному */
+            .hero-img img, @keyframes breathe { transform: translateY(0); } 
             @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
             .case-card, .case-boso { grid-template-columns: 1fr; position: relative; top: 0; }
             .case-boso .case-info { order: 2; } .case-boso .case-img { order: 1; position: static; }
@@ -278,6 +299,12 @@
             .bento-grid, .pricing-grid { grid-template-columns: 1fr; }
             .hero-text h1 { font-size: 3rem; }
             .price-card.featured { transform: scale(1); }
+            
+            /* Мобільна адаптація таймлайну */
+            .timeline-container { padding-left: 25px; }
+            .timeline-dot { left: -33px; width: 14px; height: 14px; }
+            .timeline-content p { max-width: 100%; }
+            .timeline-watermark { font-size: 5rem; top: 0; }
         }
     </style>
 </head>
@@ -306,14 +333,13 @@
             <div class="hero-features">
                 <div class="feature-pill"><span>🛡️</span> Звільняють власника від рутини</div>
                 <div class="feature-pill"><span>📈</span> Збільшують прибуток на 30%</div>
-                <div class="feature-pill"><span>❤️</span> Закохують гостей ще до заїзду</div>
             </div>
 
             <div class="manifesto-card">
                 <div class="manifesto-icon">💡</div>
                 <div class="manifesto-text">
                     <strong>Наш маніфест</strong>
-                    Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурбутним, а роботу власника — прибутковою.
+                    Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою.
                 </div>
             </div>
 
@@ -464,66 +490,74 @@
     </section>
 
     <section id="process">
-        <h2 class="section-title reveal">Як ми створюємо ваш успіх (5 кроків)</h2>
+        <h2 class="section-title reveal">Як ми створюємо ваш успіх</h2>
         <p class="section-subtitle reveal">Прозорий шлях від першого дзвінка до готової екосистеми.</p>
 
-        <div class="process-bento">
+        <div class="timeline-container">
+            <div class="timeline-progress" id="timeline-line"></div>
             
-            <div class="glass-panel process-card reveal custom-hover-card">
-                <div class="step-watermark">01</div>
-                <div class="step-content">
-                    <div class="step-header">
-                        <div class="step-dot"></div>
-                        <h4>Стратегічна сесія (Meet)</h4>
-                    </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-watermark">01</div>
+                    <h4>Стратегічна сесія (Meet)</h4>
                     <p>Ми зустрічаємось у Google Meet, щоб зрозуміти кожну деталь вашого бізнесу. Ми не слухаємо — ми чуємо.</p>
                 </div>
             </div>
 
-            <div class="glass-panel process-card reveal delay-1 custom-hover-card">
-                <div class="step-watermark">02</div>
-                <div class="step-content">
-                    <div class="step-header">
-                        <div class="step-dot"></div>
-                        <h4>Безкоштовний прототип</h4>
-                    </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-watermark">02</div>
+                    <h4>Безкоштовний прототип</h4>
                     <p>Ми будуємо «скелет» вашого майбутнього бота. Ви клацаєте, тестуєте і закохуєтесь ще до оплати.</p>
                 </div>
             </div>
 
-            <div class="glass-panel process-card reveal custom-hover-card">
-                <div class="step-watermark">03</div>
-                <div class="step-content">
-                    <div class="step-header">
-                        <div class="step-dot"></div>
-                        <h4>Магія розробки</h4>
-                    </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-watermark">03</div>
+                    <h4>Магія розробки</h4>
                     <p>Після передплати 50% ми вдихаємо життя в проєкт: дизайн персонажів, логіка, платежі.</p>
                 </div>
             </div>
 
-            <div class="glass-panel process-card reveal delay-1 custom-hover-card">
-                <div class="step-watermark">04</div>
-                <div class="step-content">
-                    <div class="step-header">
-                        <div class="step-dot"></div>
-                        <h4>Велике відкриття</h4>
-                    </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-watermark">04</div>
+                    <h4>Велике відкриття</h4>
                     <p>Ми проводимо повний інструктаж для вас і персоналу. Ви отримуєте готовий інструмент «під ключ».</p>
                 </div>
             </div>
 
-            <div class="glass-panel process-card reveal delay-2 custom-hover-card" style="border-color: var(--accent);">
-                <div class="step-watermark">05</div>
-                <div class="step-content">
-                    <div class="step-header">
-                        <div class="step-dot"></div>
-                        <h4 style="color: var(--accent);">Безпечна гавань (Support)</h4>
-                    </div>
-                    <p style="max-width: 700px; margin: 0 auto;">Після фінальної оплати ми залишаємось з вами. 1 місяць безкоштовного супроводу — ми поруч, щоб підказати, змінити чи налаштувати.</p>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot" style="background: var(--accent); box-shadow: 0 0 20px var(--accent);"></div>
+                <div class="timeline-content" style="border-color: var(--accent);">
+                    <div class="timeline-watermark" style="color: rgba(0, 229, 255, 0.08);">05</div>
+                    <h4 style="color: var(--accent);">Безпечна гавань (Support)</h4>
+                    <p>Після фінальної оплати ми залишаємось з вами. 1 місяць безкоштовного супроводу — ми поруч, щоб підказати, змінити чи налаштувати.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <section id="faq" style="margin-top: 100px;">
+        <h2 class="section-title reveal">Відповіді на те, що вас зупиняє</h2>
+        <div class="faq-grid">
+            <div class="glass-panel faq-item reveal">
+                <h4>Чи зможе мій персонал цим користуватися?</h4>
+                <p>— Якщо вони вміють писати повідомлення в Telegram, вони вже професіонали в нашій системі.</p>
+            </div>
+            <div class="glass-panel faq-item reveal delay-1">
+                <h4>Що робити після місяця підтримки?</h4>
+                <p>— Ми передаємо всі ключі вам. Ви стаєте повним господарем системи. Або ми продовжуємо адмініструвати все за символічні 2000 грн/міс.</p>
+            </div>
+             <div class="glass-panel faq-item reveal delay-2">
+                <h4>А якщо мені потрібна особлива функція?</h4>
+                <p>— Ми обожнюємо виклики! Напишіть нам, і ми знайдемо технічне рішення.</p>
+            </div>
         </div>
     </section>
 
@@ -574,7 +608,7 @@
         }
         window.addEventListener('load', () => { setTimeout(typeWriter, 600); });
 
-        // Magnetic Spotlight (працює зі стандартною мишкою)
+        // Magnetic Spotlight
         if(window.innerWidth > 900) {
             document.querySelectorAll('.glass-panel').forEach(card => {
                 card.addEventListener('mousemove', e => {
@@ -586,6 +620,21 @@
                 });
             });
         }
+
+        // 🔥 Магія Таймлайну (Лінія заповнюється при скролі)
+        window.addEventListener('scroll', () => {
+            const timeline = document.querySelector('.timeline-container');
+            const progressLine = document.getElementById('timeline-line');
+            
+            if(timeline && progressLine) {
+                const rect = timeline.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                // Розраховуємо скільки відсотків таймлайну пройдено (лінія доходить до середини екрану)
+                let progress = (windowHeight / 1.5 - rect.top) / rect.height;
+                progress = Math.max(0, Math.min(1, progress));
+                progressLine.style.height = `${progress * 100}%`;
+            }
+        });
     </script>
 </body>
 </html>

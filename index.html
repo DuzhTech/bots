@@ -36,7 +36,7 @@
             overflow-x: hidden; 
         }
 
-        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: bold; }
 
         /* Кінематографічний шум */
         .noise-overlay {
@@ -101,6 +101,7 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
 
         /* --- Hero Section --- */
         .hero { display: flex; align-items: center; min-height: 100vh; gap: 40px; padding-top: 120px; }
@@ -168,7 +169,6 @@
             cursor: pointer;
         }
 
-        /* Величезна цифра-водяний знак на фоні */
         .bento-number {
             position: absolute;
             top: 15px;
@@ -183,7 +183,6 @@
             z-index: 0;
         }
 
-        /* Блок іконки */
         .bento-icon {
             font-size: 2.2rem;
             width: 70px;
@@ -207,7 +206,7 @@
         }
 
         .bento-content h3 {
-            color: #fff; /* Білий заголовок для контрасту в спокійному стані */
+            color: #fff; 
             margin-bottom: 12px;
             font-size: 1.5rem;
             transition: color 0.3s ease;
@@ -219,10 +218,9 @@
             line-height: 1.6;
             transition: color 0.3s ease;
             margin: 0;
-            padding-right: 20px; /* Місце для стрілки */
+            padding-right: 20px; 
         }
 
-        /* Стрілка, що з'являється при наведенні */
         .bento-arrow {
             position: absolute;
             bottom: 40px;
@@ -235,7 +233,6 @@
             z-index: 1;
         }
 
-        /* МАГІЯ HOVER-ЕФЕКТІВ */
         .bento-card:hover {
             transform: translateY(-8px);
             border-color: rgba(0, 229, 255, 0.4);
@@ -259,48 +256,31 @@
             transform: translateY(-5px);
         }
 
-        .bento-card:hover .bento-content h3 {
-            color: var(--accent); /* Заголовок спалахує неоном */
-        }
+        .bento-card:hover .bento-content h3 { color: var(--accent); }
+        .bento-card:hover .bento-content p { color: var(--text-main); }
+        .bento-card:hover .bento-arrow { opacity: 1; transform: translateX(0) rotate(-45deg); }
 
-        .bento-card:hover .bento-content p {
-            color: var(--text-main); /* Текст стає читабельнішим */
-        }
-
-        .bento-card:hover .bento-arrow {
-            opacity: 1;
-            transform: translateX(0) rotate(-45deg); /* Стрілка виїжджає */
-        }
-
-        /* 🔥🔥🔥 ПРЕМІУМ КЕЙСИ (ПОФІКШЕНО ВИСОТУ ТА ФОН) 🔥🔥🔥 */
+        /* --- ПРЕМІУМ КЕЙСИ --- */
         .cases-wrapper { display: flex; flex-direction: column; gap: 60px; padding-bottom: 50px; }
         
         .case-card { 
-            position: sticky; top: 60px; /* Підняли вище, щоб влізло більше тексту */
+            position: sticky; top: 60px; 
             display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; 
             align-items: center; 
-            
-            /* ФІКС 1: ГЛУХИЙ ФОН. Більше ніякого просвічування тексту з-під низу! */
             background: #090F1C;
-            
             border: 1px solid var(--border);
-            border-radius: 30px; padding: 30px 40px; /* Зменшили відступи всередині */
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.9); /* Сильна тінь відділяє картки */
-            
-            /* ФІКС 2: АНТИ-ОБРІЗАННЯ */
+            border-radius: 30px; padding: 30px 40px; 
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.9); 
             max-height: calc(100vh - 80px); 
-            overflow-y: auto; /* Якщо екран зовсім малий, дозволить скролити всередині картки */
+            overflow-y: auto; 
         }
-        /* Ховаємо скролбар всередині картки для краси */
         .case-card::-webkit-scrollbar { display: none; }
         .case-card { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Змійка (чергування сторін) */
         .case-card:nth-child(even) { grid-template-columns: 1.2fr 1fr; }
         .case-card:nth-child(even) .case-visual { order: 2; }
         .case-card:nth-child(even) .case-dashboard { order: 1; }
 
-        /* Візуальна частина (Маскот) */
         .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .case-visual img { max-width: 90%; max-height: 380px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));}
         .case-visual-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: var(--accent); filter: blur(120px); opacity: 0.15; z-index: 1;}
@@ -309,14 +289,13 @@
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        /* Інформаційна частина (Дашборд) - ЗРОБЛЕНО КОМПАКТНІШИМ */
         .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
         
         .data-box {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.05);
             border-radius: 16px; 
-            padding: 15px 20px; /* Зменшили відступи, щоб все влізло */
+            padding: 15px 20px; 
             display: flex; gap: 15px; align-items: flex-start;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -328,7 +307,6 @@
         .box-text strong { display: block; font-size: 0.95rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
         .box-text p { font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.5;}
 
-        /* Hover-ефекти */
         .data-box.pain:hover { border-color: rgba(255, 77, 77, 0.4); box-shadow: 0 10px 30px rgba(255, 77, 77, 0.1); transform: translateX(10px); background: rgba(255, 77, 77, 0.05);}
         .data-box.pain .box-icon { border: 1px solid rgba(255, 77, 77, 0.3); color: #ff4d4d;}
         .data-box.pain strong { color: #ff4d4d; }
@@ -375,7 +353,7 @@
         .timeline-content h4 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; position: relative; z-index: 1; display: flex; align-items: center; gap: 15px;}
         .timeline-content p { color: var(--text-muted); font-size: 1.05rem; margin: 0; position: relative; z-index: 1; max-width: 85%; line-height: 1.6;}
 
-       /* --- FAQ Accordion --- */
+        /* --- FAQ Accordion --- */
         .faq-grid { 
             display: flex; 
             flex-direction: column; 
@@ -385,7 +363,7 @@
         }
         
         .faq-item {
-            padding: 0;
+            padding: 0 !important; 
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
@@ -415,49 +393,38 @@
         
         .faq-body {
             max-height: 0;
+            overflow: hidden; 
             padding: 0 30px;
             opacity: 0;
+            visibility: hidden; 
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .faq-body p {
             color: var(--text-muted);
             margin-bottom: 25px;
+            margin-top: 0;
             line-height: 1.6;
         }
         
-        /* Стан при наведенні */
         .faq-item:hover { 
             border-color: rgba(0, 229, 255, 0.4); 
         }
         
-        /* Активний (відкритий) стан */
-        .faq-item.active {
+        .faq-item.open {
             border-color: var(--accent);
             box-shadow: 0 10px 30px rgba(0, 229, 255, 0.1);
             background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(0,229,255,0.05));
         }
         
-        .faq-item.active .faq-header h4 { 
-            color: var(--accent); 
-        }
+        .faq-item.open .faq-header h4 { color: var(--accent); }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
         
-        .faq-item.active .faq-icon { 
-            transform: rotate(45deg); /* Перетворює + на х */
-        }
-        
-        .faq-item.active .faq-body {
-            max-height: 200px; /* Достатньо для тексту, розгорнеться плавно */
+        .faq-item.open .faq-body {
+            max-height: 300px; 
             opacity: 1;
+            visibility: visible;
             padding-bottom: 25px;
-        }
-
-        /* Мобільна адаптація для FAQ */
-        @media (max-width: 768px) {
-            .faq-header { padding: 20px; }
-            .faq-header h4 { font-size: 1.05rem; padding-right: 15px; }
-            .faq-body { padding: 0 20px; }
-            .faq-item.active .faq-body { padding-bottom: 20px; max-height: 300px; }
         }
 
         /* Форма */
@@ -472,7 +439,6 @@
             .hero-img img, @keyframes breathe { transform: translateY(0); } 
             @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
             
-            /* Мобільні кейси (Вимикаємо Sticky і фіксовану висоту) */
             .case-card, .case-card:nth-child(even) { 
                 grid-template-columns: 1fr; position: relative; top: 0; padding: 30px; gap: 30px;
                 max-height: none; overflow-y: visible;
@@ -489,6 +455,13 @@
             .timeline-dot { left: -33px; width: 14px; height: 14px; }
             .timeline-content p { max-width: 100%; }
             .timeline-watermark { font-size: 5rem; top: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .faq-header { padding: 20px; }
+            .faq-header h4 { font-size: 1.05rem; padding-right: 15px; }
+            .faq-body { padding: 0 20px; }
+            .faq-item.open .faq-body { padding-bottom: 20px; max-height: 400px; }
         }
     </style>
 </head>
@@ -530,7 +503,7 @@
         </div>
     </section>
 
-   <section id="why">
+    <section id="why">
         <h2 class="section-title reveal">Чому готельєри обирають нас?</h2>
         <p class="section-subtitle reveal">Ви знаєте це почуття, коли телефон розривається від дзвінків «де пароль від Wi-Fi» або «як замовити сніданок»? Ми це виправимо.</p>
         
@@ -932,6 +905,21 @@
                 progress = Math.max(0, Math.min(1, progress));
                 progressLine.style.height = `${progress * 100}%`;
             }
+        });
+
+        // FAQ Accordion Logic
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('open');
+                });
+                
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
         });
     </script>
 </body>

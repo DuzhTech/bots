@@ -375,9 +375,90 @@
         .timeline-content h4 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; position: relative; z-index: 1; display: flex; align-items: center; gap: 15px;}
         .timeline-content p { color: var(--text-muted); font-size: 1.05rem; margin: 0; position: relative; z-index: 1; max-width: 85%; line-height: 1.6;}
 
-        /* --- FAQ --- */
-        .faq-grid { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
-        .faq-item h4 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
+       /* --- FAQ Accordion --- */
+        .faq-grid { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+        
+        .faq-item {
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        
+        .faq-header {
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-header h4 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+        
+        .faq-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: 300;
+            line-height: 1;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .faq-body {
+            max-height: 0;
+            padding: 0 30px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .faq-body p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        /* Стан при наведенні */
+        .faq-item:hover { 
+            border-color: rgba(0, 229, 255, 0.4); 
+        }
+        
+        /* Активний (відкритий) стан */
+        .faq-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.1);
+            background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(0,229,255,0.05));
+        }
+        
+        .faq-item.active .faq-header h4 { 
+            color: var(--accent); 
+        }
+        
+        .faq-item.active .faq-icon { 
+            transform: rotate(45deg); /* Перетворює + на х */
+        }
+        
+        .faq-item.active .faq-body {
+            max-height: 200px; /* Достатньо для тексту, розгорнеться плавно */
+            opacity: 1;
+            padding-bottom: 25px;
+        }
+
+        /* Мобільна адаптація для FAQ */
+        @media (max-width: 768px) {
+            .faq-header { padding: 20px; }
+            .faq-header h4 { font-size: 1.05rem; padding-right: 15px; }
+            .faq-body { padding: 0 20px; }
+            .faq-item.active .faq-body { padding-bottom: 20px; max-height: 300px; }
+        }
 
         /* Форма */
         .contact-form { max-width: 600px; margin: 0 auto; }
@@ -716,18 +797,67 @@
     <section id="faq" style="margin-top: 100px;">
         <h2 class="section-title reveal">Відповіді на те, що вас зупиняє</h2>
         <div class="faq-grid">
+            
             <div class="glass-panel faq-item reveal">
-                <h4>Чи зможе мій персонал цим користуватися?</h4>
-                <p>— Якщо вони вміють писати повідомлення в Telegram, вони вже професіонали в нашій системі.</p>
+                <div class="faq-header">
+                    <h4>Чи зможе мій персонал цим користуватися?</h4>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-body">
+                    <p>— Якщо вони вміють писати повідомлення в Telegram, вони вже професіонали в нашій системі. Інтерфейс адміністратора максимально інтуїтивний, до того ж ми проводимо повний інструктаж перед запуском.</p>
+                </div>
             </div>
+
             <div class="glass-panel faq-item reveal delay-1">
-                <h4>Що робити після місяця підтримки?</h4>
-                <p>— Ми передаємо всі ключі вам. Ви стаєте повним господарем системи. Або ми продовжуємо адмініструвати все за символічні 2000 грн/міс.</p>
+                <div class="faq-header">
+                    <h4>Як гості дізнаватимуться про бота?</h4>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-body">
+                    <p>— Ми надаємо стильні макети QR-кодів, які ви зможете розмістити в номерах, на рецепції або в меню. Також посилання на бота ідеально додається у вітальне повідомлення при бронюванні.</p>
+                </div>
             </div>
-             <div class="glass-panel faq-item reveal delay-2">
-                <h4>А якщо мені потрібна особлива функція?</h4>
-                <p>— Ми обожнюємо виклики! Напишіть нам, і ми знайдемо технічне рішення.</p>
+
+            <div class="glass-panel faq-item reveal">
+                <div class="faq-header">
+                    <h4>Чи не буде конфліктів з моїм Booking або Airbnb?</h4>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-body">
+                    <p>— Навпаки! Бот працює як єдина екосистема. У тарифах від SMART ми налаштовуємо повну синхронізацію календарів, щоб ви назавжди забули про овербукінг.</p>
+                </div>
             </div>
+
+            <div class="glass-panel faq-item reveal delay-1">
+                <div class="faq-header">
+                    <h4>Чи безпечно проводити оплати через бота?</h4>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-body">
+                    <p>— Абсолютно. Ми не зберігаємо платіжні дані. Усі транзакції проходять через офіційні, захищені шлюзи (WayForPay або Monobank) напряму на ваші рахунки.</p>
+                </div>
+            </div>
+
+            <div class="glass-panel faq-item reveal">
+                <div class="faq-header">
+                    <h4>Що робити після місяця безкоштовної підтримки?</h4>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-body">
+                    <p>— Ми передаємо всі ключі вам. Ви стаєте повноправним власником системи. За бажанням, ми можемо продовжити технічне адміністрування за символічні 2000 грн/міс.</p>
+                </div>
+            </div>
+
+            <div class="glass-panel faq-item reveal delay-1">
+                <div class="faq-header">
+                    <h4>А якщо мені потрібна особлива функція?</h4>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-body">
+                    <p>— Ми обожнюємо виклики! Незалежно від того, чи це складна система лояльності, чи інтеграція зі специфічною CRM — напишіть нам, і ми знайдемо технічне рішення.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 

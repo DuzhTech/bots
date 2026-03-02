@@ -63,7 +63,7 @@
         .glass-panel:hover { transform: translateY(-5px); border-color: rgba(0, 229, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .glass-panel > * { position: relative; z-index: 1; }
 
-        section { padding: 120px 8%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+        section { padding: 120px 8%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; scroll-margin-top: var(--header-height); }
         .section-title { text-align: center; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; font-weight: 900; color: #fff; line-height: 1.2; }
         .section-subtitle { text-align: center; font-size: clamp(1rem, 1.5vw, 1.15rem); color: var(--text-muted); max-width: 800px; margin: 0 auto 60px; }
 
@@ -75,10 +75,11 @@
             text-decoration: none; display: inline-block; 
             position: relative; cursor: pointer; text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: heartbeat 2.5s infinite;
+            animation: heartbeat 2.5s infinite; /* Анімація увімкнена */
         }
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
         
+        /* Виправили прозорі кнопки: тепер вони теж пульсують */
         .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
         .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
 
@@ -220,12 +221,13 @@
         .bento-card:hover .bento-content p { color: var(--text-main); }
         .bento-card:hover .bento-arrow { opacity: 1; transform: translateX(0) rotate(-45deg); }
 
-        /* --- ПРЕМІУМ КЕЙСИ --- */
+        /* --- ПРЕМІУМ КЕЙСИ (Виправлені) --- */
         .cases-wrapper { display: flex; flex-direction: column; gap: 60px; padding-bottom: 50px; }
         
         .case-card { 
             position: sticky; top: calc(var(--header-height) + 20px); 
-            display: grid; gap: 40px; align-items: start; /* Змінено з center на start */
+            display: grid; gap: 40px; 
+            align-items: start; /* ВИПРАВЛЕНО: тепер блоки не вилазять за нижню межу */
             background: #090F1C; border: 1px solid var(--border); border-radius: 30px; padding: 40px; 
             box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
             max-height: calc(100vh - var(--header-height) - 40px); overflow-y: auto; 
@@ -233,24 +235,30 @@
         .case-card::-webkit-scrollbar { display: none; }
         .case-card { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Порядок колонок для змійки та логіки (Дівчина зліва) */
+        /* Порядок колонок: Дівчина зліва, всі інші (Гном, Гуцул, Капітан) справа */
+        
+        /* 1. Гном BerBen (Дашборд зліва, візуал СПРАВА) */
         .case-card#case-gnome { grid-template-columns: 1.2fr 1fr; }
-        .case-card#case-gnome .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
-        .case-card#case-gnome .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
+        .case-card#case-gnome .case-visual { order: 2; }
+        .case-card#case-gnome .case-dashboard { order: 1; }
 
+        /* 2. Дівчина REST HILL (Візуал ЗЛІВА, дашборд справа) */
         .case-card#case-resthill { grid-template-columns: 1fr 1.2fr; }
-        .case-card#case-resthill .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
-        .case-card#case-resthill .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
+        .case-card#case-resthill .case-visual { order: 1; }
+        .case-card#case-resthill .case-dashboard { order: 2; }
 
+        /* 3. Гуцул GRANЬ (Дашборд зліва, візуал СПРАВА) */
         .case-card#case-gran { grid-template-columns: 1.2fr 1fr; }
-        .case-card#case-gran .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
-        .case-card#case-gran .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
+        .case-card#case-gran .case-visual { order: 2; }
+        .case-card#case-gran .case-dashboard { order: 1; }
 
+        /* 4. Капітан BOSO (Дашборд зліва, візуал СПРАВА - ВИПРАВЛЕНО!) */
         .case-card#case-boso { grid-template-columns: 1.2fr 1fr; }
-        .case-card#case-boso .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
-        .case-card#case-boso .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
+        .case-card#case-boso .case-visual { order: 2; }
+        .case-card#case-boso .case-dashboard { order: 1; }
 
-        .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        /* Відцентровуємо візуал і дашборд всередині доступного місця */
+        .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
         .case-visual img { max-width: 90%; max-height: 380px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));}
         .case-visual-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: var(--accent); filter: blur(120px); opacity: 0.15; z-index: 1;}
         .case-visual h3 { font-size: 2.2rem; margin-top: 15px; z-index: 2; color: #fff;}
@@ -258,7 +266,7 @@
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+        .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
         .data-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 15px 20px; display: flex; gap: 15px; align-items: flex-start; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .box-icon { font-size: 1.2rem; line-height: 1; flex-shrink: 0; padding: 10px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
         .box-text strong { display: block; font-size: 0.95rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
@@ -280,7 +288,7 @@
         .data-box.result .box-icon { border: 1px solid var(--accent); color: var(--accent);}
         .data-box.result strong { color: var(--accent); }
 
-        /* Виправляємо hover напрямок для кейсів, де текст зліва */
+        /* Ховер ефект для REST HILL: текст справа, тому при наведенні блок їде ВЛІВО */
         .case-card#case-resthill .data-box:hover { transform: translateX(-10px); }
 
         /* --- Тарифи --- */
@@ -327,7 +335,7 @@
         .faq-item.open .faq-icon { transform: rotate(45deg); }
         .faq-item.open .faq-body { max-height: 300px; opacity: 1; visibility: visible; padding-bottom: 25px; }
 
-        /* --- ОНОВЛЕНИЙ БЛОК КОНТАКТІВ (Преміальний) --- */
+        /* --- Преміальний блок Контактів (Форма) --- */
         #contact { position: relative; }
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; }
         .contact-info .section-title { font-size: clamp(2rem, 3vw, 3.5rem); line-height: 1.2; text-align: left; }
@@ -385,9 +393,11 @@
             .case-card { 
                 grid-template-columns: 1fr !important; position: relative; top: 0 !important; 
                 padding: 30px; gap: 30px; max-height: none; overflow-y: visible; 
+                align-items: stretch; /* Повертаємо базове вирівнювання для мобілки */
             }
-            .case-visual { order: 1 !important; }
-            .case-dashboard { order: 2 !important; }
+            .case-visual { order: 1 !important; margin: 0; }
+            .case-dashboard { order: 2 !important; margin: 0; }
+            .data-box:hover { transform: none !important; } /* Вимикаємо зсув на ховері для мобілки */
 
             .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
             .price-card.featured { transform: scale(1); }

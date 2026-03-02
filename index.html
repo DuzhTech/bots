@@ -13,17 +13,17 @@
             --bg-main: #060B19; 
             --bg-card: rgba(15, 23, 42, 0.6); 
             --accent: #00E5FF; 
+            --accent-glow: rgba(0, 229, 255, 0.3);
             --text-main: #F8FAFC;
             --text-muted: #94A3B8;
             --border: rgba(0, 229, 255, 0.15);
         }
 
         /* Налаштування для Lenis Scroll */
-        html.lenis { height: auto; }
+        html.lenis { height: auto; cursor: none; /* Ховаємо стандартний курсор */ }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
-        .lenis.lenis-scrolling iframe { pointer-events: none; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -36,83 +36,114 @@
             color: var(--text-main); 
             line-height: 1.6; 
             overflow-x: hidden; 
-            -webkit-font-smoothing: antialiased;
+            cursor: none; /* Для кастомного курсора */
         }
 
         h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
-        
-        /* Скляний ефект для карток */
+
+        /* 🔥 ФІШКА 1: Film Grain (Кінематографічний шум) */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.04;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* 🔥 ФІШКА 2: Кастомний курсор */
+        .custom-cursor {
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+            background: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 10000; 
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, filter 0.3s ease;
+            box-shadow: 0 0 10px var(--accent);
+        }
+        .custom-cursor.hovering {
+            width: 60px; height: 60px; background: rgba(0, 229, 255, 0.2);
+            filter: blur(5px); box-shadow: none; border: 1px solid var(--accent);
+        }
+
+        /* 🔥 ФІШКА 3: Magnetic Spotlight для карток */
         .glass-panel { 
             background: var(--bg-card); 
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px); 
             border: 1px solid var(--border); 
             border-radius: 24px; 
             padding: 40px; 
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+            transition: transform 0.4s ease;
+            position: relative; overflow: hidden;
         }
-        .glass-panel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.08);
-            border-color: rgba(0, 229, 255, 0.3);
+        /* Це саме світло, яке бігає за мишкою */
+        .glass-panel::before {
+            content: ''; position: absolute; top: var(--y, 50%); left: var(--x, 50%);
+            transform: translate(-50%, -50%);
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 0;
         }
+        .glass-panel:hover::before { opacity: 1; }
+        .glass-panel:hover { transform: translateY(-5px); border-color: rgba(0, 229, 255, 0.3); }
+        .glass-panel > * { position: relative; z-index: 1; } /* Текст поверх світла */
 
-        section { padding: 120px 8%; max-width: 1400px; margin: 0 auto; }
+        section { padding: 120px 8%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;}
         .section-title { text-align: center; font-size: 3rem; margin-bottom: 20px; font-weight: 900; }
         .section-subtitle { text-align: center; font-size: 1.15rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 60px; }
 
-        /* Неонові кнопки */
+        /* Пульсуючі неонові кнопки */
         .btn { 
             background: var(--accent); color: #000; 
             padding: 16px 36px; border-radius: 12px; 
             font-weight: 800; font-size: 1.05rem; letter-spacing: 0.5px;
             text-decoration: none; display: inline-block; 
-            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-            border: 2px solid var(--accent);
+            transition: 0.3s; box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            animation: pulse 2.5s infinite; cursor: none;
         }
-        .btn:hover { 
-            background: transparent; color: var(--accent);
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.5); 
-            transform: scale(1.02);
-        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 35px rgba(0, 229, 255, 0.6); animation: none; }
+        .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: none; animation: none;}
+        .btn-outline:hover { background: rgba(0, 229, 255, 0.1); }
+
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 20px rgba(0, 229, 255, 0.3); } 50% { box-shadow: 0 0 35px rgba(0, 229, 255, 0.6); } }
 
         /* Навігація */
         header {
             position: fixed; top: 0; width: 100%;
-            background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(6, 11, 25, 0.8); backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
             padding: 20px 8%; display: flex; justify-content: space-between; align-items: center;
             z-index: 1000;
         }
-        .logo { font-family: 'Montserrat'; font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #fff; text-transform: uppercase; letter-spacing: 1px;}
+        .logo { font-family: 'Montserrat'; font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #fff; cursor: none;}
         .logo span { color: var(--accent); }
 
-        /* Преміальна анімація появи */
-        .reveal { 
-            opacity: 0; 
-            transform: translateY(30px); 
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
+        /* Анімація появи */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .delay-1 { transition-delay: 0.1s; }
+        .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
 
         /* --- 01. Hero Section --- */
         .hero { display: flex; align-items: center; min-height: 100vh; gap: 40px; padding-top: 100px; }
         .hero-text { flex: 1.2; }
-        .hero-tag { color: var(--accent); font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
-        .hero-text h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 25px; }
+        .hero-tag { color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
+        .hero-text h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 25px; }
         .hero-text h1 span { color: var(--accent); text-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
-        .hero-text p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 30px; }
+        .hero-text p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px; }
         .manifesto { border-left: 3px solid var(--accent); padding-left: 20px; font-style: italic; color: #cbd5e1; margin-bottom: 40px; }
         
-        .hero-img { flex: 0.8; display: flex; justify-content: center; }
-        .hero-img img { max-width: 100%; height: auto; filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.15)); }
+        .hero-img { flex: 0.8; position: relative; display: flex; justify-content: center; }
+        /* Збільшений герой + Паралакс клас */
+        .hero-img img { max-width: 140%; height: auto; z-index: 5; animation: floatMain 7s ease-in-out infinite; }
+        @keyframes floatMain { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .glow-circle {
+            position: absolute; width: 500px; height: 500px; background: var(--accent); border-radius: 50%;
+            filter: blur(150px); opacity: 0.15; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
+        }
 
         /* --- 02. Болі та Рішення --- */
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .bento-card h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.4rem; }
 
-        /* --- 03. Наші Герої (Sticky Stack) --- */
+        /* --- 03. Наші Герої --- */
         .cases-wrapper { position: relative; padding-bottom: 50px; }
         .case-card { 
             position: sticky; top: 120px; 
@@ -122,16 +153,15 @@
             border: 1px solid var(--border);
             border-radius: 24px; padding: 40px;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
-            transition: filter 0.3s;
         }
         .case-img { text-align: center; }
-        .case-img img { max-height: 320px; max-width: 100%; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transition: transform 0.4s ease; }
-        .case-card:hover .case-img img { transform: scale(1.05) translateY(-10px); } 
+        /* Додано data-speed для Паралаксу */
+        .case-img img { max-height: 320px; max-width: 100%; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transition: transform 0.2s ease-out; }
+        
         .case-info h3 { font-size: 2.2rem; margin-bottom: 10px; }
         .case-info h4 { color: var(--accent); font-size: 1.1rem; margin-bottom: 15px; }
         .case-info p { color: var(--text-muted); font-size: 1.05rem; }
         
-        /* БОСО Капітан праворуч (Bug fix: Чорний фон, щоб не змішувалося) */
         .case-boso { grid-template-columns: 1fr 300px; border-color: var(--accent); background: #000000; box-shadow: 0 -15px 50px rgba(0,0,0,0.9); }
         .case-boso .case-info { order: 1; }
         .case-boso .case-img { order: 2; }
@@ -151,8 +181,7 @@
 
         /* --- 05. Процес --- */
         .process-list { display: grid; gap: 20px; }
-        .process-step { display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; transition: 0.3s; }
-        .process-step:hover { border-color: var(--border); background: rgba(0, 229, 255, 0.02); transform: translateX(10px); }
+        .process-step { display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: center; }
         .step-num { font-size: 3rem; font-weight: 900; color: var(--accent); opacity: 0.3; }
         .step-info h4 { font-size: 1.3rem; margin-bottom: 5px; color: #fff; }
         .step-info p { color: var(--text-muted); margin: 0; }
@@ -160,32 +189,36 @@
         /* --- 06. FAQ --- */
         .faq-grid { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
         .faq-item h4 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
-        .faq-item p { color: var(--text-muted); }
 
-        /* --- Форма Заявки (Блок з попередньої версії) --- */
-        .contact-form { max-width: 600px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 20px; border: 1px solid var(--border); }
-        .contact-form input, .contact-form select { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 10px; color: #fff; margin-bottom: 15px; transition: 0.3s; }
-        .contact-form input:focus, .contact-form select:focus { border-color: var(--accent); outline: none; }
+        /* Форма Заявки */
+        .contact-form { max-width: 600px; margin: 0 auto; }
+        .contact-form input { width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); padding: 18px; border-radius: 12px; color: #fff; margin-bottom: 15px; font-family: 'Inter', sans-serif; transition: 0.3s; cursor: none;}
+        .contact-form input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 15px var(--accent-glow);}
 
         footer { text-align: center; padding: 60px 8%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; color: var(--text-muted); }
 
         @media (max-width: 1024px) {
             .hero, .case-card { flex-direction: column; text-align: center; }
             .case-card, .case-boso { grid-template-columns: 1fr; position: relative; top: 0; }
-            .case-boso .case-info { order: 2; }
-            .case-boso .case-img { order: 1; }
+            .case-boso .case-info { order: 2; } .case-boso .case-img { order: 1; }
             .bento-grid, .pricing-grid { grid-template-columns: 1fr; }
             .hero-text h1 { font-size: 3.2rem; }
             .price-card.featured { transform: scale(1); }
-            .process-step:hover { transform: none; }
+            /* На мобільних вимикаємо кастомний курсор та паралакс */
+            body, .btn, a, input { cursor: auto; }
+            .custom-cursor { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <div class="noise-overlay"></div>
+    
+    <div class="custom-cursor" id="cursor"></div>
+
     <header>
-        <a href="#" class="logo">Duzh<span>Tech</span></a>
-        <a href="#contact" class="btn" style="padding: 10px 24px; font-size: 0.9rem;">Замовити</a>
+        <a href="#" class="logo custom-hover">Duzh<span>Tech</span></a>
+        <a href="#contact" class="btn btn-outline custom-hover" style="padding: 10px 24px; font-size: 0.9rem;">Замовити</a>
     </header>
 
     <section class="hero reveal">
@@ -198,10 +231,11 @@
                 Наш маніфест: Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою.
             </div>
 
-            <a href="#contact" class="btn">ХОЧУ БЕЗКОШТОВНИЙ МАКЕТ БОТА</a>
+            <a href="#contact" class="btn custom-hover">ХОЧУ БЕЗКОШТОВНИЙ МАКЕТ БОТА</a>
         </div>
         <div class="hero-img">
-            <img src="hero_nazar.png" alt="Кіборг DuzhTech">
+            <div class="glow-circle"></div>
+            <img src="hero_nazar.png" alt="Кіборг DuzhTech" class="parallax-img" data-speed="0.05">
         </div>
     </section>
 
@@ -210,19 +244,19 @@
         <p class="section-subtitle reveal">Ви знаєте це почуття, коли телефон розривається від дзвінків «де пароль від Wi-Fi» або «як замовити сніданок»? Ми це виправимо.</p>
         
         <div class="bento-grid">
-            <div class="glass-panel bento-card reveal">
+            <div class="glass-panel bento-card reveal custom-hover-card">
                 <h3>Кінець паперовим меню</h3>
                 <p>Ваше меню тепер завжди під рукою в телефоні гостя. Зі смачними фото, описами та миттєвим замовленням.</p>
             </div>
-            <div class="glass-panel bento-card reveal delay-1">
+            <div class="glass-panel bento-card reveal delay-1 custom-hover-card">
                 <h3>Гроші люблять порядок</h3>
                 <p>Більше ніяких «забутих» розрахунків за чан чи кальян. Оплата проходить миттєво через WayForPay або Monobank.</p>
             </div>
-            <div class="glass-panel bento-card reveal">
+            <div class="glass-panel bento-card reveal custom-hover-card">
                 <h3>Синхронізація в один клік</h3>
                 <p>Забудьте про овербукінг. Ми зв’яжемо ваш бот із Booking, Airbnb, Hutshub та BookMeNow. Один календар — повний контроль.</p>
             </div>
-            <div class="glass-panel bento-card reveal delay-1">
+            <div class="glass-panel bento-card reveal delay-1 custom-hover-card">
                 <h3>Ваш готель говорить сам</h3>
                 <p>Бот автоматично привітає гостя в день заїзду, нагадає про час виїзду та запитає відгук. Ви відпочиваєте — система працює.</p>
             </div>
@@ -234,18 +268,8 @@
         <p class="section-subtitle reveal">Ми створюємо унікальних персонажів у стилі Pixar для кожного проєкту. Це не просто іконки — це ваші цифрові консьєржі.</p>
 
         <div class="cases-wrapper">
-            
-            <div class="case-card reveal">
-                <div class="case-img"><img src="hero_nazar.png" alt="Цифровий Газда"></div>
-                <div class="case-info">
-                    <h3>Hero DuzhTech</h3>
-                    <h4>🤖 Цифровий Газда</h4>
-                    <p>Наш флагманський персонаж. Сучасний архітектор затишку, який знає про автоматизацію все.</p>
-                </div>
-            </div>
-
-            <div class="case-card reveal">
-                <div class="case-img"><img src="case_gnome.png" alt="Гном Бербен"></div>
+            <div class="case-card reveal custom-hover-card">
+                <div class="case-img"><img src="case_gnome.png" alt="Гном Бербен" class="parallax-img" data-speed="0.08"></div>
                 <div class="case-info">
                     <h3>BerBen House</h3>
                     <h4>🍄 Гном Бербен</h4>
@@ -253,8 +277,8 @@
                 </div>
             </div>
 
-            <div class="case-card reveal">
-                <div class="case-img"><img src="case_girl.png" alt="Дівчина Rest Hill"></div>
+            <div class="case-card reveal custom-hover-card">
+                <div class="case-img"><img src="case_girl.png" alt="Дівчина Rest Hill" class="parallax-img" data-speed="0.06"></div>
                 <div class="case-info">
                     <h3>Rest Hill</h3>
                     <h4>👧 Господиня Rest Hill</h4>
@@ -262,8 +286,8 @@
                 </div>
             </div>
 
-            <div class="case-card reveal">
-                <div class="case-img"><img src="case_hutsul.png" alt="Гуцул GRANЬ"></div>
+            <div class="case-card reveal custom-hover-card">
+                <div class="case-img"><img src="case_hutsul.png" alt="Гуцул GRANЬ" class="parallax-img" data-speed="0.08"></div>
                 <div class="case-info">
                     <h3>GRANЬ COTTAGE</h3>
                     <h4>🏔️ Гуцул Дід</h4>
@@ -271,13 +295,13 @@
                 </div>
             </div>
 
-            <div class="case-card case-boso reveal">
+            <div class="case-card case-boso reveal custom-hover-card">
                 <div class="case-info">
                     <h3>BOSO</h3>
                     <h4>⚓ Капітан Босман</h4>
                     <p>Командор вашого відпочинку. Тримає на контролі все: від пошкоджень майна до повної синхронізації з усіма світовими сервісами бронювання.</p>
                 </div>
-                <div class="case-img"><img src="case_captain.png" alt="Капітан BOSO"></div>
+                <div class="case-img"><img src="case_captain.png" alt="Капітан BOSO" class="parallax-img" data-speed="0.05"></div>
             </div>
         </div>
     </section>
@@ -286,7 +310,7 @@
         <h2 class="section-title reveal">Тарифні пакети: Від простоти до досконалості</h2>
 
         <div class="pricing-grid">
-            <div class="glass-panel price-card reveal">
+            <div class="glass-panel price-card reveal custom-hover-card">
                 <div class="price-header">
                     <h3>Пакет "LITE"</h3>
                     <p>Спритний Старт</p>
@@ -294,15 +318,15 @@
                     <span style="color: var(--text-muted); font-size: 0.9rem;">Для тих, хто цінує порядок та швидкість.</span>
                 </div>
                 <ul>
-                    <li><strong>Цифрове меню сервісів:</strong> Сніданки, послуги, дрова, чани — все в одному вікні.</li>
-                    <li><strong>Миттєвий зв'язок:</strong> Кнопка «Покликати газду» відправляє запит прямо в робочу групу адмінів.</li>
-                    <li><strong>База знань:</strong> Wi-Fi, правила, локації поруч — бот відповість на всі типові питання 24/7.</li>
+                    <li><strong>Цифрове меню:</strong> Сніданки, послуги, дрова, чани — все в одному вікні.</li>
+                    <li><strong>Миттєвий зв'язок:</strong> Кнопка «Покликати газду» відправляє запит в групу адмінів.</li>
+                    <li><strong>База знань:</strong> Wi-Fi, правила, локації — бот відповість на питання 24/7.</li>
                     <li><strong>Розробка:</strong> 3 дні.</li>
                 </ul>
-                <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати пакет</a>
+                <a href="#contact" class="btn btn-outline custom-hover" style="text-align: center;">Обрати пакет</a>
             </div>
 
-            <div class="glass-panel price-card featured reveal delay-1">
+            <div class="glass-panel price-card featured reveal delay-1 custom-hover-card">
                 <div class="price-header">
                     <h3>Пакет "SMART"</h3>
                     <p>Цифровий Двигун</p>
@@ -311,15 +335,15 @@
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету LITE.</li>
-                    <li><strong>Платіжний міст:</strong> Повна інтеграція з WayForPay / Monobank. Приймайте оплати за послуги прямо в боті.</li>
-                    <li><strong>Синхронізація календарів:</strong> Об'єднуємо Booking, Airbnb, Hutshub, BookMeNow. Ніяких ручних правок.</li>
-                    <li><strong>Система нагадувань:</strong> Автоматичні повідомлення гостям та адмінам про заїзди/виїзди.</li>
+                    <li><strong>Платіжний міст:</strong> Інтеграція WayForPay / Monobank. Приймайте оплати в боті.</li>
+                    <li><strong>Синхронізація:</strong> Об'єднуємо Booking, Airbnb, Hutshub, BookMeNow.</li>
+                    <li><strong>Нагадування:</strong> Авто-повідомлення гостям про заїзди/виїзди.</li>
                     <li><strong>Розробка:</strong> 5 днів.</li>
                 </ul>
-                <a href="#contact" class="btn" style="text-align: center;">Обрати пакет</a>
+                <a href="#contact" class="btn custom-hover" style="text-align: center;">Обрати пакет</a>
             </div>
 
-            <div class="glass-panel price-card reveal delay-2">
+            <div class="glass-panel price-card reveal delay-2 custom-hover-card">
                 <div class="price-header">
                     <h3>Пакет "ULTIMATE"</h3>
                     <p>Бізнес-Імперія</p>
@@ -328,12 +352,12 @@
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету SMART.</li>
-                    <li><strong>Інтелектуальна Адмін-панель:</strong> Керуйте меню та цінами в реальному часі. Вимикайте страви, яких немає в наявності, за секунду.</li>
-                    <li><strong>Чек-лист пошкоджень:</strong> Фіксація стану майна з фото — ваш спокій під надійним захистом.</li>
-                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з інтегрованим календарем для прямих бронювань без комісій агрегаторів.</li>
+                    <li><strong>Адмін-панель:</strong> Керуйте меню та цінами в реальному часі. Вимикайте страви за секунду.</li>
+                    <li><strong>Чек-лист пошкоджень:</strong> Фіксація стану майна з фото.</li>
+                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з календарем для прямих бронювань.</li>
                     <li><strong>Розробка:</strong> 7 днів.</li>
                 </ul>
-                <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати пакет</a>
+                <a href="#contact" class="btn btn-outline custom-hover" style="text-align: center;">Обрати пакет</a>
             </div>
         </div>
     </section>
@@ -342,71 +366,53 @@
         <h2 class="section-title reveal">Як ми створюємо ваш успіх (5 кроків)</h2>
 
         <div class="process-list">
-            <div class="process-step reveal">
+            <div class="glass-panel process-step reveal custom-hover-card">
                 <div class="step-num">01</div>
                 <div class="step-info">
                     <h4>Стратегічна сесія (Meet)</h4>
                     <p>Ми зустрічаємось у Google Meet, щоб зрозуміти кожну деталь вашого бізнесу. Ми не слухаємо — ми чуємо.</p>
                 </div>
             </div>
-            <div class="process-step reveal">
+            <div class="glass-panel process-step reveal custom-hover-card">
                 <div class="step-num">02</div>
                 <div class="step-info">
                     <h4>Безкоштовний прототип</h4>
                     <p>Ми будуємо «скелет» вашого майбутнього бота. Ви клацаєте, тестуєте і закохуєтесь ще до оплати.</p>
                 </div>
             </div>
-            <div class="process-step reveal">
+            <div class="glass-panel process-step reveal custom-hover-card">
                 <div class="step-num">03</div>
                 <div class="step-info">
                     <h4>Магія розробки</h4>
                     <p>Після передплати 50% ми вдихаємо життя в проєкт: дизайн персонажів, логіка, платежі.</p>
                 </div>
             </div>
-            <div class="process-step reveal">
+            <div class="glass-panel process-step reveal custom-hover-card">
                 <div class="step-num">04</div>
                 <div class="step-info">
                     <h4>Велике відкриття</h4>
                     <p>Ми проводимо повний інструктаж для вас і персоналу. Ви отримуєте готовий інструмент «під ключ».</p>
                 </div>
             </div>
-            <div class="process-step reveal">
+            <div class="glass-panel process-step reveal custom-hover-card">
                 <div class="step-num">05</div>
                 <div class="step-info">
                     <h4>Безпечна гавань (Support)</h4>
-                    <p>Після фінальної оплати ми залишаємось з вами. 1 місяць безкоштовного супроводу — ми поруч, щоб підказати, змінити чи налаштувати.</p>
+                    <p>Після фінальної оплати ми залишаємось з вами. 1 місяць безкоштовного супроводу — ми поруч, щоб підказати чи налаштувати.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="faq">
-        <h2 class="section-title reveal">Відповіді на те, що вас зупиняє (FAQ)</h2>
-        <div class="faq-grid">
-            <div class="glass-panel faq-item reveal">
-                <h4>Чи зможе мій персонал цим користуватися?</h4>
-                <p>— Якщо вони вміють писати повідомлення в Telegram, вони вже професіонали в нашій системі.</p>
-            </div>
-            <div class="glass-panel faq-item reveal delay-1">
-                <h4>Що робити після місяця підтримки?</h4>
-                <p>— Ми передаємо всі ключі вам. Ви стаєте повним господарем системи. Або ми продовжуємо адмініструвати все за символічні 2000 грн/міс.</p>
-            </div>
-             <div class="glass-panel faq-item reveal delay-2">
-                <h4>А якщо мені потрібна особлива функція?</h4>
-                <p>— Ми обожнюємо виклики! Напишіть нам, і ми знайдемо технічне рішення.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" style="padding-bottom: 100px;" class="reveal">
+    <section id="contact" style="padding-bottom: 100px; padding-top: 100px;" class="reveal">
         <h2 class="section-title">Готові побачити свій готель на новому рівні?</h2>
-        <div class="contact-form">
-            <h3 style="font-size: 1.5rem; margin-bottom: 20px; text-align: center;">Залиште заявку на безкоштовний макет</h3>
+        <div class="glass-panel contact-form custom-hover-card">
+            <h3 style="font-size: 1.5rem; margin-bottom: 20px; text-align: center; color: #fff;">Залиште заявку на безкоштовний макет</h3>
             <form action="https://t.me/твій_телеграм">
-                <input type="text" placeholder="Ваше Ім'я" required>
-                <input type="tel" placeholder="Номер телефону" required>
-                <input type="text" placeholder="Telegram Нікнейм">
-                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">ХОЧУ БЕЗКОШТОВНИЙ МАКЕТ БОТА</button>
+                <input type="text" placeholder="Ваше Ім'я" required class="custom-hover">
+                <input type="tel" placeholder="Номер телефону" required class="custom-hover">
+                <input type="text" placeholder="Telegram Нікнейм (опціонально)" class="custom-hover">
+                <button type="submit" class="btn custom-hover" style="width: 100%; margin-top: 10px;">ХОЧУ БЕЗКОШТОВНИЙ МАКЕТ БОТА</button>
             </form>
         </div>
     </section>
@@ -416,29 +422,53 @@
     </footer>
 
     <script>
+        // 1. Lenis Smooth Scroll
         const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical', gestureDirection: 'vertical',
-            smooth: true, mouseMultiplier: 1, smoothTouch: false,
-            touchMultiplier: 2, infinite: false,
-        })
+            duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical', smooth: true,
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
 
-        function raf(time) {
-            lenis.raf(time)
-            requestAnimationFrame(raf)
-        }
-        requestAnimationFrame(raf)
-
+        // 2. Анімація появи (Reveal)
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // Тільки для ПК (вимикаємо курсор та паралакс на мобільному)
+        if(window.innerWidth > 900) {
+            // 3. Кастомний курсор
+            const cursor = document.getElementById('cursor');
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            document.querySelectorAll('.custom-hover').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+            });
+
+            // 4. Magnetic Spotlight для карток
+            document.querySelectorAll('.glass-panel').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--x', `${x}px`);
+                    card.style.setProperty('--y', `${y}px`);
+                });
+            });
+
+            // 5. Scroll Parallax для картинок персонажів
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                document.querySelectorAll('.parallax-img').forEach(img => {
+                    const speed = img.dataset.speed;
+                    img.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+        }
     </script>
 </body>
 </html>

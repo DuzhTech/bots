@@ -100,9 +100,6 @@
         .logo { font-family: 'Montserrat'; font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #fff; z-index: 1001; position: relative;}
         .logo span { color: var(--accent); }
 
-        /* ВАЖЛИВО: Щоб хедер не перекривав заголовки секцій при кліку */
-        section { scroll-margin-top: 100px; }
-
         .desktop-nav { display: flex; gap: 35px; align-items: center; }
         
         .nav-link {
@@ -1201,28 +1198,49 @@
                 }
             });
         });
-        // Логіка мобільного меню
+        // Логіка мобільного меню та Плавний скрол навігації
         const mobileToggle = document.querySelector('.mobile-toggle');
         const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
         const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        // Функція для закриття мобільного меню
+        const closeMobileMenu = () => {
+            if(mobileToggle) mobileToggle.classList.remove('active');
+            if(mobileNavOverlay) mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
 
         if(mobileToggle) {
             mobileToggle.addEventListener('click', () => {
                 mobileToggle.classList.toggle('active');
                 mobileNavOverlay.classList.toggle('active');
-                // Блокуємо скрол сторінки, коли меню відкрите
                 document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
             });
-
-            // Закриваємо меню при кліку на будь-який лінк
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileToggle.classList.remove('active');
-                    mobileNavOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
         }
+
+        // Перехоплюємо всі кліки по посиланнях, що починаються з "#" (якірні посилання)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Вимикаємо стандартний різкий стрибок
+                
+                closeMobileMenu(); // Ховаємо мобільне меню, якщо воно відкрите
+
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return; // Якщо це просто "#", нічого не робимо
+                
+                const targetElement = document.querySelector(targetId);
+                
+                if(targetElement) {
+                    // Використовуємо магію Lenis для ідеального скролу
+                    // offset: 0 (бо в нас вже є padding 120px), duration: 1.5 сек для плавності
+                    lenis.scrollTo(targetElement, {
+                        offset: 0,
+                        duration: 1.5,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) // кінематографічне сповільнення
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>

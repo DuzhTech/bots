@@ -3,292 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DuzhTech | Service with a Soul</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>DuzhTech | Преміальна автоматизація сервісу HoReCa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --base: #FFFFFF;
-            --surface: #F5F5F7;
-            --accent: #007AFF;
-            --text-dark: #1D1D1F;
-            --text-gray: #86868B;
-            --radius: 24px;
-            --shadow: 0 20px 40px rgba(0,0,0,0.06);
-            --shadow-hover: 0 30px 60px rgba(0, 122, 255, 0.12);
+            /* Преміальна палітра (не біла) */
+            --bg-deep: #000000;
+            --bg-lux: #FFFBF0; /* Світлий кремовий беж, створює ефект вау */
+            --accent: #00e5ff; /* Електро-неон, як на твоїй картинці */
+            --glass: rgba(255, 251, 240, 0.03);
+            --border: rgba(0, 229, 255, 0.15); /* Підсвічування кордонів */
+            --text-dark: #111827;
+            --text-muted: #8492a6;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-lux); color: var(--text-dark); line-height: 1.7; overflow-x: hidden; }
         
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--base); 
-            color: var(--text-dark); 
-            line-height: 1.6; 
-            overflow-x: hidden; 
-            -webkit-font-smoothing: antialiased;
+        /* Скляний ефект з неоном */
+        .glass { 
+            background: rgba(255, 251, 240, 0.05); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid var(--border); 
+            border-radius: 24px; 
+            padding: 30px; 
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-
-        h1, h2, h3, h4 { 
-            font-family: 'Montserrat', sans-serif; 
-            letter-spacing: -0.02em; 
-            color: var(--text-dark);
+        .glass:hover {
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.1);
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-5px);
         }
-
-        /* --- Навігація (Sticky Blur) --- */
-        header {
-            position: fixed; top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding: 16px 8%;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; transition: 0.3s;
-        }
-        .logo { font-size: 1.5rem; font-weight: 900; text-decoration: none; color: var(--text-dark); }
-        .logo span { color: var(--accent); }
         
-        .btn {
-            background: var(--accent); color: #fff;
-            padding: 14px 28px; border-radius: 980px; /* Apple style pill */
-            font-weight: 600; font-size: 15px; text-decoration: none;
-            display: inline-block; transition: all 0.3s ease;
-            box-shadow: 0 4px 14px rgba(0, 122, 255, 0.3);
-        }
-        .btn:hover { transform: scale(1.02); box-shadow: var(--shadow-hover); }
+        section { padding: 140px 10%; max-width: 1600px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 3.5rem; margin-bottom: 25px; font-weight: 900; color: var(--text-dark); }
+        .section-subtitle { text-align: center; font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 80px; }
 
-        /* --- Базові секції --- */
-        section { padding: 160px 8%; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-size: 3.5rem; text-align: center; margin-bottom: 20px; font-weight: 800; }
-        .section-subtitle { text-align: center; font-size: 1.25rem; color: var(--text-gray); max-width: 700px; margin: 0 auto 80px; }
+        .btn { background: var(--accent); color: #000; padding: 16px 32px; border-radius: 12px; font-weight: 700; text-decoration: none; display: inline-block; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 229, 255, 0.5); }
 
-        /* --- Анімації (Framer Motion альтернатива) --- */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* Анімації (Reveal on Scroll - Vanilla) */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- Hero --- */
-        .hero { display: flex; align-items: center; min-height: 100vh; padding-top: 120px; gap: 60px; }
-        .hero-text { flex: 1.2; }
-        .hero-text h1 { font-size: 5rem; line-height: 1.05; margin-bottom: 30px; }
-        .hero-text p { font-size: 1.3rem; color: var(--text-gray); margin-bottom: 40px; max-width: 600px; }
-        .hero-img { flex: 0.8; position: relative; perspective: 1000px; }
-        .hero-img img { width: 100%; max-width: 450px; animation: float 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.1)); }
-        
+        /* Hero */
+        .hero { display: flex; align-items: center; min-height: 100vh; gap: 60px; padding-top: 100px; background: var(--bg-lux); }
+        .hero-info { flex: 1.2; }
+        .hero-info h1 { font-family: 'Montserrat'; font-size: 4.5rem; line-height: 1.1; margin-bottom: 25px; font-weight: 900; }
+        .hero-info h1 span { color: var(--accent); }
+        .hero-img { flex: 0.8; text-align: center; }
+        .hero-img img { max-width: 100%; border-radius: 20px; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1)); }
+
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        /* --- Philosophy --- */
-        .philosophy-quote { font-size: 2.5rem; line-height: 1.4; text-align: center; font-weight: 700; max-width: 1000px; margin: 0 auto; color: var(--text-dark); }
-        .philosophy-quote span { color: var(--accent); }
-
-        /* --- Bento Grid (Problem/Solution) --- */
-        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .bento-card { background: var(--surface); padding: 40px; border-radius: var(--radius); transition: 0.4s; border: 1px solid rgba(0,0,0,0.03); }
-        .bento-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); background: #fff; }
-        .bento-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        .bento-card p { color: var(--text-gray); }
-
-        /* --- Interactive Cases (Sticky Stack & Tilt) --- */
-        .cases-container { position: relative; }
+        /* Ефект накладання (Sticky Stack) для кейсів */
+        .cases-grid { position: relative; }
         .case-card { 
-            position: sticky; top: 120px; /* Ефект накладання при скролі */
-            background: #fff; border-radius: var(--radius); padding: 60px;
-            display: flex; gap: 60px; align-items: center; margin-bottom: 40px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05);
-            transform-style: preserve-3d; transition: transform 0.1s;
+            position: sticky; top: 120px; /* Картки наїжджають одна на одну */
+            display: grid; grid-template-columns: 200px 1fr; gap: 30px; 
+            align-items: center; margin-bottom: 40px;
+            background: rgba(255, 251, 240, 0.9);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.05);
         }
-        .case-img { flex: 1; text-align: center; transform: translateZ(50px); } /* 3D виступ */
-        .case-img img { max-height: 350px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1)); }
-        .case-info { flex: 1; transform: translateZ(30px); }
-        .case-info h3 { font-size: 2.5rem; margin-bottom: 20px; }
-        .case-info .tag { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+        .case-card-img-wrap {
+            display: flex; justify-content: center; position: relative; margin-left: -50px; margin-top: -60px; /* 3D ефект виходу за межі */
+        }
+        .case-card img { 
+            height: 280px; 
+            width: auto; 
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+        /* М'який рух вперед при наведенні */
+        .case-card:hover img { transform: scale(1.05) translateZ(10px); }
         
-        /* BOSO Ultimate Dark Theme */
-        .case-card.dark-theme { background: #000; color: #fff; box-shadow: 0 -10px 60px rgba(0,122,255,0.2); }
-        .case-card.dark-theme h3 { color: #fff; }
-        .case-card.dark-theme .tag { color: #00e5ff; }
-        .case-card.dark-theme p { color: #a1a1aa; }
+        .case-tag { color: var(--accent); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+        .case-details h3 { font-size: 1.8rem; margin-bottom: 10px; color: var(--text-dark); }
+        .case-details p { color: var(--text-muted); font-size: 0.95rem; }
 
-        /* --- Tech Stack --- */
-        .tech-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .tech-item { background: var(--surface); padding: 20px 40px; border-radius: 980px; font-weight: 600; font-size: 1.2rem; }
+        /* Капітан Босман праворуч (Ultimate Dark Theme) */
+        .case-card.dark-theme { 
+            background: var(--bg-deep); 
+            grid-template-columns: 1fr 200px; /* Перевертаємо */
+            color: #fff; box-shadow: 0 -10px 60px rgba(0,122,255,0.2); 
+            border-color: rgba(0, 122, 255, 0.3);
+        }
+        .case-card.dark-theme .case-details h3 { color: #fff; }
+        .case-card.dark-theme .case-tag { color: #00e5ff; }
+        .case-card.dark-theme .case-details p { color: #a1a1aa; }
+        .case-card.dark-theme .case-card-img-wrap { margin-left: 0; margin-right: -50px; } /* Перевертаємо вихід */
+        
+        /* Інтеграція */
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 50px; text-align: center; }
 
-        /* --- 7 Steps Process --- */
-        .process-list { max-width: 800px; margin: 0 auto; }
-        .step-item { display: flex; gap: 30px; margin-bottom: 40px; align-items: flex-start; }
-        .step-num { font-size: 2rem; font-weight: 900; color: var(--accent); opacity: 0.5; }
-        .step-content h4 { font-size: 1.5rem; margin-bottom: 10px; }
-        .step-content p { color: var(--text-gray); font-size: 1.1rem; }
+        /* Процес (Гарні скляні блоки) */
+        .process-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .process-item { display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start; }
+        .step-num { font-size: 3rem; font-weight: 900; color: var(--accent); opacity: 0.5; line-height: 1; font-style: italic;}
 
-        /* --- Pricing --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .price-card { background: var(--surface); padding: 50px 40px; border-radius: var(--radius); text-align: center; transition: 0.3s; }
-        .price-card.pro { background: #fff; border: 2px solid var(--accent); transform: scale(1.05); box-shadow: var(--shadow); }
+        /* Ціни (в доларах) */
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .price-card { text-align: center; border: 1px solid var(--border); padding: 50px 30px;}
+        .price-card.featured { border-color: var(--accent); background: rgba(0, 229, 255, 0.05); transform: scale(1.05); }
         .price-card h3 { font-size: 2rem; margin-bottom: 10px; }
-        .price-card .price { font-size: 3rem; font-weight: 900; margin-bottom: 30px; }
-        .price-card ul { list-style: none; text-align: left; margin-bottom: 40px; }
-        .price-card li { margin-bottom: 16px; padding-left: 30px; position: relative; color: var(--text-gray); font-size: 1.05rem; }
-        .price-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        .price-card ul { list-style: none; margin: 30px 0; text-align: left; color: var(--text-muted); font-size: 0.95rem; }
+        .price-card li { margin-bottom: 12px; position: relative; padding-left: 20px; }
+        .price-card li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
 
-        footer { text-align: center; padding: 60px; color: var(--text-gray); }
+        /* FAQ */
+        .faq-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 800px; margin: 0 auto; }
+        .faq-item h4 { color: var(--accent); margin-bottom: 10px; font-size: 1.2rem; }
+        .faq-item p { color: var(--text-muted); font-size: 0.95rem; }
 
-        @media (max-width: 1024px) {
-            .hero, .case-card { flex-direction: column; text-align: center; }
-            .hero-text h1 { font-size: 3.5rem; }
-            .bento-grid, .pricing-grid { grid-template-columns: 1fr; }
-            .price-card.pro { transform: scale(1); }
-            .case-card { position: relative; top: 0; } /* Вимикаємо sticky на мобільному */
+        footer { text-align: center; padding: 60px 10%; border-top: 1px solid var(--border); margin-top: 100px; color: var(--text-muted); font-size: 0.9rem; }
+        footer .case-tag { margin: 15px 0; display: inline-block; margin-right: 15px; }
+
+        @media (max-width: 900px) {
+            .hero, .case-card, .price-grid { grid-direction: column; text-align: center; }
+            .case-card.dark-theme { grid-template-columns: 1fr; }
+            .hero-info h1 { font-size: 2.5rem; }
+            .cases-grid, .process-grid { grid-template-columns: 1fr; gap: 30px;}
+            .case-card-img-wrap { margin: -100px 0 20px; }
+            .case-card.dark-theme .case-card-img-wrap { margin-right: 0; }
+            .price-card.featured { transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">Duzh<span>Tech</span></a>
-        <a href="#pricing" class="btn">Почати проєкт</a>
-    </header>
-
-    <section class="hero reveal">
-        <div class="hero-text">
-            <h1>Ваші гості вже в майбутньому.<br>А ваш готель?</h1>
-            <p>DuzhTech створює інтелектуальні екосистеми, що звільняють вас від рутини, збільшують прибуток на 30% та закохують гостей у сервіс ще до заїзду.</p>
-            <a href="https://t.me/твій_телеграм" class="btn" style="padding: 18px 36px; font-size: 1.1rem;">Забронювати стратегічну сесію</a>
+    <section class="hero">
+        <div class="hero-info">
+            <div class="case-tag">Студія автоматизації DuzhTech</div>
+            <h1>Технології з <span>душею</span> Pixar</h1>
+            <p>Ми не просто кодимо чат-ботів — ми створюємо цифрових консьєржів для HoReCa, які закохують гостей і звільняють ваш персонал.</p>
+            <br>
+            <a href="https://t.me/твій_телеграм" class="btn">Отримати демо-бота</a>
         </div>
         <div class="hero-img">
-            <img src="hero_nazar.png" alt="Кібер-маскот DuzhTech">
+            <img src="hero_nazar.png" alt="Кіборг DuzhTech">
         </div>
     </section>
 
-    <section id="philosophy" class="reveal">
-        <p class="philosophy-quote">
-            «Ми віримо: технологія має бути невидимою. Вона не замінює гостинність — вона дає їй простір. Усі фрази в наших системах побудовані так, що <span>посмішка з обличчя не зникає</span>, а гість відчуває турботу в кожному пікселі.»
-        </p>
-    </section>
-
-    <section id="problems" class="reveal">
-        <h2 class="section-title">Хаос vs DuzhTech</h2>
-        <div class="bento-grid">
-            <div class="bento-card tilt-card">
-                <h3>«Де пароль від Wi-Fi?»</h3>
-                <p>Бот відповість за 0.1 сек, поки ви п’єте каву. Ваш адміністратор більше не працює довідником.</p>
-            </div>
-            <div class="bento-card tilt-card">
-                <h3>Втрачені продажі</h3>
-                <p>Замовлення сніданків, дров та чанів у два кліки прямо в Telegram. Без зайвих дзвінків.</p>
-            </div>
-            <div class="bento-card tilt-card">
-                <h3>Хаос бронювань</h3>
-                <p>Повна синхронізація календарів без ризику овербукінгу та втрати даних клієнта.</p>
-            </div>
+    <section id="philosophy" style="text-align: center; padding-top: 80px;" class="reveal">
+        <div class="glass">
+            <h2 style="font-size: 2.5rem; margin-bottom: 25px; font-weight: 900;">«Я не просто роблю кнопки, я створюю емоцію»</h2>
+            <p style="max-width: 800px; margin: 0 auto; color: var(--text-muted); font-size: 1.1rem;">
+                "Усі фрази роблять так, що посмішка з обличчя не зникає, допоки я користуися вашим ботом" — це реальний відгук нашого клієнта. Ми перетворюємо рутину на магію сервісу.
+            </p>
         </div>
     </section>
 
-    <section id="cases" class="cases-container">
+    <section id="cases">
         <h2 class="section-title reveal">Наші Герої</h2>
-        <p class="section-subtitle reveal">Кожен бізнес отримує унікальне цифрове обличчя.</p>
-
-        <div class="case-card tilt-card reveal">
-            <div class="case-info">
-                <span class="tag">Пакет Start</span>
-                <h3>BerBen House</h3>
-                <p><strong>Майстер лісу.</strong> Автоматизація замовлення дров та локальних послуг. Гном Бербен закриває всі базові питання гостей з максимальною гостинністю.</p>
+        <div class="cases-grid">
+            
+            <div class="case-card glass reveal">
+                <div class="case-card-img-wrap">
+                    <img src="case_gnome.png" alt="BerBen House"> </div>
+                <div class="case-details">
+                    <div class="case-tag">Start</div>
+                    <h3>BerBen House</h3>
+                    <p>Проблема: Складність та рутина замовлення сніданків та дров для камінів.<br>Рішення: Миттєва передача замовлень у групу адмінів. Продажі кальянів та сніданків зросли завдяки зручності.</p>
+                </div>
             </div>
-            <div class="case-img"><img src="case_gnome.png" alt="Гном Бербен"></div>
-        </div>
 
-        <div class="case-card tilt-card reveal">
-            <div class="case-img"><img src="case_girl.png" alt="REST HILL"></div>
-            <div class="case-info">
-                <span class="tag">Пакет Smart</span>
-                <h3>REST HILL</h3>
-                <p><strong>Естетика турботи.</strong> Миттєві оплати та чек-іни. Дівчина-менеджер створює відчуття преміального консьєрж-сервісу у смартфоні кожного гостя.</p>
+            <div class="case-card glass reveal">
+                <div class="case-card-img-wrap">
+                    <img src="case_girl.png" alt="REST HILL"> </div>
+                <div class="case-details">
+                    <div class="case-tag">Smart</div>
+                    <h3>REST HILL</h3>
+                    <p>Проблема: Необхідність швидкого та безпечного прийому оплат за послуги.<br>Рішення: Повна інтеграція платіжної системи WayForPay. Гості оплачують відпочинок в один клік прямо в чаті.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="case-card tilt-card reveal">
-            <div class="case-info">
-                <span class="tag">Smart + Admin</span>
-                <h3>GRANЬ COTTAGE</h3>
-                <p><strong>Мудрий контроль.</strong> Керування кухнею та стоп-листами в реальному часі. Гуцул Дід дозволяє власнику вимикати позиції в меню за одну секунду.</p>
+            <div class="case-card glass reveal">
+                <div class="case-card-img-wrap">
+                    <img src="case_hutsul.png" alt="GRANЬ COTTAGE"> </div>
+                <div class="case-details">
+                    <div class="case-tag">Smart + Admin</div>
+                    <h3>GRANЬ COTTAGE</h3>
+                    <p>Проблема: Потреба в динамічному керуванні наявністю позицій у меню (сніданки).<br>Рішення: Адмін-панель для власника. Він може в реальному часі зупиняти або відновлювати будь-яку страву через бот.</p>
+                </div>
             </div>
-            <div class="case-img"><img src="case_hutsul.png" alt="Гуцул GRANЬ"></div>
-        </div>
 
-        <div class="case-card dark-theme tilt-card reveal">
-            <div class="case-img"><img src="case_captain.png" alt="Капітан BOSO"></div>
-            <div class="case-info">
-                <span class="tag">The Ultimate Engine</span>
-                <h3>BOSO</h3>
-                <p><strong>Флагман автоматизації.</strong> Повний цикл від синхронізації зі світовими агрегаторами до фіксації пошкоджень майна. Капітан тримає штурвал вашого бізнесу, поки ви відпочиваєте.</p>
+            <div class="case-card glass dark-theme reveal">
+                <div class="case-details">
+                    <div class="case-tag">Ultimate</div>
+                    <h3>BOSO</h3>
+                    <p>Проблема: Повна автоматизація бізнесу та синхронізація з календарями.<br>Рішення: Повна інтеграція з BookMeNow, власний лендінг та система сповіщень. Капітан тримає штурвал вашого бізнесу, поки ви відпочиваєте.</p>
+                </div>
+                <div class="case-card-img-wrap">
+                    <img src="case_captain.png" alt="BOSO"> </div>
             </div>
+
         </div>
     </section>
 
     <section id="tech" class="reveal">
-        <h2 class="section-title">Безшовна інтеграція</h2>
-        <p class="section-subtitle">Ми об'єднуємо найкращі світові та локальні інструменти в єдиний механізм.</p>
+        <h2 class="section-title">Безшовна інтеграція в один клік</h2>
         <div class="tech-grid">
-            <div class="tech-item">WayForPay</div>
-            <div class="tech-item">Monobank</div>
-            <div class="tech-item">LiqPay</div>
-            <div class="tech-item">BookMeNow</div>
-            <div class="tech-item">Booking.com</div>
-            <div class="tech-item">Custom Admin Panels</div>
+            <div class="glass tech-item">WayForPay</div>
+            <div class="glass tech-item">Monobank</div>
+            <div class="glass tech-item">LiqPay</div>
+            <div class="glass tech-item">BookMeNow</div>
+            <div class="glass tech-item">Booking.com</div>
+            <div class="glass tech-item">Admin Panel</div>
         </div>
     </section>
 
-    <section id="process" class="reveal">
-        <h2 class="section-title">Шлях до автоматизації</h2>
-        <div class="process-list">
-            <div class="step-item"><div class="step-num">01</div><div class="step-content"><h4>Strategic Meet</h4><p>Вивчення ДНК вашого готелю через Google Meet.</p></div></div>
-            <div class="step-item"><div class="step-num">02</div><div class="step-content"><h4>Architecture</h4><p>Побудова логічної карти та створення безкоштовного скелета бота.</p></div></div>
-            <div class="step-item"><div class="step-num">03</div><div class="step-content"><h4>Mascot Design</h4><p>Створення вашого унікального 3D-героя Pixar-рівня.</p></div></div>
-            <div class="step-item"><div class="step-num">04</div><div class="step-content"><h4>Development</h4><p>Магія коду та інтеграція платіжних систем.</p></div></div>
-            <div class="step-item"><div class="step-num">05</div><div class="step-content"><h4>Stress Test</h4><p>Перевірка системи під навантаженням перед релізом.</p></div></div>
-            <div class="step-item"><div class="step-num">06</div><div class="step-content"><h4>Launch</h4><p>Навчання персоналу та запуск «під ключ».</p></div></div>
-            <div class="step-item"><div class="step-num">07</div><div class="step-content"><h4>24/7 Support</h4><p>Перший місяць безкоштовно. Ми не залишаємо вас наодинці з технологіями.</p></div></div>
+    <section id="process">
+        <h2 class="section-title reveal">Етапи створення магії</h2>
+        <div class="process-grid">
+            <div class="glass process-item reveal">
+                <div class="step-num">01</div>
+                <div><h4>Стратегічний Meet</h4><p>Презентація прикладів, обговорення проблем, які потрібно закрити ботом.</p></div>
+            </div>
+            <div class="glass process-item reveal">
+                <div class="step-num">02</div>
+                <div><h4>Безкоштовний макет</h4><p>Я збираю скелет бота під ваші послуги, щоб ви поклацали логіку до оплати.</p></div>
+            </div>
+            <div class="glass process-item reveal">
+                <div class="step-num">03</div>
+                <div><h4>Передплата 50%</h4><p>Після узгодження ми починаємо створення вашого унікального 3D маскота та коду.</p></div>
+            </div>
+            <div class="glass process-item reveal">
+                <div class="step-num">04</div>
+                <div><h4>Прийом та Навчання</h4><p>Після завершення розробки ми проводимо інструктаж для вашої команди.</p></div>
+            </div>
+             <div class="glass process-item reveal">
+                <div class="step-num">05</div>
+                <div><h4>Повна оплата</h4><p>Тільки після оплати інших 50% ми переходимо до фінального запуску.</p></div>
+            </div>
+             <div class="glass process-item reveal">
+                <div class="step-num">06</div>
+                <div><h4>Турбота 1 місяць</h4><p>Я безкоштовно адмініструю бот, додаю інфо та виправляю всі помилки.</p></div>
+            </div>
+             <div class="glass process-item reveal" style="grid-column: 1 / -1;">
+                <div class="step-num">07</div>
+                <div><h4>Вибір майбутнього</h4><p>Передача доступів або співпраця далі за 2000 грн/міс.</p></div>
+            </div>
         </div>
     </section>
 
-    <section id="pricing" class="reveal">
-        <h2 class="section-title">Інвестиція в сервіс</h2>
-        <div class="pricing-grid">
-            <div class="price-card">
+    <section id="pricing">
+        <h2 class="section-title reveal">Оберіть свій рівень</h2>
+        <div class="price-grid">
+            <div class="price-card glass reveal">
                 <h3>LITE</h3>
-                <div class="price">10k ₴</div>
+                <p style="color: var(--accent); font-weight: bold; font-size: 1.2rem;">$300</p>
                 <ul>
-                    <li>Цифрове меню послуг</li>
-                    <li>База знань (FAQ)</li>
-                    <li>Кнопка зв'язку з адміном</li>
-                    <li>Розробка: 3 дні</li>
+                    <li>Базове емоційне меню послуг</li>
+                    <li>Сповіщення в адмін-групу</li>
+                    <li>Унікальний 3D маскот у повний зріст</li>
+                    <li>Розробка 3 дні</li>
                 </ul>
-                <a href="https://t.me/твій_телеграм" class="btn" style="width:100%; background: #000;">Обрати</a>
+                <a href="https://t.me/твій_телеграм" class="btn" style="width: 100%;">Замовити аудит</a>
             </div>
-            <div class="price-card pro">
-                <h3 style="color: var(--accent);">SMART</h3>
-                <div class="price">15k ₴</div>
+            
+            <div class="price-card glass featured reveal">
+                <div class="case-tag" style="margin-bottom: 10px;">Найпопулярніший</div>
+                <h3>SMART</h3>
+                <p style="color: var(--accent); font-weight: bold; font-size: 1.2rem;">$400</p>
                 <ul>
-                    <li><strong>Все з LITE +</strong></li>
-                    <li>Платіжні шлюзи</li>
-                    <li>Інтелектуальна Адмін-панель</li>
-                    <li>Чек-лист пошкоджень майна</li>
+                    <li>Все з пакету START</li>
+                    <li>Оплати WayForPay / LiqPay / Monobank</li>
+                    <li>Адмін-панель керування меню</li>
+                    <li>Розробка 5 днів</li>
                 </ul>
-                <a href="https://t.me/твій_телеграм" class="btn" style="width:100%;">Обрати</a>
+                <a href="https://t.me/твій_телеграм" class="btn" style="width: 100%;">Замовити</a>
             </div>
-            <div class="price-card">
+
+            <div class="price-card glass reveal">
                 <h3>ULTIMATE</h3>
-                <div class="price">20k ₴</div>
+                <p style="color: var(--accent); font-weight: bold; font-size: 1.2rem;">$500</p>
                 <ul>
-                    <li><strong>Все з SMART +</strong></li>
-                    <li>Синхронізація BookMeNow</li>
-                    <li>Авто-нагадування гостям</li>
-                    <li>Персональний Лендинг</li>
+                    <li>Все з пакету SMART</li>
+                    <li>Інтеграція BookMeNow</li>
+                    <li>Власний календар (Landing)</li>
+                    <li>Система авто-сповіщень</li>
                 </ul>
-                <a href="https://t.me/твій_телеграм" class="btn" style="width:100%; background: #000;">Обрати</a>
+                <a href="https://t.me/твій_телеграм" class="btn" style="width: 100%;">Замовити</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="analytics" class="reveal">
+        <div class="glass" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+            <div>
+                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Керуйте бізнесом через цифри, а не інтуїцію</h2>
+                <p style="color: var(--text-muted);">Наші системи автоматично збирають базу клієнтів, аналізують популярність послуг та окупність. Ви бачите все в реальному часі в Telegram.</p>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 30px; border-radius: 12px; border: 1px solid var(--border);">
+                <span style="color: var(--accent); font-weight: bold; display: block; margin-bottom: 10px;">DuzhTech Analytics</span>
+                <p style="color: #fff; font-family: monospace; font-size: 0.8rem;">[✓] База клієнтів: 1,450 готів<br>[✓] Конверсія: 24%<br>[✓] Середній чек: +35%<br>[✓] Економія адміна: 3 год/день</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="standards" style="text-align: center;" class="reveal">
+        <h2 style="font-size: 3rem; margin-bottom: 30px;">Еталон цифрового сервісу</h2>
+        <p style="max-width: 800px; margin: 0 auto; color: var(--text-muted);">Кожен бот — це не код, це продовження вашої гостинності. Ми створюємо досвід, який змушує гостей повертатися.</p>
+    </section>
+    
+    <section id="faq" class="reveal">
+        <h2 class="section-title">FAQ</h2>
+        <div class="faq-grid">
+            <div class="glass faq-item">
+                <h4>Скільки коштує підтримка?</h4>
+                <p>Перший місяць адміністрування безкоштовно. Далі — 2000 грн/міс.</p>
+            </div>
+            <div class="glass faq-item">
+                <h4>Як змінювати ціни в меню?</h4>
+                <p>У пакетах SMART та ULTIMATE ви можете самі керувати наявністю позицій та цінами через зручну адмін-панель прямо в Telegram.</p>
+            </div>
+             <div class="glass faq-item">
+                <h4>Чому DuzhTech — це преміум?</h4>
+                <p>Тому що ми не робимо "ще одного бота". Ми робимо унікального 3D-персонажа і сервіс, який викликає емоцію і закохує гостя.</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 DuzhTech. Service with a Soul. Розроблено Назаром Дужиком.</p>
+        <p>© 2026 DuzhTech — Автоматизація з душею. Розроблено Назаром Дужиком.</p>
+        <div class="tag-list">
+            <div class="case-tag">BerBen House</div>
+            <div class="case-tag">REST HILL</div>
+            <div class="case-tag">GRANЬ COTTAGE</div>
+            <div class="case-tag">BOSO Ultimate</div>
+        </div>
     </footer>
 
     <script>
@@ -302,20 +347,7 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-        // 3D Perspective Tilt Effect
-        document.querySelectorAll('.tilt-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                let rect = card.getBoundingClientRect();
-                let x = e.clientX - rect.left - rect.width / 2;
-                let y = e.clientY - rect.top - rect.height / 2;
-                // М'який нахил
-                card.style.transform = `perspective(1000px) rotateX(${-y / 20}deg) rotateY(${x / 20}deg) translateZ(10px)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) translateZ(0)`;
-            });
-        });
     </script>
+
 </body>
 </html>

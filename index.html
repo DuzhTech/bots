@@ -225,7 +225,7 @@
         
         .case-card { 
             position: sticky; top: calc(var(--header-height) + 20px); 
-            display: grid; gap: 40px; align-items: center; 
+            display: grid; gap: 40px; align-items: start; /* Змінено з center на start */
             background: #090F1C; border: 1px solid var(--border); border-radius: 30px; padding: 40px; 
             box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
             max-height: calc(100vh - var(--header-height) - 40px); overflow-y: auto; 
@@ -235,20 +235,20 @@
 
         /* Порядок колонок для змійки та логіки (Дівчина зліва) */
         .case-card#case-gnome { grid-template-columns: 1.2fr 1fr; }
-        .case-card#case-gnome .case-visual { order: 2; }
-        .case-card#case-gnome .case-dashboard { order: 1; }
+        .case-card#case-gnome .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
+        .case-card#case-gnome .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
 
         .case-card#case-resthill { grid-template-columns: 1fr 1.2fr; }
-        .case-card#case-resthill .case-visual { order: 1; }
-        .case-card#case-resthill .case-dashboard { order: 2; }
+        .case-card#case-resthill .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
+        .case-card#case-resthill .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
 
         .case-card#case-gran { grid-template-columns: 1.2fr 1fr; }
-        .case-card#case-gran .case-visual { order: 2; }
-        .case-card#case-gran .case-dashboard { order: 1; }
+        .case-card#case-gran .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
+        .case-card#case-gran .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
 
         .case-card#case-boso { grid-template-columns: 1.2fr 1fr; }
-        .case-card#case-boso .case-visual { order: 2; }
-        .case-card#case-boso .case-dashboard { order: 1; }
+        .case-card#case-boso .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
+        .case-card#case-boso .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
 
         .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .case-visual img { max-width: 90%; max-height: 380px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));}

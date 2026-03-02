@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuzhTech | Преміальні чат-боти для HoReCa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent: #0ea5e9;
+            --accent-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #020617, #0f172a, #1e1b4b);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Навігація */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Кнопки */
+        .btn {
+            background: var(--accent);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        /* Головний екран */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 100px 5% 50px;
+            position: relative;
+        }
+
+        .hero-text { flex: 1; max-width: 600px; }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            max-width: 80%;
+            border-radius: 20px;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Секції загальні */
+        section { padding: 100px 5%; }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+
+        /* Скляні картки (Glassmorphism) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-card h3 { margin-bottom: 15px; font-size: 1.5rem; color: #fff; }
+        .glass-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Футер */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            text-align: center;
+            padding: 40px 5%;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+            .hero-text { margin-bottom: 50px; }
+            .nav-links { display: none; } /* Для простоти на мобільному сховаємо меню, можна додати бургер пізніше */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">Duzh<span>Tech</span></a>
+        <div class="nav-links">
+            <a href="#benefits">Переваги</a>
+            <a href="#cases">Кейси</a>
+            <a href="#tech">Інтеграції</a>
+        </div>
+        <a href="#contact" class="btn">Обговорити проєкт</a>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-text">
+            <h1>Розумні чат-боти, які закохують гостей у ваш сервіс</h1>
+            <p>Персональні цифрові консьєржі в стилі Pixar для готелів та котеджів. Автоматизуємо бронювання, збільшуємо продажі послуг та звільняємо час адміністратора.</p>
+            <a href="#contact" class="btn">Отримати демо-бота</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://via.placeholder.com/500x600/0f172a/0ea5e9?text=Тут+буде+твій+Pixar+персонаж" alt="3D Бот Консьєрж">
+        </div>
+    </header>
+
+    <section id="benefits">
+        <h2 class="section-title">Що отримує ваш бізнес?</h2>
+        <div class="grid">
+            <div class="glass-card">
+                <h3>Економія часу</h3>
+                <p>Бот миттєво відповідає на рутинні питання: пароль від Wi-Fi, локація, правила проживання. Ваш адмін більше не працює довідником.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Додаткові продажі</h3>
+                <p>Автоматичний продаж чанів, дров, сніданків та оренди мангалу прямо в чаті. Гостю достатньо натиснути одну кнопку.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Унікальні емоції</h3>
+                <p>Ваш персональний 3D-маскот, створений за допомогою сучасних технологій. Клієнти посміхаються ще до заїзду в номер.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases">
+        <h2 class="section-title">Наші реалізовані кейси</h2>
+        <div class="grid">
+            <div class="glass-card">
+                <h3>BerBen House</h3>
+                <p>Повний цикл керування готелем. Створено унікального гнома-маскота, який супроводжує гостя від моменту вибору номера до виїзду.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Chalet Na Brusnyci</h3>
+                <p>Бот-гід для шале. Допомагає знайти ідеальний маршрут для прогулянки, розказує про дозвілля та харчування поруч.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Duzh Wine</h3>
+                <p>Автоматизація продажів для виноробні. Елегантний цифровий сомельє, який допомагає обрати вино та оформлює замовлення.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech">
+        <h2 class="section-title">Під капотом</h2>
+        <div class="grid">
+            <div class="glass-card">
+                <h3>BookMeNow Інтеграція</h3>
+                <p>Пряма синхронізація з календарем. Бот сам перевіряє вільні дати та фіксує бронювання без участі людини.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Прийом оплат</h3>
+                <p>Безпечний збір передоплати за номери або додаткові послуги через Apple Pay та Google Pay безпосередньо в Telegram.</p>
+            </div>
+            <div class="glass-card">
+                <h3>3D Візуалізація</h3>
+                <p>Розробка унікальних персонажів, що відображають душу вашого бренду, з використанням професійних інструментів моделювання.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2 style="margin-bottom: 20px;">Готові підняти сервіс на новий рівень?</h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px;">Напишіть мені, і я безкоштовно проаналізую ваш поточний сервіс бронювання.</p>
+        <a href="https://t.me/nazy5555" class="btn">Написати в Telegram</a>
+        <p style="margin-top: 50px; font-size: 0.9rem; color: #64748b;">Created by DuzhTech | 2026</p>
+    </footer>
+
+</body>
+</html>

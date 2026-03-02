@@ -103,10 +103,11 @@
         .delay-1 { transition-delay: 0.15s; }
 
         /* --- Hero Section --- */
-        .hero { display: flex; align-items: center; min-height: 100vh; gap: 40px; padding-top: 120px; }
+        .hero { display: flex; align-items: center; min-height: 100vh; gap: 40px; padding-top: 100px; }
         .hero-text { flex: 1.2; }
         .hero-tag { color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
         
+        /* 🔥 Дизайнерський заголовок */
         .hero-text h1 { 
             font-size: clamp(2.5rem, 4vw, 4.2rem);
             line-height: 1.15; margin-bottom: 25px; 
@@ -119,11 +120,11 @@
 
         .hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; max-width: 90%; }
         
-        /* Пігулки переваг (Вирівнювання 2 зверху, 1 по центру знизу) */
-        .hero-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 35px; max-width: 580px; }
-        .hero-features-row { display: flex; gap: 12px; flex-wrap: wrap; }
-        .hero-features-center { display: flex; justify-content: center; width: 100%; }
-        
+        /* 🔥 НОВЕ: Інтерактивні блоки (Пігулки переваг) - ПОФІКШЕНО КОМПОНУВАННЯ */
+        .hero-features { 
+            display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 35px; 
+            justify-content: flex-start; /* Вирівнювання по лівому краю як текст */
+        }
         .feature-pill { 
             background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border); 
             padding: 10px 18px; border-radius: 50px; font-size: 0.95rem; color: var(--text-main); 
@@ -132,7 +133,7 @@
         }
         .feature-pill:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,229,255,0.15); background: rgba(0, 229, 255, 0.1);}
         
-        /* Картка Маніфесту */
+        /* Дизайнерська картка Маніфесту */
         .manifesto-card { 
             display: flex; gap: 20px; align-items: center; padding: 25px; margin-bottom: 40px; 
             border-radius: 20px; border-left: 4px solid var(--accent);
@@ -148,10 +149,16 @@
         .manifesto-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;}
         .manifesto-text strong { color: #fff; display: block; margin-bottom: 5px; font-size: 1.1rem;}
         
-        /* Персонаж (Піднято на рівень тексту) */
-        .hero-img { flex: 0.8; display: flex; justify-content: center; position: relative; margin-top: -60px; }
-        .hero-img img { max-width: 85%; height: auto; z-index: 5; animation: breathe 6s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.2)); }
-        @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        /* 🔥 ПОФІКШЕНО: Персонаж зменшений і ПІДНЯТИЙ НА РІВЕНЬ З ТЕКСТОМ заголовка */
+        .hero-img { flex: 0.8; display: flex; justify-content: center; position: relative; }
+        .hero-img img { 
+            max-width: 85%; height: auto; z-index: 5; 
+            animation: breathe 6s ease-in-out infinite; 
+            filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.2)); 
+            transform: translateY(-80px); /* 🔥 ПІДЙОМ ВГОРУ */
+        }
+        
+        @keyframes breathe { 0%, 100% { transform: translateY(-80px); } 50% { transform: translateY(-95px); } }
 
         .glow-circle {
             position: absolute; width: 500px; height: 500px; background: var(--accent); border-radius: 50%;
@@ -162,7 +169,7 @@
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .bento-card h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.4rem; }
 
-        /* --- Наші Герої --- */
+        /* --- Наші Герої (Великі текстові блоки) --- */
         .cases-wrapper { position: relative; padding-bottom: 50px; }
         .case-card { 
             position: sticky; top: 100px; 
@@ -174,12 +181,15 @@
             box-shadow: 0 -10px 40px rgba(0,0,0,0.7);
         }
         .case-img { text-align: center; position: sticky; top: 140px; }
-        .case-img img { max-width: 100%; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: breathe 5s ease-in-out infinite; }
+        .case-img img { max-width: 100%; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: breatheCase 5s ease-in-out infinite; }
         
+        @keyframes breatheCase { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
         .case-info h3 { font-size: 2.2rem; margin-bottom: 5px; }
         .case-info h4 { color: var(--accent); font-size: 1.1rem; margin-bottom: 25px; font-style: italic; }
         .case-info p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 15px; }
         
+        /* Виділення слів у кейсах */
         .highlight-pain { color: #ff4d4d; font-weight: 700; }
         .highlight-solution { color: #4caf50; font-weight: 700; }
         .highlight-feature { color: #ffeb3b; font-weight: 700; }
@@ -222,10 +232,9 @@
 
         @media (max-width: 1024px) {
             .hero, .case-card { flex-direction: column; text-align: center; }
-            .hero-img { margin-top: 0; }
-            .hero-features { align-items: center; margin: 0 auto 35px; }
-            .hero-features-row { justify-content: center; }
-            .manifesto-card { flex-direction: column; text-align: center; }
+            .hero-features { justify-content: center; }
+            .hero-img img, @keyframes breathe { transform: translateY(0); } /* Вимикаємо підйом на мобільному */
+            @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
             .case-card, .case-boso { grid-template-columns: 1fr; position: relative; top: 0; }
             .case-boso .case-info { order: 2; } .case-boso .case-img { order: 1; position: static; }
             .case-img { position: static; }
@@ -258,20 +267,16 @@
             <p>Ми не просто створюємо ботів — ми даруємо вашому бізнесу «цифрову душу» та затишок. DuzhTech розробляє інтелектуальні Telegram-системи, які:</p>
             
             <div class="hero-features">
-                <div class="hero-features-row">
-                    <div class="feature-pill"><span>🛡️</span> Звільняють власника від рутини</div>
-                    <div class="feature-pill"><span>📈</span> Збільшують прибуток на 30%</div>
-                </div>
-                <div class="hero-features-center">
-                    <div class="feature-pill"><span>❤️</span> Закохують гостей ще до заїзду</div>
-                </div>
+                <div class="feature-pill"><span>🛡️</span> Звільняють власника від рутини</div>
+                <div class="feature-pill"><span>📈</span> Збільшують прибуток на 30%</div>
+                <div class="feature-pill"><span>❤️</span> Закохують гостей ще до заїзду</div>
             </div>
 
             <div class="manifesto-card">
                 <div class="manifesto-icon">💡</div>
                 <div class="manifesto-text">
                     <strong>Наш маніфест</strong>
-                    Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою.
+                    Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурбутним, а роботу власника — прибутковою.
                 </div>
             </div>
 
@@ -450,7 +455,7 @@
                 <div class="step-num">04</div>
                 <div class="step-info">
                     <h4>Велике відкриття</h4>
-                    <p>Ми проводимо повний інструктаж для вас і персоналу. Ви отримуєте готовий інструмент «під ключ».</p>
+                    <p>Ми проводимо повний інструктаж для вас і персоналу. Ви отримуєте готовий інструмент «під ключ».<p>
                 </div>
             </div>
             <div class="glass-panel process-step reveal">

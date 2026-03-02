@@ -212,13 +212,50 @@
         .price-card li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
         .price-card.featured li { color: #fff; }
 
-        /* --- Процес --- */
-        .process-list { display: grid; gap: 20px; }
-        .process-step { display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: center; }
-        .step-num { font-size: 3rem; font-weight: 900; color: var(--accent); opacity: 0.3; }
-        .step-info h4 { font-size: 1.3rem; margin-bottom: 5px; color: #fff; }
-        .step-info p { color: var(--text-muted); margin: 0; }
+        /* --- Процес (Premium Bento Grid) --- */
+        .process-bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; }
+        .process-card { 
+            position: relative; overflow: hidden; 
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .process-card:last-child { grid-column: 1 / -1; text-align: center; align-items: center; }
+        
+        /* Гігантська цифра на фоні */
+        .step-watermark {
+            position: absolute; top: -15px; right: 10px;
+            font-size: 9rem; font-weight: 900; line-height: 1; font-family: 'Montserrat', sans-serif;
+            color: rgba(255, 255, 255, 0.02);
+            transition: color 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0; user-select: none; pointer-events: none;
+        }
+        .process-card:hover .step-watermark { color: rgba(0, 229, 255, 0.08); transform: translateY(-10px) scale(1.05); }
+        
+        .step-content { position: relative; z-index: 1; }
+        .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .process-card:last-child .step-header { justify-content: center; }
+        
+        /* Пульсуючий радар біля заголовка */
+        .step-dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent); box-shadow: 0 0 15px var(--accent-glow);
+            position: relative; flex-shrink: 0;
+        }
+        .step-dot::after {
+            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%; border: 1px solid var(--accent); opacity: 0;
+            animation: radar-ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes radar-ping { 75%, 100% { transform: scale(2.5); opacity: 0; } }
+        
+        .step-header h4 { font-size: 1.4rem; color: #fff; margin: 0; }
+        .step-content p { color: var(--text-muted); font-size: 1.05rem; margin: 0; line-height: 1.6; }
 
+        @media (max-width: 900px) {
+            .process-bento { grid-template-columns: 1fr; }
+            .process-card:last-child { grid-column: auto; text-align: left; align-items: flex-start; }
+            .process-card:last-child .step-header { justify-content: flex-start; }
+            .step-watermark { font-size: 7rem; right: 0; }
+        }
         /* --- FAQ --- */
         .faq-grid { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
         .faq-item h4 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
@@ -428,43 +465,65 @@
 
     <section id="process">
         <h2 class="section-title reveal">Як ми створюємо ваш успіх (5 кроків)</h2>
+        <p class="section-subtitle reveal">Прозорий шлях від першого дзвінка до готової екосистеми.</p>
 
-        <div class="process-list">
-            <div class="glass-panel process-step reveal">
-                <div class="step-num">01</div>
-                <div class="step-info">
-                    <h4>Стратегічна сесія (Meet)</h4>
+        <div class="process-bento">
+            
+            <div class="glass-panel process-card reveal custom-hover-card">
+                <div class="step-watermark">01</div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <div class="step-dot"></div>
+                        <h4>Стратегічна сесія (Meet)</h4>
+                    </div>
                     <p>Ми зустрічаємось у Google Meet, щоб зрозуміти кожну деталь вашого бізнесу. Ми не слухаємо — ми чуємо.</p>
                 </div>
             </div>
-            <div class="glass-panel process-step reveal">
-                <div class="step-num">02</div>
-                <div class="step-info">
-                    <h4>Безкоштовний прототип</h4>
+
+            <div class="glass-panel process-card reveal delay-1 custom-hover-card">
+                <div class="step-watermark">02</div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <div class="step-dot"></div>
+                        <h4>Безкоштовний прототип</h4>
+                    </div>
                     <p>Ми будуємо «скелет» вашого майбутнього бота. Ви клацаєте, тестуєте і закохуєтесь ще до оплати.</p>
                 </div>
             </div>
-            <div class="glass-panel process-step reveal">
-                <div class="step-num">03</div>
-                <div class="step-info">
-                    <h4>Магія розробки</h4>
+
+            <div class="glass-panel process-card reveal custom-hover-card">
+                <div class="step-watermark">03</div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <div class="step-dot"></div>
+                        <h4>Магія розробки</h4>
+                    </div>
                     <p>Після передплати 50% ми вдихаємо життя в проєкт: дизайн персонажів, логіка, платежі.</p>
                 </div>
             </div>
-            <div class="glass-panel process-step reveal">
-                <div class="step-num">04</div>
-                <div class="step-info">
-                    <h4>Велике відкриття</h4>
-                    <p>Ми проводимо повний інструктаж для вас і персоналу. Ви отримуєте готовий інструмент «під ключ».<p>
+
+            <div class="glass-panel process-card reveal delay-1 custom-hover-card">
+                <div class="step-watermark">04</div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <div class="step-dot"></div>
+                        <h4>Велике відкриття</h4>
+                    </div>
+                    <p>Ми проводимо повний інструктаж для вас і персоналу. Ви отримуєте готовий інструмент «під ключ».</p>
                 </div>
             </div>
-            <div class="glass-panel process-step reveal">
-                <div class="step-num">05</div>
-                <div class="step-info">
-                    <h4>Безпечна гавань (Support)</h4>
-                    <p>Після фінальної оплати ми залишаємось з вами. 1 місяць безкоштовного супроводу — ми поруч, щоб підказати чи налаштувати.</p>
+
+            <div class="glass-panel process-card reveal delay-2 custom-hover-card" style="border-color: var(--accent);">
+                <div class="step-watermark">05</div>
+                <div class="step-content">
+                    <div class="step-header">
+                        <div class="step-dot"></div>
+                        <h4 style="color: var(--accent);">Безпечна гавань (Support)</h4>
+                    </div>
+                    <p style="max-width: 700px; margin: 0 auto;">Після фінальної оплати ми залишаємось з вами. 1 місяць безкоштовного супроводу — ми поруч, щоб підказати, змінити чи налаштувати.</p>
                 </div>
             </div>
+
         </div>
     </section>
 

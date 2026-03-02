@@ -103,7 +103,7 @@
         .delay-1 { transition-delay: 0.15s; }
 
         /* --- Hero Section --- */
-        .hero { display: flex; align-items: center; min-height: 100vh; gap: 40px; padding-top: 100px; }
+        .hero { display: flex; align-items: center; min-height: 100vh; gap: 40px; padding-top: 120px; }
         .hero-text { flex: 1.2; }
         .hero-tag { color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
         
@@ -119,20 +119,14 @@
 
         .hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; max-width: 90%; }
         
-        /* Пігулки переваг */
-        .hero-features { 
-            display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 35px; 
-            justify-content: flex-start; 
-        }
+        .hero-features { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 35px; justify-content: flex-start; }
         .feature-pill { 
             background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border); 
             padding: 10px 18px; border-radius: 50px; font-size: 0.95rem; color: var(--text-main); 
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: default;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: default;
         }
         .feature-pill:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,229,255,0.15); background: rgba(0, 229, 255, 0.1);}
         
-        /* Дизайнерська картка Маніфесту */
         .manifesto-card { 
             display: flex; gap: 20px; align-items: center; padding: 25px; margin-bottom: 40px; 
             border-radius: 20px; border-left: 4px solid var(--accent);
@@ -148,7 +142,6 @@
         .manifesto-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;}
         .manifesto-text strong { color: #fff; display: block; margin-bottom: 5px; font-size: 1.1rem;}
         
-        /* Персонаж (Піднято на рівень тексту) */
         .hero-img { flex: 0.8; display: flex; justify-content: center; position: relative; }
         .hero-img img { 
             max-width: 85%; height: auto; z-index: 5; 
@@ -156,7 +149,6 @@
             filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.2)); 
             transform: translateY(-80px); 
         }
-        
         @keyframes breathe { 0%, 100% { transform: translateY(-80px); } 50% { transform: translateY(-95px); } }
 
         .glow-circle {
@@ -168,34 +160,73 @@
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
         .bento-card h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.4rem; }
 
-        /* --- Наші Герої --- */
-        .cases-wrapper { position: relative; padding-bottom: 50px; }
+        /* 🔥🔥🔥 НОВИЙ PREMIUM DASHBOARD ДЛЯ КЕЙСІВ 🔥🔥🔥 */
+        .cases-wrapper { display: flex; flex-direction: column; gap: 80px; padding-bottom: 50px; }
+        
         .case-card { 
             position: sticky; top: 100px; 
-            display: grid; grid-template-columns: 280px 1fr; gap: 40px; 
-            align-items: start; margin-bottom: 40px;
-            background: var(--bg-main); 
+            display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; 
+            align-items: center; 
+            background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(6,11,25,0.95));
             border: 1px solid var(--border);
-            border-radius: 24px; padding: 40px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.7);
+            border-radius: 30px; padding: 50px;
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.8);
+            min-height: 70vh;
         }
-        .case-img { text-align: center; position: sticky; top: 140px; }
-        .case-img img { max-width: 100%; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: breatheCase 5s ease-in-out infinite; }
         
-        @keyframes breatheCase { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        /* Змійка (чергування сторін) */
+        .case-card:nth-child(even) { grid-template-columns: 1.2fr 1fr; }
+        .case-card:nth-child(even) .case-visual { order: 2; }
+        .case-card:nth-child(even) .case-dashboard { order: 1; }
 
-        .case-info h3 { font-size: 2.2rem; margin-bottom: 5px; }
-        .case-info h4 { color: var(--accent); font-size: 1.1rem; margin-bottom: 25px; font-style: italic; }
-        .case-info p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 15px; }
+        /* Візуальна частина (Маскот) */
+        .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .case-visual img { max-width: 90%; max-height: 450px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));}
+        .case-visual-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: var(--accent); filter: blur(120px); opacity: 0.15; z-index: 1;}
+        .case-visual h3 { font-size: 2.8rem; margin-top: 20px; z-index: 2; color: #fff;}
+        .case-visual p { color: var(--accent); font-weight: 600; font-size: 1.1rem; z-index: 2;}
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* Інформаційна частина (Дашборд) */
+        .case-dashboard { display: flex; flex-direction: column; gap: 15px; justify-content: center; }
         
-        .highlight-pain { color: #ff4d4d; font-weight: 700; }
-        .highlight-solution { color: #4caf50; font-weight: 700; }
-        .highlight-feature { color: #ffeb3b; font-weight: 700; }
-        .highlight-result { color: var(--accent); font-weight: 700; }
+        /* Міні-картки даних */
+        .data-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px; padding: 20px 25px;
+            display: flex; gap: 20px; align-items: flex-start;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+        .box-icon { 
+            font-size: 1.4rem; line-height: 1; flex-shrink: 0; padding: 12px; 
+            background: rgba(0,0,0,0.4); border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center;
+        }
+        .box-text strong { display: block; font-size: 1.1rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;}
+        .box-text p { font-size: 0.95rem; color: var(--text-muted); margin: 0; line-height: 1.6;}
 
-        .case-boso { grid-template-columns: 1fr 280px; border-color: var(--accent); background: #000; box-shadow: 0 -15px 50px rgba(0,0,0,0.9); }
-        .case-boso .case-info { order: 1; }
-        .case-boso .case-img { order: 2; }
+        /* Магія Hover для кожної міні-картки */
+        .data-box.pain:hover { border-color: rgba(255, 77, 77, 0.4); box-shadow: 0 10px 30px rgba(255, 77, 77, 0.1); transform: translateX(10px); background: rgba(255, 77, 77, 0.05);}
+        .data-box.pain .box-icon { border: 1px solid rgba(255, 77, 77, 0.3); color: #ff4d4d;}
+        .data-box.pain strong { color: #ff4d4d; }
+
+        .data-box.solution:hover { border-color: rgba(76, 175, 80, 0.4); box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1); transform: translateX(10px); background: rgba(76, 175, 80, 0.05);}
+        .data-box.solution .box-icon { border: 1px solid rgba(76, 175, 80, 0.3); color: #4caf50;}
+        .data-box.solution strong { color: #4caf50; }
+
+        .data-box.feature:hover { border-color: rgba(255, 235, 59, 0.4); box-shadow: 0 10px 30px rgba(255, 235, 59, 0.1); transform: translateX(10px); background: rgba(255, 235, 59, 0.05);}
+        .data-box.feature .box-icon { border: 1px solid rgba(255, 235, 59, 0.3); color: #ffeb3b;}
+        .data-box.feature strong { color: #ffeb3b; }
+
+        .data-box.result:hover { border-color: var(--accent); box-shadow: 0 10px 30px var(--accent-glow); transform: translateX(10px); background: rgba(0, 229, 255, 0.05);}
+        .data-box.result .box-icon { border: 1px solid var(--accent); color: var(--accent);}
+        .data-box.result strong { color: var(--accent); }
+
+        /* Зміна напрямку Hover для парних карток (їдуть вліво) */
+        .case-card:nth-child(even) .data-box:hover { transform: translateX(-10px); }
 
         /* --- Тарифи --- */
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -210,71 +241,18 @@
         .price-card li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
         .price-card.featured li { color: #fff; }
 
-        /* 🔥 НОВИЙ ПРЕМІАЛЬНИЙ TIMELINE ДЛЯ ПРОЦЕСУ 🔥 */
-        .timeline-container {
-            position: relative;
-            max-width: 900px;
-            margin: 60px auto 0;
-            padding-left: 40px;
-        }
-        /* Статична лінія фону */
-        .timeline-container::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 2px; height: 100%; background: rgba(255, 255, 255, 0.05);
-        }
-        /* Сяюча лінія, що заповнюється при скролі */
-        .timeline-progress {
-            position: absolute; top: 0; left: 0;
-            width: 2px; height: 0%; 
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent);
-            z-index: 1; transition: height 0.2s ease-out;
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 50px;
-        }
+        /* --- Процес (Таймлайн) --- */
+        .timeline-container { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 40px; }
+        .timeline-container::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: rgba(255, 255, 255, 0.05); }
+        .timeline-progress { position: absolute; top: 0; left: 0; width: 2px; height: 0%; background: var(--accent); box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent); z-index: 1; transition: height 0.2s ease-out; }
+        .timeline-item { position: relative; margin-bottom: 50px; }
         .timeline-item:last-child { margin-bottom: 0; }
-        
-        /* Неонова крапка (Радар) */
-        .timeline-dot {
-            position: absolute;
-            top: 25px; left: -49px; /* Центруємо на лінії */
-            width: 20px; height: 20px;
-            border-radius: 50%;
-            background: var(--bg-main);
-            border: 3px solid var(--accent);
-            z-index: 2; transition: 0.4s;
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
-        }
+        .timeline-dot { position: absolute; top: 25px; left: -49px; width: 20px; height: 20px; border-radius: 50%; background: var(--bg-main); border: 3px solid var(--accent); z-index: 2; transition: 0.4s; box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
         .timeline-item:hover .timeline-dot { background: var(--accent); box-shadow: 0 0 25px var(--accent); transform: scale(1.2); }
-        
-        /* Картка кроку */
-        .timeline-content {
-            background: linear-gradient(145deg, rgba(15,23,42,0.6), rgba(0,229,255,0.02));
-            border: 1px solid var(--border);
-            border-radius: 20px; padding: 40px;
-            position: relative; overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .timeline-item:hover .timeline-content {
-            border-color: rgba(0, 229, 255, 0.4);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,229,255,0.05);
-            transform: translateX(10px);
-        }
-        
-        /* Гігантська цифра-водяний знак */
-        .timeline-watermark {
-            position: absolute; right: 20px; top: -15px;
-            font-size: 8rem; font-weight: 900; line-height: 1; font-family: 'Montserrat', sans-serif;
-            color: rgba(255, 255, 255, 0.02);
-            transition: color 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 0; pointer-events: none; user-select: none;
-        }
-        .timeline-item:hover .timeline-watermark {
-            color: rgba(0, 229, 255, 0.05); transform: translateY(10px) scale(1.05);
-        }
-        
+        .timeline-content { background: linear-gradient(145deg, rgba(15,23,42,0.6), rgba(0,229,255,0.02)); border: 1px solid var(--border); border-radius: 20px; padding: 40px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .timeline-item:hover .timeline-content { border-color: rgba(0, 229, 255, 0.4); box-shadow: 0 15px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,229,255,0.05); transform: translateX(10px); }
+        .timeline-watermark { position: absolute; right: 20px; top: -15px; font-size: 8rem; font-weight: 900; line-height: 1; font-family: 'Montserrat', sans-serif; color: rgba(255, 255, 255, 0.02); transition: color 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0; pointer-events: none; user-select: none; }
+        .timeline-item:hover .timeline-watermark { color: rgba(0, 229, 255, 0.05); transform: translateY(10px) scale(1.05); }
         .timeline-content h4 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; position: relative; z-index: 1; display: flex; align-items: center; gap: 15px;}
         .timeline-content p { color: var(--text-muted); font-size: 1.05rem; margin: 0; position: relative; z-index: 1; max-width: 85%; line-height: 1.6;}
 
@@ -290,17 +268,20 @@
         footer { text-align: center; padding: 60px 8%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; color: var(--text-muted); }
 
         @media (max-width: 1024px) {
-            .hero, .case-card { flex-direction: column; text-align: center; }
+            .hero { flex-direction: column; text-align: center; }
             .hero-img img, @keyframes breathe { transform: translateY(0); } 
             @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-            .case-card, .case-boso { grid-template-columns: 1fr; position: relative; top: 0; }
-            .case-boso .case-info { order: 2; } .case-boso .case-img { order: 1; position: static; }
-            .case-img { position: static; }
+            
+            /* Мобільні кейси */
+            .case-card, .case-card:nth-child(even) { grid-template-columns: 1fr; position: relative; top: 0; padding: 30px; gap: 30px;}
+            .case-card:nth-child(even) .case-visual { order: 1; }
+            .case-card:nth-child(even) .case-dashboard { order: 2; }
+            .case-card:nth-child(even) .data-box:hover { transform: translateX(10px); } /* Скидаємо напрямок на мобільному */
+
             .bento-grid, .pricing-grid { grid-template-columns: 1fr; }
             .hero-text h1 { font-size: 3rem; }
             .price-card.featured { transform: scale(1); }
             
-            /* Мобільна адаптація таймлайну */
             .timeline-container { padding-left: 25px; }
             .timeline-dot { left: -33px; width: 14px; height: 14px; }
             .timeline-content p { max-width: 100%; }
@@ -320,21 +301,17 @@
     <section class="hero reveal">
         <div class="hero-text">
             <span class="hero-tag">🚀 DuzhTech — Екосистема цифрової гостинності</span>
-            
             <h1>
                 Ваші гості вже в майбутньому.<br>
                 <span class="accent-typewriter">
                     <span id="typewriter"></span><span class="cursor-blink"></span>
                 </span>
             </h1>
-            
             <p>Ми не просто створюємо ботів — ми даруємо вашому бізнесу «цифрову душу» та затишок. DuzhTech розробляє інтелектуальні Telegram-системи, які:</p>
-            
             <div class="hero-features">
                 <div class="feature-pill"><span>🛡️</span> Звільняють власника від рутини</div>
                 <div class="feature-pill"><span>📈</span> Збільшують прибуток на 30%</div>
             </div>
-
             <div class="manifesto-card">
                 <div class="manifesto-icon">💡</div>
                 <div class="manifesto-text">
@@ -342,7 +319,6 @@
                     Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою.
                 </div>
             </div>
-
             <a href="#contact" class="btn">ХОЧУ БЕЗКОШТОВНИЙ МАКЕТ БОТА</a>
         </div>
         <div class="hero-img">
@@ -376,78 +352,135 @@
     </section>
 
     <section id="heroes">
-        <h2 class="section-title reveal">Наші Герої: Обличчя вашого сервісу</h2>
-        <p class="section-subtitle reveal">Ми створюємо унікальних персонажів у стилі Pixar для кожного проєкту. Це не просто іконки — це ваші цифрові консьєржі.</p>
+        <h2 class="section-title reveal">Наші Герої: Обличчя сервісу</h2>
+        <p class="section-subtitle reveal">Унікальні персонажі в стилі Pixar. Це не просто іконки — це ваші цифрові консьєржі.</p>
 
         <div class="cases-wrapper">
-            <div class="case-card reveal">
-                <div class="case-img"><img src="case_gnome.png" alt="Гном Бербен"></div>
-                <div class="case-info">
-                    <h3>🏔️ Кейс #1: BerBen House</h3>
-                    <h4>Персонаж: Гном Бербен (Символ затишку та лісової магії)</h4>
-                    <p><span class="highlight-pain">Біль власника:</span> Хаос у комунікації. Гості забували номер телефону адміністратора, соромилися дзвонити зайвий раз, щоб замовити дрова чи сніданок. Як результат — недоотриманий прибуток від дод. послуг.</p>
-                    <p><span class="highlight-solution">Наше рішення:</span> Ми створили максимально легкий та інтуїтивний інструмент. Ніяких складних реєстрацій чи оплат — лише «чистий» сервіс. Гість обирає позицію (сніданок, напій, послугу), вказує зручний спосіб розрахунку, і адміністратор миттєво отримує сповіщення в робочу групу Telegram.</p>
-                    <p><span class="highlight-feature">Головна «Фішка»:</span> Кнопка «Погукати газду». Це прямий міст для миттєвого зворотного зв’язку, який створює ефект присутності власника та турботи про кожного гостя.</p>
-                    <p><span class="highlight-result">Результат:</span> Вже за перші тижні роботи ми помітили, що гості почали замовляти послуги кальяну та сніданків значно частіше — просто тому, що тепер це зробити психологічно простіше, ніж дзвонити.</p>
+            
+            <div class="case-card">
+                <div class="case-visual reveal">
+                    <div class="case-visual-bg"></div>
+                    <img src="case_gnome.png" alt="Гном Бербен">
+                    <h3>BerBen House</h3>
+                    <p>Гном Бербен — Символ затишку</p>
+                </div>
+                <div class="case-dashboard reveal delay-1">
+                    <div class="data-box pain">
+                        <div class="box-icon">⚠️</div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Хаос у комунікації. Гості забували номер адміністратора, соромилися дзвонити, щоб замовити дрова чи сніданок. Недоотриманий прибуток.</p></div>
+                    </div>
+                    <div class="data-box solution">
+                        <div class="box-icon">🛡️</div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>Легкий інструмент без складних реєстрацій. Гість обирає позицію, і адміністратор миттєво отримує сповіщення в Telegram.</p></div>
+                    </div>
+                    <div class="data-box feature">
+                        <div class="box-icon">⚡</div>
+                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Кнопка «Погукати газду». Це прямий міст для зворотного зв’язку, який створює ефект турботи про кожного гостя.</p></div>
+                    </div>
+                    <div class="data-box result">
+                        <div class="box-icon">📈</div>
+                        <div class="box-text"><strong>Результат</strong><p>За перші тижні гості почали замовляти кальяни та сніданки значно частіше — бо це психологічно простіше, ніж дзвонити.</p></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="case-card reveal">
-                <div class="case-img"><img src="case_girl.png" alt="Дівчина Rest Hill"></div>
-                <div class="case-info">
-                    <h3>🏡 Кейс #2: REST HILL</h3>
-                    <h4>Персонаж: Господиня котеджу (Символ гостинності)</h4>
-                    <p><span class="highlight-pain">Біль власника:</span> Ручне підтвердження кожної оплати. Коли готелі стають популярнішими, адміністратор перетворюється на «бухгалтера», який постійно перевіряє скріншоти квитанцій. Це забирає час і створює ризики помилок.</p>
-                    <p><span class="highlight-solution">Наше рішення:</span> Ми взяли перевірену модель BerBen House і вивели її на новий технічний рівень. Ми інтегрували платіжну систему WayForPay.</p>
-                    <p><span class="highlight-feature">Головна «Фішка»:</span> Повна автономність платежів. Гість замовляє послугу і відразу її оплачує карткою або Apple/Google Pay. Адмін отримує вже підтверджене замовлення з чеком.</p>
-                    <p><span class="highlight-result">Результат:</span> Власниця звільнила до 2 годин свого часу щодня, а процес замовлення послуг став виглядати преміально та сучасно.</p>
+            <div class="case-card">
+                <div class="case-visual reveal delay-1">
+                    <div class="case-visual-bg" style="background: #ff4081;"></div>
+                    <img src="case_girl.png" alt="Дівчина Rest Hill">
+                    <h3>REST HILL</h3>
+                    <p>Господиня котеджу — Символ гостинності</p>
+                </div>
+                <div class="case-dashboard reveal">
+                    <div class="data-box pain">
+                        <div class="box-icon">⚠️</div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Ручне підтвердження кожної оплати. Адміністратор перетворюється на «бухгалтера», який постійно перевіряє скріншоти квитанцій.</p></div>
+                    </div>
+                    <div class="data-box solution">
+                        <div class="box-icon">🛡️</div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>Ми взяли перевірену модель та вивели її на новий рівень. Ми інтегрували платіжну систему WayForPay.</p></div>
+                    </div>
+                    <div class="data-box feature">
+                        <div class="box-icon">⚡</div>
+                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Повна автономність платежів. Гість замовляє послугу і відразу її оплачує Apple/Google Pay. Адмін отримує підтверджене замовлення з чеком.</p></div>
+                    </div>
+                    <div class="data-box result">
+                        <div class="box-icon">💎</div>
+                        <div class="box-text"><strong>Результат</strong><p>Власниця звільнила до 2 годин свого часу щодня, а процес замовлення послуг став виглядати преміально та сучасно.</p></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="case-card reveal">
-                <div class="case-img"><img src="case_hutsul.png" alt="Гуцул GRANЬ"></div>
-                <div class="case-info">
-                    <h3>🪵 Кейс #3: GRANЬ COTTAGE</h3>
-                    <h4>Персонаж: Гуцул Дід (Мудрий господар, що тримає все під контролем)</h4>
-                    <p><span class="highlight-pain">Біль власника:</span> Неактуальне меню та складність логістики. Часто гості замовляють страву, якої вже немає на кухні. Виникає незручна ситуація: адмін має передзвонити і вибачитися. Окрім того, запити типу «принесіть рушники» часто губилися в месенджерах.</p>
-                    <p><span class="highlight-solution">Наше рішення:</span> Ми розробили систему з потужною внутрішньою логістикою. Кожен запит — від замовлення чану до прохання про нові халати — потрапляє в окрему чергу завдань для персоналу.</p>
-                    <p><span class="highlight-feature">Головна «Фішка»:</span> Smart Адмін-панель. Ми реалізували можливість ставити позиції на «Стоп». Якщо кухар каже, що сирники закінчились — адмін за 2 секунди вимикає їх у боті, і гості їх більше не бачать. Так само легко позиція повертається в меню.</p>
-                    <p><span class="highlight-result">Результат:</span> Повна синхронізація кухні та сервісу. Гості отримують лише те, що є в наявності, а персонал працює за чітким списком завдань.</p>
+            <div class="case-card">
+                <div class="case-visual reveal">
+                    <div class="case-visual-bg" style="background: #4caf50;"></div>
+                    <img src="case_hutsul.png" alt="Гуцул GRANЬ">
+                    <h3>GRANЬ COTTAGE</h3>
+                    <p>Гуцул Дід — Мудрий господар</p>
+                </div>
+                <div class="case-dashboard reveal delay-1">
+                    <div class="data-box pain">
+                        <div class="box-icon">⚠️</div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Неактуальне меню. Часто гості замовляють страву, якої вже немає. Адмін має передзвонити і вибачитися. Запити губилися в месенджерах.</p></div>
+                    </div>
+                    <div class="data-box solution">
+                        <div class="box-icon">🛡️</div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>Розроблено систему з потужною логістикою. Кожен запит — від чану до прохання про халати — потрапляє в окрему чергу завдань.</p></div>
+                    </div>
+                    <div class="data-box feature">
+                        <div class="box-icon">⚡</div>
+                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Smart Адмін-панель. Якщо сирники закінчились — адмін за 2 секунди вимикає їх у боті, і гості їх більше не бачать.</p></div>
+                    </div>
+                    <div class="data-box result">
+                        <div class="box-icon">📈</div>
+                        <div class="box-text"><strong>Результат</strong><p>Повна синхронізація кухні та сервісу. Гості отримують лише те, що є в наявності, а персонал працює за чітким списком завдань.</p></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="case-card case-boso reveal">
-                <div class="case-info">
-                    <h3>⚓ Кейс #4: BOSO</h3>
-                    <h4>Персонаж: Капітан Босман (Символ надійності та «повного фаршу»)</h4>
-                    <p><span class="highlight-pain">Біль власника:</span> Розпорошеність даних та ризик пошкодження майна. Власник мав купу сервісів: Booking, Airbnb, BookMeNow, і все це треба було зводити докупи. Також була проблема з фіксацією стану номерів після виїзду гостей.</p>
-                    <p><span class="highlight-solution">Наше рішення:</span> Ми створили справжній «центр управління польотами». Це наша найскладніша система, де бот інтегрований із зовнішнім лендингом та всіма календарями.</p>
-                    <p><span class="highlight-feature">Головна «Фішка»:</span> Екосистема «Максимальний Фарш».<br>
-                    • Повна синхронізація з BookMeNow (бронювання на сайті автоматично закриває дати в боті та навпаки).<br>
-                    • Кнопка «Пошкодження майна»: персонал може миттєво зафіксувати проблему з фото, і власник відразу про це дізнається.<br>
-                    • Розумні сповіщення: система сама нагадує адмінам про заїзди та виїзди за графіком.</p>
-                    <p><span class="highlight-result">Результат:</span> Готель працює як єдиний годинниковий механізм. Власник бачить повну картину бізнесу в одному вікні Telegram, від фінансів до стану кожного номера.</p>
+            <div class="case-card" style="border-color: var(--accent);">
+                <div class="case-visual reveal delay-1">
+                    <div class="case-visual-bg" style="background: #00E5FF; opacity: 0.25;"></div>
+                    <img src="case_captain.png" alt="Капітан BOSO">
+                    <h3>BOSO</h3>
+                    <p>Капітан Босман — Символ надійності</p>
                 </div>
-                <div class="case-img"><img src="case_captain.png" alt="Капітан BOSO"></div>
+                <div class="case-dashboard reveal">
+                    <div class="data-box pain">
+                        <div class="box-icon">⚠️</div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Розпорошеність даних. Купа сервісів: Booking, Airbnb, BookMeNow, і все треба зводити докупи. Проблема з фіксацією стану номерів після виїзду.</p></div>
+                    </div>
+                    <div class="data-box solution">
+                        <div class="box-icon">🛡️</div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>Ми створили справжній «центр управління польотами». Це найскладніша система, інтегрована з лендингом та всіма календарями.</p></div>
+                    </div>
+                    <div class="data-box feature">
+                        <div class="box-icon">⚡</div>
+                        <div class="box-text"><strong>Екосистема «Максимальний Фарш»</strong><p>Повна синхронізація з BookMeNow. Кнопка «Пошкодження майна» з фото. Розумні сповіщення адмінам про заїзди/виїзди.</p></div>
+                    </div>
+                    <div class="data-box result" style="background: rgba(0,229,255,0.1); border-color: var(--accent);">
+                        <div class="box-icon">💎</div>
+                        <div class="box-text"><strong style="color: #fff;">Результат</strong><p style="color: #fff;">Готель працює як єдиний годинниковий механізм. Власник бачить повну картину в одному вікні Telegram, від фінансів до стану номерів.</p></div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
 
     <section id="pricing">
-        <h2 class="section-title reveal">Тарифні пакети: Від простоти до досконалості</h2>
-
+        <h2 class="section-title reveal">Тарифні пакети</h2>
         <div class="pricing-grid">
             <div class="glass-panel price-card reveal">
                 <div class="price-header">
                     <h3>Пакет "LITE"</h3>
                     <p>Спритний Старт</p>
                     <div class="price-val">10 000 грн</div>
-                    <span style="color: var(--text-muted); font-size: 0.9rem;">Для тих, хто цінує порядок та швидкість.</span>
                 </div>
                 <ul>
-                    <li><strong>Цифрове меню:</strong> Сніданки, послуги, дрова, чани — все в одному вікні.</li>
-                    <li><strong>Миттєвий зв'язок:</strong> Кнопка «Покликати газду» відправляє запит в групу адмінів.</li>
-                    <li><strong>База знань:</strong> Wi-Fi, правила, локації — бот відповість на питання 24/7.</li>
+                    <li><strong>Цифрове меню:</strong> Сніданки, послуги, дрова, чани.</li>
+                    <li><strong>Миттєвий зв'язок:</strong> Кнопка в групу адмінів.</li>
+                    <li><strong>База знань:</strong> Wi-Fi, правила, локації 24/7.</li>
                     <li><strong>Розробка:</strong> 3 дні.</li>
                 </ul>
                 <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати пакет</a>
@@ -458,13 +491,12 @@
                     <h3>Пакет "SMART"</h3>
                     <p>Цифровий Двигун</p>
                     <div class="price-val">15 000 грн</div>
-                    <span style="color: #fff; font-size: 0.9rem;">Наш бестселер. Повна автоматизація продажів.</span>
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету LITE.</li>
-                    <li><strong>Платіжний міст:</strong> Інтеграція WayForPay / Monobank. Приймайте оплати в боті.</li>
-                    <li><strong>Синхронізація:</strong> Об'єднуємо Booking, Airbnb, Hutshub, BookMeNow.</li>
-                    <li><strong>Нагадування:</strong> Авто-повідомлення гостям про заїзди/виїзди.</li>
+                    <li><strong>Платіжний міст:</strong> Інтеграція WayForPay / Monobank.</li>
+                    <li><strong>Синхронізація:</strong> Booking, Airbnb, BookMeNow.</li>
+                    <li><strong>Нагадування:</strong> Авто-повідомлення гостям.</li>
                     <li><strong>Розробка:</strong> 5 днів.</li>
                 </ul>
                 <a href="#contact" class="btn" style="text-align: center;">Обрати пакет</a>
@@ -475,13 +507,12 @@
                     <h3>Пакет "ULTIMATE"</h3>
                     <p>Бізнес-Імперія</p>
                     <div class="price-val">20 000 грн</div>
-                    <span style="color: var(--text-muted); font-size: 0.9rem;">Максимальний контроль та інструменти для масштабування.</span>
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету SMART.</li>
-                    <li><strong>Адмін-панель:</strong> Керуйте меню та цінами в реальному часі. Вимикайте страви за секунду.</li>
-                    <li><strong>Чек-лист пошкоджень:</strong> Фіксація стану майна з фото.</li>
-                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з календарем для прямих бронювань.</li>
+                    <li><strong>Адмін-панель:</strong> Керуйте меню в реальному часі.</li>
+                    <li><strong>Чек-лист пошкоджень:</strong> Фіксація стану майна.</li>
+                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з календарем.</li>
                     <li><strong>Розробка:</strong> 7 днів.</li>
                 </ul>
                 <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати пакет</a>
@@ -491,8 +522,6 @@
 
     <section id="process">
         <h2 class="section-title reveal">Як ми створюємо ваш успіх</h2>
-        <p class="section-subtitle reveal">Прозорий шлях від першого дзвінка до готової екосистеми.</p>
-
         <div class="timeline-container">
             <div class="timeline-progress" id="timeline-line"></div>
             
@@ -504,7 +533,6 @@
                     <p>Ми зустрічаємось у Google Meet, щоб зрозуміти кожну деталь вашого бізнесу. Ми не слухаємо — ми чуємо.</p>
                 </div>
             </div>
-
             <div class="timeline-item reveal">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
@@ -513,7 +541,6 @@
                     <p>Ми будуємо «скелет» вашого майбутнього бота. Ви клацаєте, тестуєте і закохуєтесь ще до оплати.</p>
                 </div>
             </div>
-
             <div class="timeline-item reveal">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
@@ -522,7 +549,6 @@
                     <p>Після передплати 50% ми вдихаємо життя в проєкт: дизайн персонажів, логіка, платежі.</p>
                 </div>
             </div>
-
             <div class="timeline-item reveal">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
@@ -531,7 +557,6 @@
                     <p>Ми проводимо повний інструктаж для вас і персоналу. Ви отримуєте готовий інструмент «під ключ».</p>
                 </div>
             </div>
-
             <div class="timeline-item reveal">
                 <div class="timeline-dot" style="background: var(--accent); box-shadow: 0 0 20px var(--accent);"></div>
                 <div class="timeline-content" style="border-color: var(--accent);">
@@ -587,13 +612,13 @@
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Анімація появи (Reveal)
+        // Reveal Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // Ефект друкування
+        // Typewriter
         const textToType = "А ваш готель?";
         let charIndex = 0;
         const speed = 100;
@@ -621,15 +646,13 @@
             });
         }
 
-        // 🔥 Магія Таймлайну (Лінія заповнюється при скролі)
+        // Timeline Magic
         window.addEventListener('scroll', () => {
             const timeline = document.querySelector('.timeline-container');
             const progressLine = document.getElementById('timeline-line');
-            
             if(timeline && progressLine) {
                 const rect = timeline.getBoundingClientRect();
                 const windowHeight = window.innerHeight;
-                // Розраховуємо скільки відсотків таймлайну пройдено (лінія доходить до середини екрану)
                 let progress = (windowHeight / 1.5 - rect.top) / rect.height;
                 progress = Math.max(0, Math.min(1, progress));
                 progressLine.style.height = `${progress * 100}%`;

@@ -83,7 +83,7 @@
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
         .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
         .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
-        .btn-small { padding: 12px 24px; font-size: 0.9rem; margin-top: 10px; position: relative; z-index: 5; }
+        .btn-small { padding: 12px 24px; font-size: 0.9rem; margin-top: 15px; position: relative; z-index: 5; }
 
         @keyframes heartbeat {
             0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
@@ -199,7 +199,7 @@
         .cases-wrapper { display: flex; flex-direction: column; gap: 50px; padding-bottom: 50px; }
         .case-card { 
             position: sticky; 
-            top: 100px; /* Щоб ховалося ідеально під хедер */
+            top: 100px; 
             display: grid; 
             gap: 30px; 
             align-items: center; 
@@ -207,7 +207,6 @@
             border: 1px solid var(--border); 
             border-radius: 30px; 
             padding: 30px; 
-            /* Тінь вниз, щоб створювати ефект накладання карток */
             box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
         }
 
@@ -228,7 +227,6 @@
         .case-card#case-boso .case-dashboard { order: 1; }
 
         .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
-        /* Зменшено картинку, щоб картка була не надто високою для Sticky */
         .case-visual img { max-width: 90%; max-height: 220px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); margin-bottom: 5px; }
         .case-visual-bg { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 250px; height: 250px; background: var(--accent); filter: blur(100px); opacity: 0.15; z-index: 1;}
         .case-visual h3 { font-size: 1.8rem; margin-top: 5px; z-index: 2; color: #fff;}
@@ -359,7 +357,7 @@
 
         footer { text-align: center; padding: 60px 8%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; color: var(--text-muted); }
 
-        /* --- Модальне вікно --- */
+        /* --- Модальні вікна (Успіх та Помилка) --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-content { text-align: center; max-width: 450px; width: 90%; transform: scale(0.8) translateY(30px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--accent); box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05); }
@@ -762,9 +760,9 @@
             <div class="about-text">
                 <h2 style="color: var(--accent); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Від готельєра для готельєрів</h2>
                 <h3>Хто стоїть за DuzhTech?</h3>
-                <p>«Мене звати Назар Дужик. Я сам керую готелем у Ворохті і чудово знаю, що таке хаос у бронюваннях, дзвінки о 2-й ночі та забуті замовлення дров чи сніданків.</p>
+                <p>«Мене звати Назар Дужик. Я сам керую готелем «BerBen House» у Ворохті і чудово знаю, що таке хаос у бронюваннях, дзвінки о 2-й ночі та забуті замовлення дров чи сніданків.</p>
                 <p>Я створив DuzhTech, щоб вирішити ці проблеми для себе. А тепер допомагаю іншим власникам вийти з операційки та звільнити час для життя, а не для рутини.»</p>
-                <div class="signature"></div>
+                <div class="signature">Назар Дужик</div>
             </div>
         </div>
     </section>
@@ -993,6 +991,15 @@
         </div>
     </div>
 
+    <div id="errorModal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="border-color: rgba(255, 77, 77, 0.5); box-shadow: 0 0 50px rgba(255, 77, 77, 0.15), inset 0 0 20px rgba(255, 77, 77, 0.05);">
+            <div class="modal-icon" style="filter: drop-shadow(0 0 15px rgba(255, 77, 77, 0.8)); color: #ff4d4d;">⚠️</div>
+            <h3 style="text-shadow: 0 0 15px rgba(255, 77, 77, 0.5); color: #ff4d4d;">УВАГА!</h3>
+            <p>Будь ласка, введіть дійсний номер телефону у правильному форматі.</p>
+            <button id="closeErrorModal" class="btn" style="width: auto; padding: 12px 40px; background: linear-gradient(90deg, #ff4d4d, #ff2a2a); box-shadow: 0 10px 30px rgba(255, 77, 77, 0.4); color: #fff;">ЗРОЗУМІЛО</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 
     <script>
@@ -1026,7 +1033,7 @@
             });
         });
 
-        // Animations Reveal (Плавна поява блоків)
+        // Animations Reveal 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
@@ -1073,7 +1080,7 @@
             });
         });
 
-        // ROI Calculator Logic (Ідеальна математика окупності)
+        // ROI Calculator Logic 
         const calcRooms = document.getElementById('calcRooms');
         const calcCheck = document.getElementById('calcCheck');
         const calcOrders = document.getElementById('calcOrders');
@@ -1092,16 +1099,9 @@
             valCheck.innerText = check + ' грн';
             valOrders.innerText = orders;
 
-            // Втрачені продажі: 30% людей лінуються дзвонити
             const lostSales = rooms * orders * check * 0.3;
-            
-            // Цінність зекономленого часу: 4500 грн (база) + 500 грн за кожен номер
             const savedTimeValue = 4500 + (rooms * 500); 
-
-            // Загальна щомісячна втрата:
             const totalMonthlyValue = Math.round(lostSales + savedTimeValue);
-            
-            // Окупність: беремо середній тариф SMART (15000 грн)
             const roiDays = totalMonthlyValue > 0 ? Math.ceil(15000 / (totalMonthlyValue / 30)) : 0;
 
             calcLost.innerText = totalMonthlyValue.toLocaleString('uk-UA') + ' грн';
@@ -1111,7 +1111,7 @@
         calcRooms.addEventListener('input', updateROI);
         calcCheck.addEventListener('input', updateROI);
         calcOrders.addEventListener('input', updateROI);
-        updateROI(); // Initial calc
+        updateROI(); 
 
         // Телефон з прапорцями 
         const phoneInputField = document.querySelector("#phone");
@@ -1122,7 +1122,7 @@
             dropdownContainer: document.body 
         });
 
-        // АНІМАЦІЯ BENTO ДАШБОРДУ (СТАТИСТИКА)
+        // АНІМАЦІЯ BENTO ДАШБОРДУ 
         const statNumbers = document.querySelectorAll('.stat-num');
         let statsAnimated = false;
 
@@ -1157,18 +1157,16 @@
             }
         });
 
-        // Відправка форми (З валідацією номера)
+        // Відправка форми 
         document.getElementById('leadForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
 
-            // 🔥 ДОДАНО ФІЛЬТР ВАЛІДАЦІЇ ТЕЛЕФОНУ 🔥
+            // ПЕРЕВІРКА ТЕЛЕФОНУ (Замість Alert - нове червоне вікно)
             if (!phoneInput.isValidNumber()) {
-                // Робимо рамку червоною і показуємо помилку
                 document.getElementById('phone').style.borderColor = "#ff4d4d";
-                alert("Будь ласка, введіть дійсний номер телефону у правильному форматі.");
-                return; // Жорстко зупиняємо відправку форми, поки номер не буде правильним
+                document.getElementById('errorModal').classList.add('active');
+                return; 
             } else {
-                // Якщо все ок - повертаємо рамку в нормальний стан
                 document.getElementById('phone').style.borderColor = ""; 
             }
 
@@ -1201,10 +1199,9 @@
                 .finally(() => { submitBtn.innerText = originalBtnText; submitBtn.disabled = false; });
         });
 
-        // Закриття Модального вікна
+        // Закриття Модального вікна (УСПІХ)
         const successModal = document.getElementById('successModal');
         const closeModalBtn = document.getElementById('closeModal');
-
         if (closeModalBtn) {
             closeModalBtn.addEventListener('click', (e) => {
                 e.preventDefault(); 
@@ -1213,6 +1210,19 @@
         }
         successModal.addEventListener('click', (e) => {
             if (e.target === successModal) successModal.classList.remove('active');
+        });
+
+        // Закриття Модального вікна (ПОМИЛКА)
+        const errorModal = document.getElementById('errorModal');
+        const closeErrorModalBtn = document.getElementById('closeErrorModal');
+        if (closeErrorModalBtn) {
+            closeErrorModalBtn.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                errorModal.classList.remove('active');
+            });
+        }
+        errorModal.addEventListener('click', (e) => {
+            if (e.target === errorModal) errorModal.classList.remove('active');
         });
     </script>
 </body>

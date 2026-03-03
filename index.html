@@ -838,7 +838,7 @@
             <div class="glass-panel contact-form-container">
                 <div class="glow-bg"></div>
                 
-                <form id="leadForm" class="modern-form" action="https://t.me/твій_телеграм">
+                <form id="leadForm" class="modern-form">
                     <h3 class="form-title">Запит на демо-версію</h3>
                     
                     <div class="input-group">
@@ -975,6 +975,53 @@
                 }
             });
         });
+        // --- ВІДПРАВКА ФОРМИ В TELEGRAM ---
+document.getElementById('leadForm').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+
+    // 🔴 ТВОЇ ДАНІ TELEGRAM 
+    const BOT_TOKEN = '8249032261:AAFN9e6vi4KiHALiIjHcgwjOpTplyiyNHFo'; 
+    const CHAT_ID = '563813493'; 
+
+    // Збираємо значення з полів вводу
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const tg = document.getElementById('tg').value || 'Не вказано';
+
+    // Змінюємо текст кнопки для візуального відгуку
+    const submitBtn = this.querySelector('.btn-submit');
+    const originalBtnText = submitBtn.innerText;
+    submitBtn.innerText = 'Відправка...';
+    submitBtn.disabled = true;
+
+    // Формуємо красивий текст повідомлення
+    const message = `🚀 Нова заявка на DuzhTech!\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n✈️ Telegram: ${tg}`;
+
+    // Формуємо URL для запиту
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+    // Відправляємо запит
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                alert('Заявка успішно відправлена! Ми зв\'яжемося з вами найближчим часом.');
+                document.getElementById('leadForm').reset(); 
+            } else {
+                alert('Помилка при відправці. Спробуйте ще раз.');
+                console.error('Telegram API Error:', data);
+            }
+        })
+        .catch(error => {
+            alert('Помилка з\'єднання. Перевірте підключення до інтернету.');
+            console.error('Fetch Error:', error);
+        })
+        .finally(() => {
+            // Повертаємо кнопку до початкового стану
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        });
+});
     </script>
 </body>
 </html>

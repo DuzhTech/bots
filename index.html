@@ -426,6 +426,68 @@
             .input-group input { padding: 20px 15px 20px 50px; }
             .input-group label { left: 50px; font-size: 1rem; }
         }
+        /* --- Модальне вікно --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(6, 11, 25, 0.85); /* Затемнення фону */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    transform: scale(0.8) translateY(30px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Додаємо неонове світіння як на макеті */
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    display: inline-block;
+    filter: drop-shadow(0 0 15px var(--accent));
+    animation: float 3s ease-in-out infinite;
+}
+
+.modal-content h3 {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
     </style>
 </head>
 <body>
@@ -975,7 +1037,7 @@
                 }
             });
         });
-        // --- ВІДПРАВКА ФОРМИ В TELEGRAM ---
+      // --- ВІДПРАВКА ФОРМИ В TELEGRAM ---
 document.getElementById('leadForm').addEventListener('submit', function(e) {
     e.preventDefault(); 
 
@@ -983,29 +1045,24 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
     const BOT_TOKEN = '8249032261:AAFN9e6vi4KiHALiIjHcgwjOpTplyiyNHFo'; 
     const CHAT_ID = '563813493'; 
 
-    // Збираємо значення з полів вводу
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
     const tg = document.getElementById('tg').value || 'Не вказано';
 
-    // Змінюємо текст кнопки для візуального відгуку
     const submitBtn = this.querySelector('.btn-submit');
     const originalBtnText = submitBtn.innerText;
-    submitBtn.innerText = 'Відправка...';
+    submitBtn.innerText = 'ВІДПРАВКА...';
     submitBtn.disabled = true;
 
-    // Формуємо красивий текст повідомлення
     const message = `🚀 Нова заявка на DuzhTech!\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n✈️ Telegram: ${tg}`;
-
-    // Формуємо URL для запиту
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
 
-    // Відправляємо запит
     fetch(url)
         .then(response => response.json())
         .then(data => {
             if (data.ok) {
-                alert('Заявка успішно відправлена! Ми зв\'яжемося з вами найближчим часом.');
+                // ЗАМІСТЬ ALERT() ПОКАЗУЄМО НАШЕ КРУТЕ ВІКНО
+                document.getElementById('successModal').classList.add('active');
                 document.getElementById('leadForm').reset(); 
             } else {
                 alert('Помилка при відправці. Спробуйте ще раз.');
@@ -1017,11 +1074,34 @@ document.getElementById('leadForm').addEventListener('submit', function(e) {
             console.error('Fetch Error:', error);
         })
         .finally(() => {
-            // Повертаємо кнопку до початкового стану
             submitBtn.innerText = originalBtnText;
             submitBtn.disabled = false;
         });
 });
+
+// --- ЛОГІКА ЗАКРИТТЯ МОДАЛЬНОГО ВІКНА ---
+const successModal = document.getElementById('successModal');
+const closeModalBtn = document.getElementById('closeModal');
+
+// Закриття по кнопці "ОК"
+closeModalBtn.addEventListener('click', () => {
+    successModal.classList.remove('active');
+});
+
+// Закриття при кліку на темний фон поза вікном
+successModal.addEventListener('click', (e) => {
+    if (e.target === successModal) {
+        successModal.classList.remove('active');
+    }
+});
     </script>
+    <div id="successModal" class="modal-overlay">
+    <div class="modal-content glass-panel">
+        <div class="modal-icon">🚀</div>
+        <h3>ГОТОВО!</h3>
+        <p>Заявка успішно відправлена! Ми зв'яжемося з вами найближчим часом.</p>
+        <button id="closeModal" class="btn btn-submit" style="width: auto; padding: 12px 40px;">ОК</button>
+    </div>
+</div>
 </body>
 </html>

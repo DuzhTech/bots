@@ -1025,14 +1025,25 @@
             valCheck.innerText = check + ' грн';
             valOrders.innerText = orders;
 
-            // Втрачений прибуток: 30% від поточного потенціалу (номери * замовлення з номера * чек)
-            const lostRevenueMonth = Math.round(rooms * orders * check * 0.3);
+            // 1. Втрачені продажі (припускаємо, що 30% людей лінуються дзвонити/писати)
+            const lostSales = rooms * orders * check * 0.3;
+            
+            // 2. Цінність зекономленого часу (робота адміна/власника). 
+            // Базова цінність 4500 грн + 500 грн за кожен номер щомісяця.
+            const savedTimeValue = 4500 + (rooms * 500); 
+
+            // Загальна щомісячна втрата без бота:
+            const totalMonthlyValue = Math.round(lostSales + savedTimeValue);
             
             // Окупність: беремо середній тариф SMART (15000 грн)
-            const roiDays = lostRevenueMonth > 0 ? Math.ceil(15000 / (lostRevenueMonth / 30)) : 0;
+            const roiDays = totalMonthlyValue > 0 ? Math.ceil(15000 / (totalMonthlyValue / 30)) : 0;
 
-            calcLost.innerText = lostRevenueMonth.toLocaleString('uk-UA') + ' грн';
+            calcLost.innerText = totalMonthlyValue.toLocaleString('uk-UA') + ' грн';
             calcRoi.innerText = roiDays + ' днів';
+
+            // Оновлюємо текст під цифрою, щоб пояснити звідки сума
+            const pText = document.querySelector('.calc-results p');
+            if(pText) pText.innerText = "через втрачені допродажі та витрачений час на рутину.";
         }
 
         calcRooms.addEventListener('input', updateROI);

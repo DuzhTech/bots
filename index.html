@@ -1157,9 +1157,21 @@
             }
         });
 
-        // Відправка форми (Без стандартного alert)
+        // Відправка форми (З валідацією номера)
         document.getElementById('leadForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
+
+            // 🔥 ДОДАНО ФІЛЬТР ВАЛІДАЦІЇ ТЕЛЕФОНУ 🔥
+            if (!phoneInput.isValidNumber()) {
+                // Робимо рамку червоною і показуємо помилку
+                document.getElementById('phone').style.borderColor = "#ff4d4d";
+                alert("Будь ласка, введіть дійсний номер телефону у правильному форматі.");
+                return; // Жорстко зупиняємо відправку форми, поки номер не буде правильним
+            } else {
+                // Якщо все ок - повертаємо рамку в нормальний стан
+                document.getElementById('phone').style.borderColor = ""; 
+            }
+
             const BOT_TOKEN = '8249032261:AAFN9e6vi4KiHALiIjHcgwjOpTplyiyNHFo'; 
             const CHAT_ID = '563813493'; 
 

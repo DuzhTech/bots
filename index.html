@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DuzhTech | Екосистема цифрової гостинності</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     
     <style>
@@ -75,11 +78,10 @@
             text-decoration: none; display: inline-block; 
             position: relative; cursor: pointer; text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: heartbeat 2.5s infinite; /* Анімація увімкнена */
+            animation: heartbeat 2.5s infinite; 
         }
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
         
-        /* Виправили прозорі кнопки: тепер вони теж пульсують */
         .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
         .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
 
@@ -221,13 +223,13 @@
         .bento-card:hover .bento-content p { color: var(--text-main); }
         .bento-card:hover .bento-arrow { opacity: 1; transform: translateX(0) rotate(-45deg); }
 
-        /* --- ПРЕМІУМ КЕЙСИ (Виправлені) --- */
+        /* --- ПРЕМІУМ КЕЙСИ --- */
         .cases-wrapper { display: flex; flex-direction: column; gap: 60px; padding-bottom: 50px; }
         
         .case-card { 
             position: sticky; top: calc(var(--header-height) + 20px); 
             display: grid; gap: 40px; 
-            align-items: start; /* ВИПРАВЛЕНО: тепер блоки не вилазять за нижню межу */
+            align-items: start; 
             background: #090F1C; border: 1px solid var(--border); border-radius: 30px; padding: 40px; 
             box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
             max-height: calc(100vh - var(--header-height) - 40px); overflow-y: auto; 
@@ -235,29 +237,22 @@
         .case-card::-webkit-scrollbar { display: none; }
         .case-card { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Порядок колонок: Дівчина зліва, всі інші (Гном, Гуцул, Капітан) справа */
-        
-        /* 1. Гном BerBen (Дашборд зліва, візуал СПРАВА) */
         .case-card#case-gnome { grid-template-columns: 1.2fr 1fr; }
         .case-card#case-gnome .case-visual { order: 2; }
         .case-card#case-gnome .case-dashboard { order: 1; }
 
-        /* 2. Дівчина REST HILL (Візуал ЗЛІВА, дашборд справа) */
         .case-card#case-resthill { grid-template-columns: 1fr 1.2fr; }
         .case-card#case-resthill .case-visual { order: 1; }
         .case-card#case-resthill .case-dashboard { order: 2; }
 
-        /* 3. Гуцул GRANЬ (Дашборд зліва, візуал СПРАВА) */
         .case-card#case-gran { grid-template-columns: 1.2fr 1fr; }
         .case-card#case-gran .case-visual { order: 2; }
         .case-card#case-gran .case-dashboard { order: 1; }
 
-        /* 4. Капітан BOSO (Дашборд зліва, візуал СПРАВА - ВИПРАВЛЕНО!) */
         .case-card#case-boso { grid-template-columns: 1.2fr 1fr; }
         .case-card#case-boso .case-visual { order: 2; }
         .case-card#case-boso .case-dashboard { order: 1; }
 
-        /* Відцентровуємо візуал і дашборд всередині доступного місця */
         .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
         .case-visual img { max-width: 90%; max-height: 380px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));}
         .case-visual-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: var(--accent); filter: blur(120px); opacity: 0.15; z-index: 1;}
@@ -268,12 +263,8 @@
 
         .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
         
-        /* ДОДАНО flex-shrink: 0; щоб рамка ніколи не стискалася менше за текст */
         .data-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 15px 20px; display: flex; gap: 15px; align-items: flex-start; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0; }
-        
         .box-icon { font-size: 1.2rem; line-height: 1; flex-shrink: 0; padding: 10px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-        
-        /* ДОДАНО flex: 1; щоб текстовий контейнер правильно розтягувався */
         .box-text { display: flex; flex-direction: column; flex: 1; }
         .box-text strong { display: block; font-size: 0.95rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
         .box-text p { font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.5;}
@@ -294,7 +285,6 @@
         .data-box.result .box-icon { border: 1px solid var(--accent); color: var(--accent);}
         .data-box.result strong { color: var(--accent); }
 
-        /* Ховер ефект для REST HILL: текст справа, тому при наведенні блок їде ВЛІВО */
         .case-card#case-resthill .data-box:hover { transform: translateX(-10px); }
 
         /* --- Тарифи --- */
@@ -395,15 +385,15 @@
             
             .bento-grid { grid-template-columns: 1fr; gap: 20px; }
             
-            /* Кейси мобілка - Вимикаємо Sticky і фіксовану висоту */
+            /* Кейси мобілка */
             .case-card { 
                 grid-template-columns: 1fr !important; position: relative; top: 0 !important; 
                 padding: 30px; gap: 30px; max-height: none; overflow-y: visible; 
-                align-items: stretch; /* Повертаємо базове вирівнювання для мобілки */
+                align-items: stretch; 
             }
             .case-visual { order: 1 !important; margin: 0; }
             .case-dashboard { order: 2 !important; margin: 0; }
-            .data-box:hover { transform: none !important; } /* Вимикаємо зсув на ховері для мобілки */
+            .data-box:hover { transform: none !important; }
 
             .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
             .price-card.featured { transform: scale(1); }
@@ -426,68 +416,93 @@
             .input-group input { padding: 20px 15px 20px 50px; }
             .input-group label { left: 50px; font-size: 1rem; }
         }
+
         /* --- Модальне вікно --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(6, 11, 25, 0.85); /* Затемнення фону */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(6, 11, 25, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-.modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-.modal-content {
-    text-align: center;
-    max-width: 450px;
-    width: 90%;
-    transform: scale(0.8) translateY(30px);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    /* Додаємо неонове світіння як на макеті */
-    border: 1px solid var(--accent);
-    box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05);
-}
+        .modal-content {
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transform: scale(0.8) translateY(30px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05);
+        }
 
-.modal-overlay.active .modal-content {
-    transform: scale(1) translateY(0);
-}
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
 
-.modal-icon {
-    font-size: 4rem;
-    margin-bottom: 10px;
-    display: inline-block;
-    filter: drop-shadow(0 0 15px var(--accent));
-    animation: float 3s ease-in-out infinite;
-}
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px var(--accent));
+            animation: float 3s ease-in-out infinite;
+        }
 
-.modal-content h3 {
-    color: #fff;
-    font-size: 2rem;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
-}
+        .modal-content h3 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+        }
 
-.modal-content p {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
+        .modal-content p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* ДОДАНО: Стилі для вибору коду країни (intl-tel-input) */
+        .iti { width: 100%; display: block; }
+        .iti__flag-container { padding-left: 15px; z-index: 2; }
+        .iti__selected-flag { background: transparent !important; padding: 0 10px 0 0; }
+        .iti__country-list { 
+            background: #0B1120; 
+            border: 1px solid var(--accent); 
+            color: #fff; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            font-family: 'Inter', sans-serif;
+            z-index: 10;
+        }
+        .iti__country:hover, .iti__country.iti__highlight { 
+            background: rgba(0, 229, 255, 0.1); 
+            color: var(--accent);
+        }
+        .iti__divider { border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+        /* Зсуваємо текст і лейбл в інпуті для телефону, щоб вліз прапорець */
+        .input-group.phone-group input { padding-left: 95px; }
+        .input-group.phone-group label { left: 95px; }
+        .input-group.phone-group input:focus ~ label, 
+        .input-group.phone-group input:not(:placeholder-shown) ~ label { left: 20px; }
     </style>
 </head>
 <body>
@@ -909,10 +924,9 @@
                         <span class="input-icon">👤</span>
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group phone-group">
                         <input type="tel" id="phone" required placeholder=" ">
                         <label for="phone">Номер телефону</label>
-                        <span class="input-icon">📞</span>
                     </div>
 
                     <div class="input-group">
@@ -931,6 +945,17 @@
     <footer>
         <p>© 2026 DuzhTech — Екосистема цифрової гостинності.</p>
     </footer>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <div class="modal-icon">🚀</div>
+            <h3>ГОТОВО!</h3>
+            <p>Заявка успішно відправлена! Ми зв'яжемося з вами найближчим часом.</p>
+            <button id="closeModal" class="btn btn-submit" style="width: auto; padding: 12px 40px;">ОК</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 
     <script>
         // Lenis Smooth Scroll
@@ -1037,71 +1062,75 @@
                 }
             });
         });
-      // --- ВІДПРАВКА ФОРМИ В TELEGRAM ---
-document.getElementById('leadForm').addEventListener('submit', function(e) {
-    e.preventDefault(); 
 
-    // 🔴 ТВОЇ ДАНІ TELEGRAM 
-    const BOT_TOKEN = '8249032261:AAFN9e6vi4KiHALiIjHcgwjOpTplyiyNHFo'; 
-    const CHAT_ID = '563813493'; 
-
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const tg = document.getElementById('tg').value || 'Не вказано';
-
-    const submitBtn = this.querySelector('.btn-submit');
-    const originalBtnText = submitBtn.innerText;
-    submitBtn.innerText = 'ВІДПРАВКА...';
-    submitBtn.disabled = true;
-
-    const message = `🚀 Нова заявка на DuzhTech!\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n✈️ Telegram: ${tg}`;
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                // ЗАМІСТЬ ALERT() ПОКАЗУЄМО НАШЕ КРУТЕ ВІКНО
-                document.getElementById('successModal').classList.add('active');
-                document.getElementById('leadForm').reset(); 
-            } else {
-                alert('Помилка при відправці. Спробуйте ще раз.');
-                console.error('Telegram API Error:', data);
-            }
-        })
-        .catch(error => {
-            alert('Помилка з\'єднання. Перевірте підключення до інтернету.');
-            console.error('Fetch Error:', error);
-        })
-        .finally(() => {
-            submitBtn.innerText = originalBtnText;
-            submitBtn.disabled = false;
+        // --- ДОДАНО: Ініціалізація вибору коду країни ---
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "ua",
+            preferredCountries: ["ua", "pl", "sk", "ro", "md"],
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
         });
-});
 
-// --- ЛОГІКА ЗАКРИТТЯ МОДАЛЬНОГО ВІКНА ---
-const successModal = document.getElementById('successModal');
-const closeModalBtn = document.getElementById('closeModal');
+        // --- ВІДПРАВКА ФОРМИ В TELEGRAM ---
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
 
-// Закриття по кнопці "ОК"
-closeModalBtn.addEventListener('click', () => {
-    successModal.classList.remove('active');
-});
+            // 🔴 ТВОЇ ДАНІ TELEGRAM 
+            const BOT_TOKEN = '8249032261:AAFN9e6vi4KiHALiIjHcgwjOpTplyiyNHFo'; 
+            const CHAT_ID = '563813493'; 
 
-// Закриття при кліку на темний фон поза вікном
-successModal.addEventListener('click', (e) => {
-    if (e.target === successModal) {
-        successModal.classList.remove('active');
-    }
-});
+            const name = document.getElementById('name').value;
+            // Беремо відформатований номер з кодом країни
+            const phone = phoneInput.getNumber(); 
+            const tg = document.getElementById('tg').value || 'Не вказано';
+
+            const submitBtn = this.querySelector('.btn-submit');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = 'ВІДПРАВКА...';
+            submitBtn.disabled = true;
+
+            const message = `🚀 Нова заявка на DuzhTech!\n\n👤 Ім'я: ${name}\n📞 Телефон: ${phone}\n✈️ Telegram: ${tg}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        document.getElementById('successModal').classList.add('active');
+                        document.getElementById('leadForm').reset(); 
+                    } else {
+                        alert('Помилка при відправці. Спробуйте ще раз.');
+                        console.error('Telegram API Error:', data);
+                    }
+                })
+                .catch(error => {
+                    alert('Помилка з\'єднання. Перевірте підключення до інтернету.');
+                    console.error('Fetch Error:', error);
+                })
+                .finally(() => {
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                });
+        });
+
+        // --- ЛОГІКА ЗАКРИТТЯ МОДАЛЬНОГО ВІКНА ---
+        const successModal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        // Закриття по кнопці "ОК"
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Забороняємо стандартну поведінку кнопки
+                successModal.classList.remove('active');
+            });
+        }
+
+        // Закриття при кліку на темний фон поза вікном
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                successModal.classList.remove('active');
+            }
+        });
     </script>
-    <div id="successModal" class="modal-overlay">
-    <div class="modal-content glass-panel">
-        <div class="modal-icon">🚀</div>
-        <h3>ГОТОВО!</h3>
-        <p>Заявка успішно відправлена! Ми зв'яжемося з вами найближчим часом.</p>
-        <button id="closeModal" class="btn btn-submit" style="width: auto; padding: 12px 40px;">ОК</button>
-    </div>
-</div>
 </body>
 </html>

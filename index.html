@@ -80,7 +80,7 @@
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
         .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
         .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
-        .btn-small { padding: 12px 24px; font-size: 0.9rem; margin-top: 15px; }
+        .btn-small { padding: 12px 24px; font-size: 0.9rem; margin-top: 15px; position: relative; z-index: 5; }
 
         @keyframes heartbeat {
             0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
@@ -164,9 +164,22 @@
         .bento-card:hover .bento-content p { color: var(--text-main); }
         .bento-card:hover .bento-arrow { opacity: 1; transform: translateX(0) rotate(-45deg); }
 
-        /* ПРЕМІУМ КЕЙСИ */
+        /* ПРЕМІУМ КЕЙСИ (ВИПРАВЛЕНО ВИСОТУ) */
         .cases-wrapper { display: flex; flex-direction: column; gap: 60px; padding-bottom: 50px; }
-        .case-card { position: sticky; top: calc(var(--header-height) + 20px); display: grid; gap: 40px; align-items: start; background: #090F1C; border: 1px solid var(--border); border-radius: 30px; padding: 40px; box-shadow: 0 -20px 50px rgba(0,0,0,0.8); max-height: calc(100vh - var(--header-height) - 40px); overflow-y: auto; }
+        .case-card { 
+            position: sticky; 
+            top: calc(var(--header-height) + 20px); 
+            display: grid; 
+            gap: 30px; 
+            align-items: center; /* Центруємо, щоб нічого не з'їжджало вниз */
+            background: #090F1C; 
+            border: 1px solid var(--border); 
+            border-radius: 30px; 
+            padding: 30px; /* Зменшено падінги, щоб влізло */
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
+            max-height: calc(100vh - var(--header-height) - 20px); 
+            overflow-y: auto; 
+        }
         .case-card::-webkit-scrollbar { display: none; }
         .case-card { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -187,10 +200,20 @@
         .case-card#case-boso .case-dashboard { order: 1; }
 
         .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
-        .case-visual img { max-width: 90%; max-height: 380px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));}
+        
+        /* ЗМЕНШЕНО КАРТИНКИ ЩОБ КНОПКИ ВЛІЗАЛИ */
+        .case-visual img { 
+            max-width: 90%; 
+            max-height: 250px; /* Було 380, тепер точно влізе */
+            object-fit: contain; 
+            z-index: 2; 
+            animation: float 6s infinite ease-in-out; 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+            margin-bottom: 10px;
+        }
         .case-visual-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: var(--accent); filter: blur(120px); opacity: 0.15; z-index: 1;}
-        .case-visual h3 { font-size: 2.2rem; margin-top: 15px; z-index: 2; color: #fff;}
-        .case-visual p { color: var(--accent); font-weight: 600; font-size: 1rem; z-index: 2;}
+        .case-visual h3 { font-size: 2rem; margin-top: 10px; z-index: 2; color: #fff;}
+        .case-visual p { color: var(--accent); font-weight: 600; font-size: 0.95rem; z-index: 2; margin-bottom: 20px;}
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
@@ -367,7 +390,7 @@
         .modal-content h3 { color: #fff; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
         .modal-content p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
 
-        /* ВИПРАВЛЕНО: Стилі для вибору коду країни (intl-tel-input) */
+        /* Стилі для вибору коду країни (intl-tel-input) */
         .iti { width: 100%; display: block; }
         .iti__flag-container { padding-left: 15px; z-index: 2; }
         .iti__selected-flag { background: transparent !important; padding: 0 10px 0 0; }
@@ -378,15 +401,14 @@
             border-radius: 12px !important; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
             font-family: 'Inter', sans-serif !important;
-            z-index: 99999 !important; /* Найвищий пріоритет */
-            max-height: 250px !important; /* Обмеження висоти */
-            overflow-y: auto !important; /* Плавний скрол */
+            z-index: 99999 !important; 
+            max-height: 250px !important; 
+            overflow-y: auto !important; 
         }
         .iti__country:hover, .iti__country.iti__highlight { background: rgba(0, 229, 255, 0.1) !important; color: var(--accent) !important; }
         .iti__divider { border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
         .iti__flag-container:focus, .iti *:focus { outline: none !important; }
         
-        /* Кастомний скрол для списку країн */
         .iti__country-list::-webkit-scrollbar { width: 6px; }
         .iti__country-list::-webkit-scrollbar-track { background: transparent; }
         .iti__country-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
@@ -600,7 +622,7 @@
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
                         <div class="box-icon">⚠️</div>
-                        <div class="box-text"><strong>Біль власника</strong><p>Розпорошеність даних (Booking, Airbnb, кастомні сайти). Проблема з фіксацією стану майна.</p></div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Розпорошеність даних (Booking, Airbnb). Проблема з фіксацією стану майна після виїзду.</p></div>
                     </div>
                     <div class="data-box solution">
                         <div class="box-icon">🛡️</div>
@@ -649,15 +671,15 @@
                     <input type="range" id="calcCheck" min="100" max="3000" step="50" value="500">
                 </div>
                 <div class="calc-range-group">
-                    <label>Замовлень послуг на день: <span id="valOrders">5</span></label>
-                    <input type="range" id="calcOrders" min="1" max="50" value="5">
+                    <label>Замовлень послуг в місяць (з 1 номера): <span id="valOrders">5</span></label>
+                    <input type="range" id="calcOrders" min="1" max="30" value="5">
                 </div>
             </div>
             
             <div class="calc-results">
                 <h3>Ваш готель недоотримує приблизно:</h3>
                 <div class="big-num" id="calcLost">0 грн</div>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">через "мовчання" клієнтів та складність замовлення.</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">через "мовчання" клієнтів та відсутність бота (до 30% замовлень).</p>
                 
                 <h3>Наш бот окупає себе за:</h3>
                 <div class="roi-num" id="calcRoi">0 днів</div>
@@ -693,7 +715,7 @@
                 <ul>
                     <li><strong>Цифрове меню:</strong> Сніданки, послуги, дрова, чани.</li>
                     <li><strong>Миттєвий зв'язок:</strong> Пряма кнопка в групу адмінів.</li>
-                    <li><strong>База знань:</strong> Wi-Fi, правила проживання, локації поруч 24/7.</li>
+                    <li><strong>База знань:</strong> Wi-Fi, правила проживання, локації поруч.</li>
                     <li><strong>Розробка:</strong> 3 дні.</li>
                 </ul>
                 <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати LITE</a>
@@ -708,9 +730,9 @@
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету LITE.</li>
-                    <li><strong>Платіжний міст:</strong> Інтеграція WayForPay / Monobank (оплата в боті).</li>
-                    <li><strong>Синхронізація:</strong> Автоматичний обмін даними з Booking, Airbnb, BookMeNow.</li>
-                    <li><strong>Нагадування:</strong> Розумні авто-повідомлення гостям (заїзд/виїзд).</li>
+                    <li><strong>Платіжний міст:</strong> Інтеграція WayForPay / Monobank.</li>
+                    <li><strong>Синхронізація:</strong> Авто-обмін з Booking, Airbnb, BookMeNow.</li>
+                    <li><strong>Нагадування:</strong> Авто-повідомлення гостям (заїзд/виїзд).</li>
                     <li><strong>Розробка:</strong> 5 днів.</li>
                 </ul>
                 <a href="#contact" class="btn" style="text-align: center;">Обрати SMART</a>
@@ -725,9 +747,9 @@
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету SMART.</li>
-                    <li><strong>Smart Адмін-панель:</strong> Керуйте меню та цінами в реальному часі без програміста.</li>
-                    <li><strong>Чек-лист пошкоджень:</strong> Миттєва фіксація стану майна з фото.</li>
-                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з інтегрованим календарем бронювання.</li>
+                    <li><strong>Smart Адмін-панель:</strong> Керуйте меню в реальному часі.</li>
+                    <li><strong>Чек-лист пошкоджень:</strong> Фіксація стану майна з фото.</li>
+                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з календарем бронювання.</li>
                     <li><strong>Розробка:</strong> 7 днів.</li>
                 </ul>
                 <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати ULTIMATE</a>
@@ -984,7 +1006,7 @@
             });
         });
 
-        // ROI Calculator Logic
+        // ROI Calculator Logic (Оновлено для коректної математики)
         const calcRooms = document.getElementById('calcRooms');
         const calcCheck = document.getElementById('calcCheck');
         const calcOrders = document.getElementById('calcOrders');
@@ -1003,8 +1025,8 @@
             valCheck.innerText = check + ' грн';
             valOrders.innerText = orders;
 
-            // Логіка втрат: припускаємо, що без бота втрачається 20% замовлень через сором'язливість/лінь гостя
-            const lostRevenueMonth = Math.round(orders * 0.2 * check * 30);
+            // Втрачений прибуток: 30% від поточного потенціалу (номери * замовлення з номера * чек)
+            const lostRevenueMonth = Math.round(rooms * orders * check * 0.3);
             
             // Окупність: беремо середній тариф SMART (15000 грн)
             const roiDays = lostRevenueMonth > 0 ? Math.ceil(15000 / (lostRevenueMonth / 30)) : 0;
@@ -1018,13 +1040,13 @@
         calcOrders.addEventListener('input', updateROI);
         updateROI(); // Initial calc
 
-        // Телефон з прапорцями (ВИПРАВЛЕНО!)
+        // Телефон з прапорцями (ВИПРАВЛЕНО ВИПАДАЮЧИЙ СПИСОК)
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
             initialCountry: "ua",
             preferredCountries: ["ua", "pl", "sk", "ro", "md"],
             utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-            dropdownContainer: document.body // Виносить список поверх усього
+            dropdownContainer: document.body 
         });
 
         // Відправка форми

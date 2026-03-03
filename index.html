@@ -394,7 +394,6 @@
             .hero-text p { max-width: 100%; }
             
             /* ВИМКНЕННЯ АКТИВНОГО ТЕКСТУ НА МОБІЛЦІ */
-            .accent-typewriter { display: none !important; }
             
             .manifesto-card { text-align: left; }
             .hero-img { order: -1; width: 100%; max-width: 400px; }
@@ -1039,16 +1038,25 @@
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-        // Typewriter
+      // Typewriter (З розумною логікою для мобільних)
         const textToType = "А ваш готель?";
-        let charIndex = 0; const speed = 100; const typewriterEl = document.getElementById("typewriter");
-        function typeWriter() {
-            if (charIndex < textToType.length) {
-                typewriterEl.innerHTML += textToType.charAt(charIndex); charIndex++; setTimeout(typeWriter, speed);
-            }
-        }
-        window.addEventListener('load', () => { setTimeout(typeWriter, 600); });
+        const typewriterEl = document.getElementById("typewriter");
+        const cursorBlink = document.querySelector('.cursor-blink');
 
+        if (window.innerWidth <= 1024) {
+            // На мобільному: відразу показуємо текст, без анімації друку
+            typewriterEl.innerHTML = textToType;
+            if (cursorBlink) cursorBlink.style.display = 'none'; // Ховаємо блимаючий курсор
+        } else {
+            // На ПК: залишаємо гарний ефект друкування
+            let charIndex = 0; const speed = 100; 
+            function typeWriter() {
+                if (charIndex < textToType.length) {
+                    typewriterEl.innerHTML += textToType.charAt(charIndex); charIndex++; setTimeout(typeWriter, speed);
+                }
+            }
+            window.addEventListener('load', () => { setTimeout(typeWriter, 600); });
+        }
         // Magnetic Panel
         if(window.innerWidth > 900) {
             document.querySelectorAll('.glass-panel').forEach(card => {

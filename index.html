@@ -42,12 +42,14 @@
 
         h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
+        /* Кінематографічний шум */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 9999; opacity: 0.04;
             background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
+        /* Скло та Magnetic Spotlight */
         .glass-panel { 
             background: var(--bg-card); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border); border-radius: 24px; padding: 40px; 
@@ -67,6 +69,7 @@
         .section-title { text-align: center; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; font-weight: 900; color: #fff; line-height: 1.2; }
         .section-subtitle { text-align: center; font-size: clamp(1rem, 1.5vw, 1.15rem); color: var(--text-muted); max-width: 800px; margin: 0 auto 60px; }
 
+        /* Кнопки */
         .btn { 
             background: var(--accent); color: #000; 
             padding: 16px 36px; border-radius: 12px; 
@@ -119,7 +122,8 @@
         .mobile-link { font-size: 2rem; color: #fff; text-decoration: none; font-family: 'Montserrat'; font-weight: 800; transition: 0.3s; }
         .mobile-link:hover { color: var(--accent); transform: scale(1.1); text-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* --- АНІМАЦІЯ ПОЯВИ --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.15s; }
         .delay-2 { transition-delay: 0.3s; }
@@ -164,24 +168,19 @@
         .bento-card:hover .bento-content p { color: var(--text-main); }
         .bento-card:hover .bento-arrow { opacity: 1; transform: translateX(0) rotate(-45deg); }
 
-        /* ПРЕМІУМ КЕЙСИ (ВИПРАВЛЕНО ВИСОТУ) */
-        .cases-wrapper { display: flex; flex-direction: column; gap: 60px; padding-bottom: 50px; }
+        /* ПРЕМІУМ КЕЙСИ (Виправлено обрізку кнопок) */
+        .cases-wrapper { display: flex; flex-direction: column; gap: 40px; padding-bottom: 50px; }
         .case-card { 
-            position: sticky; 
-            top: calc(var(--header-height) + 20px); 
             display: grid; 
-            gap: 30px; 
-            align-items: center; /* Центруємо, щоб нічого не з'їжджало вниз */
+            gap: 40px; 
+            align-items: center; 
             background: #090F1C; 
             border: 1px solid var(--border); 
             border-radius: 30px; 
-            padding: 30px; /* Зменшено падінги, щоб влізло */
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
-            max-height: calc(100vh - var(--header-height) - 20px); 
-            overflow-y: auto; 
+            padding: 40px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
+            margin-bottom: 20px;
         }
-        .case-card::-webkit-scrollbar { display: none; }
-        .case-card { -ms-overflow-style: none; scrollbar-width: none; }
 
         .case-card#case-gnome { grid-template-columns: 1.2fr 1fr; }
         .case-card#case-gnome .case-visual { order: 2; }
@@ -200,18 +199,8 @@
         .case-card#case-boso .case-dashboard { order: 1; }
 
         .case-visual { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; }
-        
-        /* ЗМЕНШЕНО КАРТИНКИ ЩОБ КНОПКИ ВЛІЗАЛИ */
-        .case-visual img { 
-            max-width: 90%; 
-            max-height: 250px; /* Було 380, тепер точно влізе */
-            object-fit: contain; 
-            z-index: 2; 
-            animation: float 6s infinite ease-in-out; 
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
-            margin-bottom: 10px;
-        }
-        .case-visual-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 350px; background: var(--accent); filter: blur(120px); opacity: 0.15; z-index: 1;}
+        .case-visual img { max-width: 90%; max-height: 280px; object-fit: contain; z-index: 2; animation: float 6s infinite ease-in-out; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); margin-bottom: 15px; }
+        .case-visual-bg { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; background: var(--accent); filter: blur(120px); opacity: 0.15; z-index: 1;}
         .case-visual h3 { font-size: 2rem; margin-top: 10px; z-index: 2; color: #fff;}
         .case-visual p { color: var(--accent); font-weight: 600; font-size: 0.95rem; z-index: 2; margin-bottom: 20px;}
 
@@ -237,6 +226,33 @@
         .data-box.result .box-icon { border: 1px solid var(--accent); color: var(--accent);}
         .data-box.result strong { color: var(--accent); }
         .case-card#case-resthill .data-box:hover { transform: translateX(-10px); }
+
+        /* --- СТАТИСТИКА BENTO DASHBOARD --- */
+        .system-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 229, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.3); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(0, 229, 255, 0.15); }
+        .pulse-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; display: block; box-shadow: 0 0 10px var(--accent); animation: blinkDot 1.5s infinite; }
+        @keyframes blinkDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+        .stats-bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+        .stat-box { display: flex; flex-direction: column; justify-content: space-between; padding: 40px; text-align: left; position: relative; overflow: hidden; }
+        
+        .box-large { grid-column: span 1; grid-row: span 2; justify-content: center; text-align: center; border-color: rgba(0, 229, 255, 0.4); background: linear-gradient(160deg, rgba(15,23,42,0.9), rgba(0,229,255,0.05)); box-shadow: 0 15px 40px rgba(0,0,0,0.4), inset 0 0 30px rgba(0, 229, 255, 0.05); }
+        .box-wide { grid-column: span 2; grid-row: span 1; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 30px; }
+
+        .stat-icon { font-size: 2.5rem; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.4)); }
+        .box-large .stat-icon { font-size: 4rem; margin-bottom: 30px; }
+        .box-wide .stat-icon { margin-bottom: 0; font-size: 3.5rem; background: rgba(0,229,255,0.05); width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 20px; border: 1px solid rgba(0,229,255,0.2); flex-shrink: 0;}
+
+        .stat-num { font-size: 3.5rem; font-weight: 900; color: #fff; font-family: 'Montserrat', sans-serif; line-height: 1; text-shadow: 0 0 20px rgba(0, 229, 255, 0.3); display: flex; align-items: baseline; }
+        .box-large .stat-num { justify-content: center; font-size: 6rem; margin-bottom: 10px; color: var(--accent); text-shadow: 0 0 30px rgba(0, 229, 255, 0.5); }
+        
+        .stat-num[data-suffix]::after { content: attr(data-suffix); font-size: 1.5rem; margin-left: 5px; color: var(--accent); font-weight: 800; font-family: 'Inter', sans-serif; text-shadow: none; }
+        .box-wide .stat-num[data-suffix]::after { font-size: 2rem; }
+
+        .stat-desc { color: var(--text-muted); font-size: 1.05rem; font-weight: 500; line-height: 1.4; margin-top: 10px; }
+        .box-large .stat-desc { font-size: 1.2rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #fff;}
+
+        .scan-line { position: absolute; top: -100px; left: 0; width: 100%; height: 50px; background: linear-gradient(to bottom, transparent, rgba(0, 229, 255, 0.2), transparent); opacity: 0.5; animation: scan 4s linear infinite; pointer-events: none; z-index: 0; }
+        @keyframes scan { 0% { top: -100px; } 100% { top: 100%; } }
 
         /* ІНТЕГРАЦІЇ */
         .integrations { text-align: center; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0, 229, 255, 0.02); }
@@ -340,6 +356,30 @@
 
         footer { text-align: center; padding: 60px 8%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; color: var(--text-muted); }
 
+        /* --- Модальне вікно --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { text-align: center; max-width: 450px; width: 90%; transform: scale(0.8) translateY(30px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--accent); box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05); }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+        .modal-icon { font-size: 4rem; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 0 15px var(--accent)); animation: float 3s ease-in-out infinite; }
+        .modal-content h3 { color: #fff; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
+        .modal-content p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
+
+        /* Стилі для вибору коду країни (intl-tel-input) */
+        .iti { width: 100%; display: block; }
+        .iti__flag-container { padding-left: 15px; z-index: 2; }
+        .iti__selected-flag { background: transparent !important; padding: 0 10px 0 0; }
+        .iti__country-list { background: #0B1120 !important; border: 1px solid var(--accent) !important; color: #fff !important; border-radius: 12px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important; font-family: 'Inter', sans-serif !important; z-index: 99999 !important; max-height: 250px !important; overflow-y: auto !important; }
+        .iti__country:hover, .iti__country.iti__highlight { background: rgba(0, 229, 255, 0.1) !important; color: var(--accent) !important; }
+        .iti__divider { border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
+        .iti__flag-container:focus, .iti *:focus { outline: none !important; }
+        .iti__country-list::-webkit-scrollbar { width: 6px; }
+        .iti__country-list::-webkit-scrollbar-track { background: transparent; }
+        .iti__country-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        .input-group.phone-group input { padding-left: 95px; }
+        .input-group.phone-group label { left: 95px; }
+        .input-group.phone-group input:focus ~ label, .input-group.phone-group input:not(:placeholder-shown) ~ label { left: 20px; }
+
         /* 🔥 ОПТИМІЗАЦІЯ ДЛЯ МОБІЛЬНИХ 🔥 */
         @media (max-width: 1024px) {
             :root { --header-height: 70px; }
@@ -351,15 +391,28 @@
             .hero-text { display: flex; flex-direction: column; align-items: center; }
             .hero-features { justify-content: center; margin-bottom: 25px; }
             .hero-text p { max-width: 100%; }
+            
+            /* ВИМКНЕННЯ АКТИВНОГО ТЕКСТУ НА МОБІЛЦІ */
+            .accent-typewriter { display: none !important; }
+            
             .manifesto-card { text-align: left; }
             .hero-img { order: -1; width: 100%; max-width: 400px; }
             .hero-img img, @keyframes breathe { transform: translateY(0); } 
             @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
             .bento-grid { grid-template-columns: 1fr; gap: 20px; }
-            .case-card { grid-template-columns: 1fr !important; position: relative; top: 0 !important; padding: 30px; gap: 30px; max-height: none; overflow-y: visible; align-items: stretch; }
+            .case-card { grid-template-columns: 1fr !important; position: relative; top: 0 !important; padding: 30px; gap: 30px; align-items: stretch; }
             .case-visual { order: 1 !important; margin: 0; }
             .case-dashboard { order: 2 !important; margin: 0; }
             .data-box:hover { transform: none !important; }
+            
+            .stats-bento-grid { grid-template-columns: 1fr; }
+            .box-large, .box-wide { grid-column: span 1; grid-row: span 1; }
+            .box-wide { flex-direction: column; text-align: center; gap: 15px;}
+            .box-wide .stat-icon { margin: 0 auto; width: 80px; height: 80px; font-size: 2.5rem; }
+            .box-large .stat-num { font-size: 4rem; }
+            .stat-num { justify-content: center; }
+            .stat-box { text-align: center; padding: 30px; }
+
             .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
             .price-card.featured { transform: scale(1); }
             .timeline-container { padding-left: 25px; }
@@ -380,43 +433,6 @@
             .input-group input { padding: 20px 15px 20px 50px; }
             .input-group label { left: 50px; font-size: 1rem; }
         }
-
-        /* --- Модальне вікно --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-content { text-align: center; max-width: 450px; width: 90%; transform: scale(0.8) translateY(30px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--accent); box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05); }
-        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
-        .modal-icon { font-size: 4rem; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 0 15px var(--accent)); animation: float 3s ease-in-out infinite; }
-        .modal-content h3 { color: #fff; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
-        .modal-content p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
-
-        /* Стилі для вибору коду країни (intl-tel-input) */
-        .iti { width: 100%; display: block; }
-        .iti__flag-container { padding-left: 15px; z-index: 2; }
-        .iti__selected-flag { background: transparent !important; padding: 0 10px 0 0; }
-        .iti__country-list { 
-            background: #0B1120 !important; 
-            border: 1px solid var(--accent) !important; 
-            color: #fff !important; 
-            border-radius: 12px !important; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
-            font-family: 'Inter', sans-serif !important;
-            z-index: 99999 !important; 
-            max-height: 250px !important; 
-            overflow-y: auto !important; 
-        }
-        .iti__country:hover, .iti__country.iti__highlight { background: rgba(0, 229, 255, 0.1) !important; color: var(--accent) !important; }
-        .iti__divider { border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
-        .iti__flag-container:focus, .iti *:focus { outline: none !important; }
-        
-        .iti__country-list::-webkit-scrollbar { width: 6px; }
-        .iti__country-list::-webkit-scrollbar-track { background: transparent; }
-        .iti__country-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-
-        .input-group.phone-group input { padding-left: 95px; }
-        .input-group.phone-group label { left: 95px; }
-        .input-group.phone-group input:focus ~ label, 
-        .input-group.phone-group input:not(:placeholder-shown) ~ label { left: 20px; }
     </style>
 </head>
 <body>
@@ -428,7 +444,7 @@
         <nav class="desktop-nav">
             <a href="#why" class="nav-link">Переваги</a>
             <a href="#heroes" class="nav-link">Наші Герої</a>
-            <a href="#integrations" class="nav-link">Інтеграції</a>
+            <a href="#stats" class="nav-link">Статистика</a>
             <a href="#pricing" class="nav-link">Тарифи</a>
             <a href="#process" class="nav-link">Етапи</a>
             <a href="#faq" class="nav-link">FAQ</a>
@@ -443,7 +459,7 @@
         <nav class="mobile-nav">
             <a href="#why" class="mobile-link">Переваги</a>
             <a href="#heroes" class="mobile-link">Наші Герої</a>
-            <a href="#integrations" class="mobile-link">Інтеграції</a>
+            <a href="#stats" class="mobile-link">Статистика</a>
             <a href="#pricing" class="mobile-link">Тарифи</a>
             <a href="#process" class="mobile-link">Етапи</a>
             <a href="#faq" class="mobile-link">FAQ</a>
@@ -642,6 +658,52 @@
         </div>
     </section>
 
+    <section id="stats" class="reveal">
+        <div class="stats-header" style="text-align: center; margin-bottom: 40px;">
+            <div class="system-status">
+                <span class="pulse-dot"></span> Екосистема онлайн
+            </div>
+            <h2 class="section-title" style="margin-bottom: 10px;">DuzhTech у цифрах</h2>
+            <p class="section-subtitle">Спираємось на реальні дані, а не на теорію.</p>
+        </div>
+        
+        <div class="stats-bento-grid">
+            <div class="glass-panel stat-box box-large">
+                <div class="scan-line"></div>
+                <div class="stat-icon">🤖</div>
+                <div class="stat-content">
+                    <div class="stat-num" data-target="28">0</div>
+                    <div class="stat-desc">Запущених Telegram-систем</div>
+                </div>
+            </div>
+
+            <div class="glass-panel stat-box delay-1">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-content">
+                    <div class="stat-num" data-target="8200" data-suffix="+">0</div>
+                    <div class="stat-desc">Годин рутини зекономлено</div>
+                </div>
+            </div>
+
+            <div class="glass-panel stat-box delay-1">
+                <div class="stat-icon">💬</div>
+                <div class="stat-content">
+                    <div class="stat-num" data-target="45000" data-suffix="+">0</div>
+                    <div class="stat-desc">Оброблених запитів гостей</div>
+                </div>
+            </div>
+
+            <div class="glass-panel stat-box box-wide delay-2">
+                <div class="scan-line" style="animation-delay: 2s;"></div>
+                <div class="stat-icon">💸</div>
+                <div class="stat-content">
+                    <div class="stat-num" data-target="15" data-suffix=" млн ₴">0</div>
+                    <div class="stat-desc">Проведено платежів через наших ботів</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="integrations" class="integrations reveal">
         <h2 class="section-title">Ми поєднуємо непоєднуване</h2>
         <p class="section-subtitle">Ваш бот не живе в ізоляції. Ми інтегруємо його з вашими улюбленими сервісами для максимальної ефективності:</p>
@@ -679,7 +741,7 @@
             <div class="calc-results">
                 <h3>Ваш готель недоотримує приблизно:</h3>
                 <div class="big-num" id="calcLost">0 грн</div>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">через "мовчання" клієнтів та відсутність бота (до 30% замовлень).</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">через втрачені допродажі та витрачений час на рутину.</p>
                 
                 <h3>Наш бот окупає себе за:</h3>
                 <div class="roi-num" id="calcRoi">0 днів</div>
@@ -695,9 +757,9 @@
             <div class="about-text">
                 <h2 style="color: var(--accent); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Від готельєра для готельєрів</h2>
                 <h3>Хто стоїть за DuzhTech?</h3>
-                <p>Мене звати Назар Дужик. Я сам керую готелем у Ворохті і чудово знаю, що таке хаос у бронюваннях, дзвінки о 2-й ночі та забуті замовлення дров чи сніданків.</p>
-                <p>Я створив DuzhTech, щоб вирішити ці проблеми для себе. А тепер допомагаю іншим власникам вийти з операційки та звільнити час для життя, а не для рутини.</p>
-                <div class="signature"></div>
+                <p>«Мене звати Назар Дужик. Я сам керую готелем «BerBen House» у Ворохті і чудово знаю, що таке хаос у бронюваннях, дзвінки о 2-й ночі та забуті замовлення дров чи сніданків.</p>
+                <p>Я створив DuzhTech, щоб вирішити ці проблеми для себе. А тепер допомагаю іншим власникам вийти з операційки та звільнити час для життя, а не для рутини.»</p>
+                <div class="signature">Назар Дужик</div>
             </div>
         </div>
     </section>
@@ -959,7 +1021,7 @@
             });
         });
 
-        // Animations Reveal
+        // ВИПРАВЛЕНО: Animations Reveal (Знову працює поява блоків!)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
@@ -1006,7 +1068,7 @@
             });
         });
 
-        // ROI Calculator Logic (Оновлено для коректної математики)
+        // ROI Calculator Logic (Ідеальна математика окупності)
         const calcRooms = document.getElementById('calcRooms');
         const calcCheck = document.getElementById('calcCheck');
         const calcOrders = document.getElementById('calcOrders');
@@ -1025,14 +1087,13 @@
             valCheck.innerText = check + ' грн';
             valOrders.innerText = orders;
 
-            // 1. Втрачені продажі (припускаємо, що 30% людей лінуються дзвонити/писати)
+            // Втрачені продажі: 30% людей лінуються дзвонити
             const lostSales = rooms * orders * check * 0.3;
             
-            // 2. Цінність зекономленого часу (робота адміна/власника). 
-            // Базова цінність 4500 грн + 500 грн за кожен номер щомісяця.
+            // Цінність зекономленого часу: 4500 грн (база) + 500 грн за кожен номер
             const savedTimeValue = 4500 + (rooms * 500); 
 
-            // Загальна щомісячна втрата без бота:
+            // Загальна щомісячна втрата:
             const totalMonthlyValue = Math.round(lostSales + savedTimeValue);
             
             // Окупність: беремо середній тариф SMART (15000 грн)
@@ -1040,10 +1101,6 @@
 
             calcLost.innerText = totalMonthlyValue.toLocaleString('uk-UA') + ' грн';
             calcRoi.innerText = roiDays + ' днів';
-
-            // Оновлюємо текст під цифрою, щоб пояснити звідки сума
-            const pText = document.querySelector('.calc-results p');
-            if(pText) pText.innerText = "через втрачені допродажі та витрачений час на рутину.";
         }
 
         calcRooms.addEventListener('input', updateROI);
@@ -1051,7 +1108,7 @@
         calcOrders.addEventListener('input', updateROI);
         updateROI(); // Initial calc
 
-        // Телефон з прапорцями (ВИПРАВЛЕНО ВИПАДАЮЧИЙ СПИСОК)
+        // Телефон з прапорцями 
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
             initialCountry: "ua",
@@ -1060,7 +1117,42 @@
             dropdownContainer: document.body 
         });
 
-        // Відправка форми
+        // АНІМАЦІЯ BENTO ДАШБОРДУ (СТАТИСТИКА)
+        const statNumbers = document.querySelectorAll('.stat-num');
+        let statsAnimated = false;
+
+        const runStatsAnimation = () => {
+            statNumbers.forEach(stat => {
+                const target = +stat.getAttribute('data-target');
+                const duration = 2500; 
+                const increment = target / (duration / 16); 
+
+                let current = 0;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        stat.innerText = Math.ceil(current).toLocaleString('uk-UA'); 
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        stat.innerText = target.toLocaleString('uk-UA');
+                    }
+                };
+                updateCounter();
+            });
+        };
+
+        const statsSection = document.getElementById('stats');
+        window.addEventListener('scroll', () => {
+            if (!statsAnimated && statsSection) {
+                const rect = statsSection.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 150) {
+                    runStatsAnimation();
+                    statsAnimated = true; 
+                }
+            }
+        });
+
+        // Відправка форми (Без стандартного alert)
         document.getElementById('leadForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
             const BOT_TOKEN = '8249032261:AAFN9e6vi4KiHALiIjHcgwjOpTplyiyNHFo'; 
@@ -1085,14 +1177,14 @@
                         document.getElementById('successModal').classList.add('active');
                         document.getElementById('leadForm').reset(); 
                     } else {
-                        alert('Помилка при відправці. Спробуйте ще раз.');
+                        console.error('Помилка Telegram API:', data);
                     }
                 })
-                .catch(error => { alert('Помилка з\'єднання. Перевірте підключення до інтернету.'); })
+                .catch(error => { console.error('Помилка Fetch:', error); })
                 .finally(() => { submitBtn.innerText = originalBtnText; submitBtn.disabled = false; });
         });
 
-        // Модальне вікно
+        // Закриття Модального вікна
         const successModal = document.getElementById('successModal');
         const closeModalBtn = document.getElementById('closeModal');
 

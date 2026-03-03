@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
-    
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     
     <style>
@@ -43,14 +42,12 @@
 
         h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
 
-        /* Кінематографічний шум */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none; z-index: 9999; opacity: 0.04;
             background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
-        /* Скло та Magnetic Spotlight */
         .glass-panel { 
             background: var(--bg-card); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border); border-radius: 24px; padding: 40px; 
@@ -70,7 +67,6 @@
         .section-title { text-align: center; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; font-weight: 900; color: #fff; line-height: 1.2; }
         .section-subtitle { text-align: center; font-size: clamp(1rem, 1.5vw, 1.15rem); color: var(--text-muted); max-width: 800px; margin: 0 auto 60px; }
 
-        /* Кнопки */
         .btn { 
             background: var(--accent); color: #000; 
             padding: 16px 36px; border-radius: 12px; 
@@ -79,11 +75,12 @@
             position: relative; cursor: pointer; text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: heartbeat 2.5s infinite; 
+            border: none;
         }
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
-        
         .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
         .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
+        .btn-small { padding: 12px 24px; font-size: 0.9rem; margin-top: 15px; }
 
         @keyframes heartbeat {
             0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
@@ -94,7 +91,7 @@
             100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); }
         }
 
-        /* --- Оновлена Навігація --- */
+        /* Навігація */
         header {
             position: fixed; top: 0; width: 100%; height: var(--header-height);
             background: rgba(6, 11, 25, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -103,119 +100,63 @@
         }
         .logo { font-family: 'Montserrat'; font-size: 1.5rem; font-weight: 900; text-decoration: none; color: #fff; position: relative; z-index: 1001; }
         .logo span { color: var(--accent); }
-
-        .desktop-nav { display: flex; gap: 30px; align-items: center; }
-        .nav-link { color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s; position: relative; padding: 5px 0; }
+        .desktop-nav { display: flex; gap: 25px; align-items: center; }
+        .nav-link { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; position: relative; padding: 5px 0; }
         .nav-link::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .nav-link:hover { color: var(--accent); text-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
         .nav-link:hover::after { width: 100%; }
-
         .header-actions { display: flex; align-items: center; gap: 20px; z-index: 1001; position: relative; }
 
-        /* Бургер меню */
         .mobile-toggle { display: none; background: transparent; border: none; cursor: pointer; flex-direction: column; gap: 6px; padding: 5px; }
         .mobile-toggle span { display: block; width: 30px; height: 2px; background: #fff; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .mobile-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); }
         .mobile-toggle.active span:nth-child(2) { opacity: 0; }
         .mobile-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); }
-
         .mobile-nav-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.98); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s ease; overflow-y: auto; }
         .mobile-nav-overlay.active { opacity: 1; pointer-events: all; }
         .mobile-nav { display: flex; flex-direction: column; gap: 30px; text-align: center; transform: translateY(30px); transition: 0.4s ease; opacity: 0; padding: 100px 20px 40px; }
         .mobile-nav-overlay.active .mobile-nav { transform: translateY(0); opacity: 1; transition-delay: 0.2s;}
-        .mobile-link { font-size: 2.2rem; color: #fff; text-decoration: none; font-family: 'Montserrat'; font-weight: 800; transition: 0.3s; }
+        .mobile-link { font-size: 2rem; color: #fff; text-decoration: none; font-family: 'Montserrat'; font-weight: 800; transition: 0.3s; }
         .mobile-link:hover { color: var(--accent); transform: scale(1.1); text-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
 
-        /* Анімація появи */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.15s; }
         .delay-2 { transition-delay: 0.3s; }
 
-        /* --- Hero Section --- */
+        /* Hero Section */
         .hero { display: flex; align-items: center; min-height: 100vh; gap: 40px; padding-top: calc(var(--header-height) + 40px); padding-bottom: 60px; }
         .hero-text { flex: 1.2; }
         .hero-tag { color: var(--accent); font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
-        
-        .hero-text h1 { 
-            font-size: clamp(2.5rem, 4vw, 4.2rem);
-            line-height: 1.15; margin-bottom: 25px; 
-            font-weight: 900; color: #fff;
-            text-wrap: balance;
-        }
+        .hero-text h1 { font-size: clamp(2.5rem, 4vw, 4.2rem); line-height: 1.15; margin-bottom: 25px; font-weight: 900; color: #fff; text-wrap: balance; }
         .accent-typewriter { color: var(--accent); text-shadow: 0 0 25px rgba(0, 229, 255, 0.4); display: inline-block; margin-top: 5px; }
         .cursor-blink { display: inline-block; width: 4px; height: 0.9em; background-color: var(--accent); margin-left: 5px; animation: blink 1s step-end infinite; vertical-align: text-bottom;}
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
         .hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 25px; max-width: 90%; }
-        
         .hero-features { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 35px; justify-content: flex-start; }
-        .feature-pill { 
-            background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border); 
-            padding: 10px 18px; border-radius: 50px; font-size: 0.95rem; color: var(--text-main); 
-            display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: default;
-        }
+        .feature-pill { background: rgba(0, 229, 255, 0.05); border: 1px solid var(--border); padding: 10px 18px; border-radius: 50px; font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: default; }
         .feature-pill:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,229,255,0.15); background: rgba(0, 229, 255, 0.1);}
-        
-        .manifesto-card { 
-            display: flex; gap: 20px; align-items: center; padding: 25px; margin-bottom: 40px; 
-            border-radius: 20px; border-left: 4px solid var(--accent);
-            background: linear-gradient(145deg, rgba(15,23,42,0.8), rgba(0,229,255,0.03));
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .manifesto-icon { 
-            font-size: 2rem; background: rgba(0,229,255,0.1); width: 60px; height: 60px;
-            border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            box-shadow: 0 0 20px rgba(0,229,255,0.2); border: 1px solid rgba(0,229,255,0.3);
-        }
+        .manifesto-card { display: flex; gap: 20px; align-items: center; padding: 25px; margin-bottom: 30px; border-radius: 20px; border-left: 4px solid var(--accent); background: linear-gradient(145deg, rgba(15,23,42,0.8), rgba(0,229,255,0.03)); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .manifesto-icon { font-size: 2rem; background: rgba(0,229,255,0.1); width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 20px rgba(0,229,255,0.2); border: 1px solid rgba(0,229,255,0.3); }
         .manifesto-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;}
         .manifesto-text strong { color: #fff; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        .hero-trigger { font-size: 0.85rem; color: var(--accent); display: block; margin-top: 15px; opacity: 0.8; font-weight: 500; }
         
         .hero-img { flex: 0.8; display: flex; justify-content: center; position: relative; }
-        .hero-img img { 
-            max-width: 85%; height: auto; z-index: 5; 
-            animation: breathe 6s ease-in-out infinite; 
-            filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.2)); 
-            transform: translateY(-80px); 
-        }
+        .hero-img img { max-width: 85%; height: auto; z-index: 5; animation: breathe 6s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.2)); transform: translateY(-80px); }
         @keyframes breathe { 0%, 100% { transform: translateY(-80px); } 50% { transform: translateY(-95px); } }
+        .glow-circle { position: absolute; width: 400px; height: 400px; background: var(--accent); border-radius: 50%; filter: blur(120px); opacity: 0.15; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0; }
 
-        .glow-circle {
-            position: absolute; width: 400px; height: 400px; background: var(--accent); border-radius: 50%;
-            filter: blur(120px); opacity: 0.15; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
-        }
-
-        /* --- Болі та Рішення (Premium Bento) --- */
+        /* Bento Grid */
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-
-        .bento-card {
-            padding: 40px; display: flex; flex-direction: column; justify-content: flex-start;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
-        }
-        .bento-number {
-            position: absolute; top: 15px; right: 25px; font-size: 7rem; font-weight: 900; line-height: 1;
-            font-family: 'Montserrat', sans-serif; color: rgba(255, 255, 255, 0.02);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; z-index: 0;
-        }
-        .bento-icon {
-            font-size: 2.2rem; width: 70px; height: 70px; background: rgba(0, 229, 255, 0.05);
-            border: 1px solid rgba(0, 229, 255, 0.15); border-radius: 20px;
-            display: flex; align-items: center; justify-content: center; margin-bottom: 25px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; position: relative;
-        }
+        .bento-card { padding: 40px; display: flex; flex-direction: column; justify-content: flex-start; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; }
+        .bento-number { position: absolute; top: 15px; right: 25px; font-size: 7rem; font-weight: 900; line-height: 1; font-family: 'Montserrat', sans-serif; color: rgba(255, 255, 255, 0.02); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; z-index: 0; }
+        .bento-icon { font-size: 2.2rem; width: 70px; height: 70px; background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.15); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; position: relative; }
         .bento-content { position: relative; z-index: 1; transition: transform 0.4s ease; }
         .bento-content h3 { color: #fff; margin-bottom: 12px; font-size: 1.5rem; transition: color 0.3s ease; }
         .bento-content p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; transition: color 0.3s ease; margin: 0; padding-right: 20px; }
-        .bento-arrow {
-            position: absolute; bottom: 40px; right: 40px; font-size: 1.8rem; color: var(--accent);
-            opacity: 0; transform: translateX(-20px) rotate(-45deg); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1;
-        }
-        .bento-card:hover {
-            transform: translateY(-8px); border-color: rgba(0, 229, 255, 0.4);
-            background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(0,229,255,0.06));
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 229, 255, 0.05);
-        }
+        .bento-arrow { position: absolute; bottom: 40px; right: 40px; font-size: 1.8rem; color: var(--accent); opacity: 0; transform: translateX(-20px) rotate(-45deg); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; }
+        .bento-card:hover { transform: translateY(-8px); border-color: rgba(0, 229, 255, 0.4); background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(0,229,255,0.06)); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 229, 255, 0.05); }
         .bento-card:hover .bento-icon { transform: scale(1.1) translateY(-5px); background: rgba(0, 229, 255, 0.15); box-shadow: 0 10px 30px rgba(0, 229, 255, 0.3); border-color: var(--accent); }
         .bento-card:hover .bento-number { color: rgba(0, 229, 255, 0.06); transform: scale(1.05) translate(-5px, 5px); }
         .bento-card:hover .bento-content { transform: translateY(-5px); }
@@ -223,17 +164,9 @@
         .bento-card:hover .bento-content p { color: var(--text-main); }
         .bento-card:hover .bento-arrow { opacity: 1; transform: translateX(0) rotate(-45deg); }
 
-        /* --- ПРЕМІУМ КЕЙСИ --- */
+        /* ПРЕМІУМ КЕЙСИ */
         .cases-wrapper { display: flex; flex-direction: column; gap: 60px; padding-bottom: 50px; }
-        
-        .case-card { 
-            position: sticky; top: calc(var(--header-height) + 20px); 
-            display: grid; gap: 40px; 
-            align-items: start; 
-            background: #090F1C; border: 1px solid var(--border); border-radius: 30px; padding: 40px; 
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.8); 
-            max-height: calc(100vh - var(--header-height) - 40px); overflow-y: auto; 
-        }
+        .case-card { position: sticky; top: calc(var(--header-height) + 20px); display: grid; gap: 40px; align-items: start; background: #090F1C; border: 1px solid var(--border); border-radius: 30px; padding: 40px; box-shadow: 0 -20px 50px rgba(0,0,0,0.8); max-height: calc(100vh - var(--header-height) - 40px); overflow-y: auto; }
         .case-card::-webkit-scrollbar { display: none; }
         .case-card { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -262,7 +195,6 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
         .case-dashboard { display: flex; flex-direction: column; gap: 10px; justify-content: center; margin: auto 0; }
-        
         .data-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 15px 20px; display: flex; gap: 15px; align-items: flex-start; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0; }
         .box-icon { font-size: 1.2rem; line-height: 1; flex-shrink: 0; padding: 10px; background: rgba(0,0,0,0.4); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
         .box-text { display: flex; flex-direction: column; flex: 1; }
@@ -272,22 +204,45 @@
         .data-box.pain:hover { border-color: rgba(255, 77, 77, 0.4); box-shadow: 0 10px 30px rgba(255, 77, 77, 0.1); transform: translateX(10px); background: rgba(255, 77, 77, 0.05);}
         .data-box.pain .box-icon { border: 1px solid rgba(255, 77, 77, 0.3); color: #ff4d4d;}
         .data-box.pain strong { color: #ff4d4d; }
-
         .data-box.solution:hover { border-color: rgba(76, 175, 80, 0.4); box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1); transform: translateX(10px); background: rgba(76, 175, 80, 0.05);}
         .data-box.solution .box-icon { border: 1px solid rgba(76, 175, 80, 0.3); color: #4caf50;}
         .data-box.solution strong { color: #4caf50; }
-
         .data-box.feature:hover { border-color: rgba(255, 235, 59, 0.4); box-shadow: 0 10px 30px rgba(255, 235, 59, 0.1); transform: translateX(10px); background: rgba(255, 235, 59, 0.05);}
         .data-box.feature .box-icon { border: 1px solid rgba(255, 235, 59, 0.3); color: #ffeb3b;}
         .data-box.feature strong { color: #ffeb3b; }
-
         .data-box.result:hover { border-color: var(--accent); box-shadow: 0 10px 30px var(--accent-glow); transform: translateX(10px); background: rgba(0, 229, 255, 0.05);}
         .data-box.result .box-icon { border: 1px solid var(--accent); color: var(--accent);}
         .data-box.result strong { color: var(--accent); }
-
         .case-card#case-resthill .data-box:hover { transform: translateX(-10px); }
 
-        /* --- Тарифи --- */
+        /* ІНТЕГРАЦІЇ */
+        .integrations { text-align: center; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0, 229, 255, 0.02); }
+        .integrations-logos { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 30px; align-items: center; }
+        .integrations-logos span { font-size: 1.5rem; font-weight: 800; color: var(--text-muted); opacity: 0.6; transition: 0.3s; font-family: 'Montserrat'; }
+        .integrations-logos span:hover { opacity: 1; color: #fff; transform: scale(1.1); text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
+
+        /* КАЛЬКУЛЯТОР ROI */
+        .calculator-wrapper { background: linear-gradient(145deg, rgba(15,23,42,0.8), rgba(6,11,25,0.9)); border: 1px solid var(--border); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
+        .calc-glow { position: absolute; width: 300px; height: 300px; background: var(--accent); filter: blur(100px); opacity: 0.1; top: -100px; left: -100px; pointer-events: none; }
+        .calc-inputs { display: flex; flex-direction: column; gap: 30px; z-index: 1; position: relative;}
+        .calc-range-group label { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 1.05rem; margin-bottom: 10px; }
+        .calc-range-group label span { color: #fff; font-weight: 800; }
+        .calc-range-group input[type=range] { width: 100%; -webkit-appearance: none; background: rgba(255,255,255,0.1); height: 6px; border-radius: 5px; outline: none; }
+        .calc-range-group input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 0 10px var(--accent); }
+        .calc-results { background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.2); border-radius: 20px; padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center; z-index: 1; position: relative;}
+        .calc-results h3 { font-size: 1.3rem; color: #fff; margin-bottom: 20px; }
+        .calc-results .big-num { font-size: 3rem; font-weight: 900; color: #ff4d4d; font-family: 'Montserrat'; line-height: 1; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255, 77, 77, 0.3); }
+        .calc-results .roi-num { font-size: 2.5rem; font-weight: 900; color: var(--accent); font-family: 'Montserrat'; line-height: 1; text-shadow: 0 0 20px var(--accent-glow); margin-top: 10px;}
+
+        /* ОСОБИСТИЙ БРЕНД (About) */
+        .about-wrapper { display: flex; align-items: center; gap: 50px; background: rgba(15, 23, 42, 0.4); border-radius: 30px; padding: 50px; border: 1px solid rgba(255,255,255,0.05); }
+        .about-img-box { flex-shrink: 0; position: relative; width: 300px; height: 300px; border-radius: 20px; overflow: hidden; border: 2px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .about-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .about-text h3 { font-size: 2.2rem; margin-bottom: 15px; color: #fff; }
+        .about-text p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; }
+        .about-text .signature { font-family: 'Montserrat'; font-weight: 800; color: var(--accent); font-size: 1.2rem; }
+
+        /* Тарифи */
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .price-card { display: flex; flex-direction: column; }
         .price-card.featured { border-color: var(--accent); box-shadow: 0 0 30px rgba(0, 229, 255, 0.1); transform: scale(1.02); background: rgba(15, 23, 42, 0.8); }
@@ -296,11 +251,11 @@
         .price-header p { color: var(--accent); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; margin-top: 5px; }
         .price-val { font-size: 2.2rem; font-weight: 900; margin: 15px 0; color: #fff; }
         .price-card ul { list-style: none; flex-grow: 1; margin-bottom: 30px; }
-        .price-card li { margin-bottom: 15px; color: var(--text-muted); padding-left: 25px; position: relative; line-height: 1.4; }
+        .price-card li { margin-bottom: 15px; color: var(--text-muted); padding-left: 25px; position: relative; line-height: 1.4; font-size: 0.95rem; }
         .price-card li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
         .price-card.featured li { color: #fff; }
 
-        /* --- Процес (Таймлайн) --- */
+        /* Процес (Таймлайн) */
         .timeline-container { position: relative; max-width: 900px; margin: 60px auto 0; padding-left: 40px; }
         .timeline-container::before { content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: rgba(255, 255, 255, 0.05); }
         .timeline-progress { position: absolute; top: 0; left: 0; width: 2px; height: 0%; background: var(--accent); box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent); z-index: 1; transition: height 0.2s ease-out; }
@@ -315,33 +270,30 @@
         .timeline-content h4 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; position: relative; z-index: 1; display: flex; align-items: center; gap: 15px;}
         .timeline-content p { color: var(--text-muted); font-size: 1.05rem; margin: 0; position: relative; z-index: 1; max-width: 85%; line-height: 1.6;}
 
-        /* --- FAQ Accordion --- */
+        /* FAQ Accordion */
         .faq-grid { display: flex; flex-direction: column; gap: 20px; max-width: 900px; margin: 0 auto; }
         .faq-item { padding: 0 !important; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; }
         .faq-header { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .faq-header h4 { color: #fff; font-size: 1.2rem; margin: 0; transition: color 0.3s ease; }
+        .faq-header h4 { color: #fff; font-size: 1.15rem; margin: 0; transition: color 0.3s ease; }
         .faq-icon { font-size: 2rem; color: var(--accent); font-weight: 300; line-height: 1; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .faq-body { max-height: 0; overflow: hidden; padding: 0 30px; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .faq-body p { color: var(--text-muted); margin-bottom: 25px; margin-top: 0; line-height: 1.6; }
         .faq-item:hover { border-color: rgba(0, 229, 255, 0.4); }
-        
-        /* Відкритий стан FAQ */
         .faq-item.open { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0, 229, 255, 0.1); background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(0,229,255,0.05)); }
         .faq-item.open .faq-header h4 { color: var(--accent); }
         .faq-item.open .faq-icon { transform: rotate(45deg); }
         .faq-item.open .faq-body { max-height: 300px; opacity: 1; visibility: visible; padding-bottom: 25px; }
 
-        /* --- Преміальний блок Контактів (Форма) --- */
+        /* Преміальний блок Контактів (Форма) */
         #contact { position: relative; }
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; }
         .contact-info .section-title { font-size: clamp(2rem, 3vw, 3.5rem); line-height: 1.2; text-align: left; }
         .contact-info .section-subtitle { font-size: 1.1rem; max-width: 90%; color: var(--text-muted); text-align: left;}
-        
         .contact-perks { display: flex; flex-direction: column; gap: 20px; }
         .perk { display: flex; align-items: center; gap: 15px; font-size: 1.05rem; color: var(--text-main); font-weight: 500;}
         .perk-icon { display: flex; justify-content: center; align-items: center; width: 45px; height: 45px; background: rgba(0, 229, 255, 0.1); border-radius: 12px; font-size: 1.2rem; border: 1px solid rgba(0, 229, 255, 0.2); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1); }
 
-        .contact-form-container { padding: 50px 40px; background: linear-gradient(145deg, rgba(15,23,42,0.8), rgba(6,11,25,0.9)); border: 1px solid var(--border); position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .contact-form-container { padding: 50px 40px; background: linear-gradient(145deg, rgba(15,23,42,0.8), rgba(6,11,25,0.9)); border: 1px solid var(--border); position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border-radius: 24px;}
         .glow-bg { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); top: -150px; right: -150px; opacity: 0.15; filter: blur(50px); pointer-events: none; }
         .form-title { font-size: 1.8rem; color: #fff; margin-bottom: 35px; position: relative; z-index: 1;}
         .modern-form { position: relative; z-index: 1; }
@@ -365,15 +317,13 @@
 
         footer { text-align: center; padding: 60px 8%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; color: var(--text-muted); }
 
-        /* 🔥🔥🔥 УЛЬТРА ОПТИМІЗАЦІЯ ДЛЯ МОБІЛЬНИХ 🔥🔥🔥 */
+        /* 🔥 ОПТИМІЗАЦІЯ ДЛЯ МОБІЛЬНИХ 🔥 */
         @media (max-width: 1024px) {
             :root { --header-height: 70px; }
             section { padding: 70px 6%; }
-            
             .desktop-nav { display: none; }
             .header-actions .btn { display: none; }
             .mobile-toggle { display: flex; z-index: 1002; }
-            
             .hero { flex-direction: column; text-align: center; padding-top: calc(var(--header-height) + 20px); }
             .hero-text { display: flex; flex-direction: column; align-items: center; }
             .hero-features { justify-content: center; margin-bottom: 25px; }
@@ -382,33 +332,24 @@
             .hero-img { order: -1; width: 100%; max-width: 400px; }
             .hero-img img, @keyframes breathe { transform: translateY(0); } 
             @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-            
             .bento-grid { grid-template-columns: 1fr; gap: 20px; }
-            
-            /* Кейси мобілка */
-            .case-card { 
-                grid-template-columns: 1fr !important; position: relative; top: 0 !important; 
-                padding: 30px; gap: 30px; max-height: none; overflow-y: visible; 
-                align-items: stretch; 
-            }
+            .case-card { grid-template-columns: 1fr !important; position: relative; top: 0 !important; padding: 30px; gap: 30px; max-height: none; overflow-y: visible; align-items: stretch; }
             .case-visual { order: 1 !important; margin: 0; }
             .case-dashboard { order: 2 !important; margin: 0; }
             .data-box:hover { transform: none !important; }
-
             .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
             .price-card.featured { transform: scale(1); }
-            
             .timeline-container { padding-left: 25px; }
             .timeline-dot { left: -33px; width: 14px; height: 14px; }
             .timeline-content p { max-width: 100%; }
             .timeline-watermark { font-size: 5rem; top: 0; }
-
+            .calculator-wrapper { grid-template-columns: 1fr; padding: 30px; gap: 40px;}
+            .about-wrapper { flex-direction: column; text-align: center; padding: 30px;}
+            .about-img-box { width: 250px; height: 250px; }
             .faq-header { padding: 20px; }
             .faq-header h4 { font-size: 1.05rem; padding-right: 15px; }
             .faq-body { padding: 0 20px; }
             .faq-item.open .faq-body { padding-bottom: 20px; max-height: 400px; }
-
-            /* Контакти мобілка */
             .contact-wrapper { grid-template-columns: 1fr; gap: 40px; }
             .contact-info .section-title, .contact-info .section-subtitle { text-align: center; margin-left: auto; margin-right: auto;}
             .perk { justify-content: center; }
@@ -418,87 +359,38 @@
         }
 
         /* --- Модальне вікно --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(6, 11, 25, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { text-align: center; max-width: 450px; width: 90%; transform: scale(0.8) translateY(30px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--accent); box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05); }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+        .modal-icon { font-size: 4rem; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 0 15px var(--accent)); animation: float 3s ease-in-out infinite; }
+        .modal-content h3 { color: #fff; font-size: 2rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
+        .modal-content p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 30px; line-height: 1.6; }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            transform: scale(0.8) translateY(30px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid var(--accent);
-            box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05);
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            display: inline-block;
-            filter: drop-shadow(0 0 15px var(--accent));
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .modal-content h3 {
-            color: #fff;
-            font-size: 2rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
-        }
-
-        .modal-content p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        /* ДОДАНО: Стилі для вибору коду країни (intl-tel-input) */
+        /* ВИПРАВЛЕНО: Стилі для вибору коду країни (intl-tel-input) */
         .iti { width: 100%; display: block; }
         .iti__flag-container { padding-left: 15px; z-index: 2; }
         .iti__selected-flag { background: transparent !important; padding: 0 10px 0 0; }
         .iti__country-list { 
-            background: #0B1120; 
-            border: 1px solid var(--accent); 
-            color: #fff; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            font-family: 'Inter', sans-serif;
-            z-index: 10;
+            background: #0B1120 !important; 
+            border: 1px solid var(--accent) !important; 
+            color: #fff !important; 
+            border-radius: 12px !important; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
+            font-family: 'Inter', sans-serif !important;
+            z-index: 99999 !important; /* Найвищий пріоритет */
+            max-height: 250px !important; /* Обмеження висоти */
+            overflow-y: auto !important; /* Плавний скрол */
         }
-        .iti__country:hover, .iti__country.iti__highlight { 
-            background: rgba(0, 229, 255, 0.1); 
-            color: var(--accent);
-        }
-        .iti__divider { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .iti__country:hover, .iti__country.iti__highlight { background: rgba(0, 229, 255, 0.1) !important; color: var(--accent) !important; }
+        .iti__divider { border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
+        .iti__flag-container:focus, .iti *:focus { outline: none !important; }
+        
+        /* Кастомний скрол для списку країн */
+        .iti__country-list::-webkit-scrollbar { width: 6px; }
+        .iti__country-list::-webkit-scrollbar-track { background: transparent; }
+        .iti__country-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-        /* Зсуваємо текст і лейбл в інпуті для телефону, щоб вліз прапорець */
         .input-group.phone-group input { padding-left: 95px; }
         .input-group.phone-group label { left: 95px; }
         .input-group.phone-group input:focus ~ label, 
@@ -511,27 +403,25 @@
 
     <header>
         <a href="#" class="logo">Duzh<span>Tech</span></a>
-        
         <nav class="desktop-nav">
             <a href="#why" class="nav-link">Переваги</a>
-            <a href="#heroes" class="nav-link">Кейси</a>
+            <a href="#heroes" class="nav-link">Наші Герої</a>
+            <a href="#integrations" class="nav-link">Інтеграції</a>
             <a href="#pricing" class="nav-link">Тарифи</a>
             <a href="#process" class="nav-link">Етапи</a>
             <a href="#faq" class="nav-link">FAQ</a>
         </nav>
-
         <div class="header-actions">
-            <a href="#contact" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Замовити</a>
-            <button class="mobile-toggle">
-                <span></span><span></span><span></span>
-            </button>
+            <a href="#contact" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">ЗАМОВИТИ БЕЗКОШТОВНИЙ МАКЕТ</a>
+            <button class="mobile-toggle"><span></span><span></span><span></span></button>
         </div>
     </header>
 
     <div class="mobile-nav-overlay">
         <nav class="mobile-nav">
             <a href="#why" class="mobile-link">Переваги</a>
-            <a href="#heroes" class="mobile-link">Кейси</a>
+            <a href="#heroes" class="mobile-link">Наші Герої</a>
+            <a href="#integrations" class="mobile-link">Інтеграції</a>
             <a href="#pricing" class="mobile-link">Тарифи</a>
             <a href="#process" class="mobile-link">Етапи</a>
             <a href="#faq" class="mobile-link">FAQ</a>
@@ -542,25 +432,19 @@
     <section class="hero reveal">
         <div class="hero-text">
             <span class="hero-tag">🚀 DuzhTech — Екосистема цифрової гостинності</span>
-            <h1>
-                Ваші гості вже в майбутньому.<br>
-                <span class="accent-typewriter">
-                    <span id="typewriter"></span><span class="cursor-blink"></span>
-                </span>
-            </h1>
-            <p>Ми не просто створюємо ботів — ми даруємо вашому бізнесу «цифрову душу» та затишок. DuzhTech розробляє інтелектуальні Telegram-системи, які:</p>
-            <div class="hero-features">
-                <div class="feature-pill"><span>🛡️</span> Звільняють власника від рутини</div>
-                <div class="feature-pill"><span>📈</span> Збільшують прибуток на 30%</div>
-            </div>
+            <h1>Ваші гості вже в майбутньому.<br><span class="accent-typewriter"><span id="typewriter"></span><span class="cursor-blink"></span></span></h1>
+            <p>Ми не просто створюємо ботів — ми даруємо вашому бізнесу «цифрову душу» та затишок. DuzhTech розробляє інтелектуальні Telegram-системи, які звільняють власника від рутини та збільшують прибуток на 30% за рахунок автоматизації продажів.</p>
+            
             <div class="manifesto-card">
                 <div class="manifesto-icon">💡</div>
                 <div class="manifesto-text">
                     <strong>Наш маніфест</strong>
-                    Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою.
+                    Ми віримо, що технології не мають бути складними. Вони мають бути невидимими помічниками, які роблять відпочинок гостя безтурботним, а роботу власника — прибутковою. Технології з людським обличчям.
                 </div>
             </div>
+            
             <a href="#contact" class="btn">ХОЧУ БЕЗКОШТОВНИЙ МАКЕТ БОТА</a>
+            <span class="hero-trigger">Отримайте готову схему вашого майбутнього бота вже через 24 години.</span>
         </div>
         <div class="hero-img">
             <div class="glow-circle"></div>
@@ -570,7 +454,7 @@
 
     <section id="why">
         <h2 class="section-title reveal">Чому готельєри обирають нас?</h2>
-        <p class="section-subtitle reveal">Ви знаєте це почуття, коли телефон розривається від дзвінків «де пароль від Wi-Fi» або «як замовити сніданок»? Ми це виправимо.</p>
+        <p class="section-subtitle reveal">Ви знаєте це почуття, коли телефон розривається від дзвінків «де пароль від Wi-Fi» або «як замовити сніданок»? Ми це виправимо раз і назавжди.</p>
         
         <div class="bento-grid">
             <div class="glass-panel bento-card reveal">
@@ -578,7 +462,7 @@
                 <div class="bento-icon">📱</div>
                 <div class="bento-content">
                     <h3>Кінець паперовим меню</h3>
-                    <p>Ваше меню тепер завжди під рукою в телефоні гостя. Зі смачними фото, описами та миттєвим замовленням.</p>
+                    <p>Ваше меню тепер завжди під рукою в телефоні гостя. Жодних засмальцьованих папірців. Тільки соковиті фото, детальні описи та можливість зробити замовлення в 2 кліки. Гість замовляє — адмін отримує сповіщення.</p>
                 </div>
                 <div class="bento-arrow">→</div>
             </div>
@@ -588,7 +472,7 @@
                 <div class="bento-icon">💳</div>
                 <div class="bento-content">
                     <h3>Гроші люблять порядок</h3>
-                    <p>Більше ніяких «забутих» розрахунків за чан чи кальян. Оплата проходить миттєво через WayForPay або Monobank.</p>
+                    <p>Більше ніяких «забутих» розрахунків за чан, дрова чи кальян. Оплата проходить миттєво через WayForPay або Monobank. Ви бачите кожну транзакцію, а гість отримує підтвердження.</p>
                 </div>
                 <div class="bento-arrow">→</div>
             </div>
@@ -598,7 +482,7 @@
                 <div class="bento-icon">🔄</div>
                 <div class="bento-content">
                     <h3>Синхронізація в один клік</h3>
-                    <p>Забудьте про овербукінг. Ми зв’яжемо ваш бот із Booking, Airbnb, Hutshub та BookMeNow. Один календар — повний контроль.</p>
+                    <p>Забудьте про страх овербукінгу. Ми зв’яжемо ваш бот із Booking, Airbnb, Hutshub та BookMeNow. Єдиний календар — повний контроль над завантаженням номерів 24/7.</p>
                 </div>
                 <div class="bento-arrow">→</div>
             </div>
@@ -608,7 +492,7 @@
                 <div class="bento-icon">🤖</div>
                 <div class="bento-content">
                     <h3>Ваш готель говорить сам</h3>
-                    <p>Бот автоматично привітає гостя в день заїзду, нагадає про час виїзду та запитає відгук. Ви відпочиваєте — система працює.</p>
+                    <p>Бот автоматично привітає гостя в день заїзду, надасть інструкції, нагадає про час виїзду та чемно запитає відгук. Ви відпочиваєте — система працює на вашу репутацію.</p>
                 </div>
                 <div class="bento-arrow">→</div>
             </div>
@@ -617,7 +501,7 @@
 
     <section id="heroes">
         <h2 class="section-title reveal">Наші Герої: Обличчя сервісу</h2>
-        <p class="section-subtitle reveal">Унікальні персонажі в стилі Pixar. Це не просто іконки — це ваші цифрові консьєржі.</p>
+        <p class="section-subtitle reveal">Унікальні персонажі в стилі Pixar. Це не просто іконки — це ваші цифрові консьєржі, які викликають усмішку та довіру.</p>
 
         <div class="cases-wrapper">
             
@@ -627,23 +511,24 @@
                     <img src="case_gnome.png" alt="Гном Бербен">
                     <h3>BerBen House</h3>
                     <p>Гном Бербен — Символ затишку</p>
+                    <a href="#contact" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
                         <div class="box-icon">⚠️</div>
-                        <div class="box-text"><strong>Біль власника</strong><p>Хаос у комунікації. Гості забували номер адміністратора, соромилися дзвонити, щоб замовити дрова чи сніданок. Недоотриманий прибуток.</p></div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Хаос у комунікації. Гості соромилися дзвонити, щоб замовити дрова чи сніданок. Недоотриманий прибуток через "мовчання" клієнта.</p></div>
                     </div>
                     <div class="data-box solution">
                         <div class="box-icon">🛡️</div>
-                        <div class="box-text"><strong>Наше рішення</strong><p>Легкий інструмент без складних реєстрацій. Гість обирає позицію, і адміністратор миттєво отримує сповіщення в Telegram.</p></div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>Легкий інструмент замовлення без реєстрацій. Гість обирає позицію, і адміністратор миттєво отримує сповіщення.</p></div>
                     </div>
                     <div class="data-box feature">
                         <div class="box-icon">⚡</div>
-                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Кнопка «Погукати газду». Це прямий міст для зворотного зв’язку, який створює ефект турботи про кожного гостя.</p></div>
+                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Кнопка «Погукати газду». Це прямий міст для зворотного зв’язку, що створює ефект турботи.</p></div>
                     </div>
                     <div class="data-box result">
                         <div class="box-icon">📈</div>
-                        <div class="box-text"><strong>Результат</strong><p>За перші тижні гості почали замовляти кальяни та сніданки значно частіше — бо це психологічно простіше, ніж дзвонити.</p></div>
+                        <div class="box-text"><strong>Результат</strong><p>За перші тижні гості почали замовляти послуги значно частіше.</p></div>
                     </div>
                 </div>
             </div>
@@ -654,23 +539,24 @@
                     <img src="case_girl.png" alt="Дівчина Rest Hill">
                     <h3>REST HILL</h3>
                     <p>Господиня котеджу — Символ гостинності</p>
+                    <a href="#contact" class="btn btn-outline btn-small" style="color: #ff4081; border-color: #ff4081;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
                         <div class="box-icon">⚠️</div>
-                        <div class="box-text"><strong>Біль власника</strong><p>Ручне підтвердження кожної оплати. Адміністратор перетворюється на «бухгалтера», який постійно перевіряє скріншоти квитанцій.</p></div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Ручне підтвердження кожної оплати. Адміністратор витрачав години на перевірку скріншотів квитанцій.</p></div>
                     </div>
                     <div class="data-box solution">
                         <div class="box-icon">🛡️</div>
-                        <div class="box-text"><strong>Наше рішення</strong><p>Ми взяли перевірену модель та вивели її на новий рівень. Ми інтегрували платіжну систему WayForPay.</p></div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>Інтеграція платіжної системи WayForPay. Автономність платежів Apple/Google Pay.</p></div>
                     </div>
                     <div class="data-box feature">
                         <div class="box-icon">⚡</div>
-                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Повна автономність платежів. Гість замовляє послугу і відразу її оплачує Apple/Google Pay. Адмін отримує підтверджене замовлення з чеком.</p></div>
+                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Миттєвий чек. Адмін отримує вже оплачене замовлення.</p></div>
                     </div>
                     <div class="data-box result">
                         <div class="box-icon">💎</div>
-                        <div class="box-text"><strong>Результат</strong><p>Власниця звільнила до 2 годин свого часу щодня, а процес замовлення послуг став виглядати преміально та сучасно.</p></div>
+                        <div class="box-text"><strong>Результат</strong><p>Власниця звільнила до 2 годин свого часу щодня.</p></div>
                     </div>
                 </div>
             </div>
@@ -681,23 +567,24 @@
                     <img src="case_hutsul.png" alt="Гуцул GRANЬ">
                     <h3>GRANЬ COTTAGE</h3>
                     <p>Гуцул Дід — Мудрий господар</p>
+                    <a href="#contact" class="btn btn-outline btn-small" style="color: #4caf50; border-color: #4caf50;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
                         <div class="box-icon">⚠️</div>
-                        <div class="box-text"><strong>Біль власника</strong><p>Неактуальне меню. Часто гості замовляють страву, якої вже немає. Адмін має передзвонити і вибачитися. Запити губилися в месенджерах.</p></div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Неактуальне меню. Гості замовляли страви, яких немає, що призводило до конфліктів та вибачень.</p></div>
                     </div>
                     <div class="data-box solution">
                         <div class="box-icon">🛡️</div>
-                        <div class="box-text"><strong>Наше рішення</strong><p>Розроблено систему з потужною логістикою. Кожен запит — від чану до прохання про халати — потрапляє в окрему чергу завдань.</p></div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>Smart Адмін-панель. Кожен запит потрапляє в окрему чергу завдань.</p></div>
                     </div>
                     <div class="data-box feature">
                         <div class="box-icon">⚡</div>
-                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Smart Адмін-панель. Якщо сирники закінчились — адмін за 2 секунди вимикає їх у боті, і гості їх більше не бачать.</p></div>
+                        <div class="box-text"><strong>Головна «Фішка»</strong><p>Вимкнення позицій за 2 секунди. Якщо сирники закінчились — вони миттєво зникають з бота.</p></div>
                     </div>
                     <div class="data-box result">
                         <div class="box-icon">📈</div>
-                        <div class="box-text"><strong>Результат</strong><p>Повна синхронізація кухні та сервісу. Гості отримують лише те, що є в наявності, а персонал працює за чітким списком завдань.</p></div>
+                        <div class="box-text"><strong>Результат</strong><p>Повна синхронізація кухні та сервісу.</p></div>
                     </div>
                 </div>
             </div>
@@ -708,27 +595,88 @@
                     <img src="case_captain.png" alt="Капітан BOSO">
                     <h3>BOSO</h3>
                     <p>Капітан Босман — Символ надійності</p>
+                    <a href="#contact" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
                         <div class="box-icon">⚠️</div>
-                        <div class="box-text"><strong>Біль власника</strong><p>Розпорошеність даних. Купа сервісів: Booking, Airbnb, BookMeNow, і все треба зводити докупи. Проблема з фіксацією стану номерів після виїзду.</p></div>
+                        <div class="box-text"><strong>Біль власника</strong><p>Розпорошеність даних (Booking, Airbnb, кастомні сайти). Проблема з фіксацією стану майна.</p></div>
                     </div>
                     <div class="data-box solution">
                         <div class="box-icon">🛡️</div>
-                        <div class="box-text"><strong>Наше рішення</strong><p>Ми створили справжній «центр управління польотами». Це найскладніша система, інтегрована з лендингом та всіма календарями.</p></div>
+                        <div class="box-text"><strong>Наше рішення</strong><p>"Центр управління польотами". Найскладніша система з повною інтеграцією календарів.</p></div>
                     </div>
                     <div class="data-box feature">
                         <div class="box-icon">⚡</div>
-                        <div class="box-text"><strong>Екосистема «Макс. Фарш»</strong><p>Повна синхронізація з BookMeNow. Кнопка «Пошкодження майна» з фото. Розумні сповіщення адмінам про заїзди/виїзди.</p></div>
+                        <div class="box-text"><strong>Екосистема «Макс. Фарш»</strong><p>Кнопка «Пошкодження майна» з фотофіксацією. Розумні сповіщення адмінам.</p></div>
                     </div>
                     <div class="data-box result" style="background: rgba(0,229,255,0.1); border-color: var(--accent);">
                         <div class="box-icon">💎</div>
-                        <div class="box-text"><strong style="color: #fff;">Результат</strong><p style="color: #fff;">Готель працює як єдиний годинниковий механізм. Власник бачить повну картину в одному вікні Telegram, від фінансів до стану номерів.</p></div>
+                        <div class="box-text"><strong style="color: #fff;">Результат</strong><p style="color: #fff;">Готель працює як єдиний механізм. Власник бачить повну картину в одному вікні Telegram.</p></div>
                     </div>
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <section id="integrations" class="integrations reveal">
+        <h2 class="section-title">Ми поєднуємо непоєднуване</h2>
+        <p class="section-subtitle">Ваш бот не живе в ізоляції. Ми інтегруємо його з вашими улюбленими сервісами для максимальної ефективності:</p>
+        <div class="integrations-logos">
+            <span>WayForPay</span>
+            <span>Monobank</span>
+            <span>Booking.com</span>
+            <span>Airbnb</span>
+            <span>Hutshub</span>
+            <span>BookMeNow</span>
+        </div>
+    </section>
+
+    <section id="roi-calc" class="reveal">
+        <h2 class="section-title">Скільки ви втрачаєте без автоматизації?</h2>
+        <p class="section-subtitle">Інтерактивний калькулятор окупності (ROI). Пограйтеся з цифрами та побачте свою вигоду.</p>
+        
+        <div class="calculator-wrapper">
+            <div class="calc-glow"></div>
+            <div class="calc-inputs">
+                <div class="calc-range-group">
+                    <label>Кількість номерів/котеджів: <span id="valRooms">10</span></label>
+                    <input type="range" id="calcRooms" min="1" max="50" value="10">
+                </div>
+                <div class="calc-range-group">
+                    <label>Середній чек (дод. послуги): <span id="valCheck">500 грн</span></label>
+                    <input type="range" id="calcCheck" min="100" max="3000" step="50" value="500">
+                </div>
+                <div class="calc-range-group">
+                    <label>Замовлень послуг на день: <span id="valOrders">5</span></label>
+                    <input type="range" id="calcOrders" min="1" max="50" value="5">
+                </div>
+            </div>
+            
+            <div class="calc-results">
+                <h3>Ваш готель недоотримує приблизно:</h3>
+                <div class="big-num" id="calcLost">0 грн</div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">через "мовчання" клієнтів та складність замовлення.</p>
+                
+                <h3>Наш бот окупає себе за:</h3>
+                <div class="roi-num" id="calcRoi">0 днів</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="reveal">
+        <div class="about-wrapper">
+            <div class="about-img-box">
+                <img src="nazar_founder.png" alt="Назар Дужик - Засновник DuzhTech">
+            </div>
+            <div class="about-text">
+                <h2 style="color: var(--accent); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">Від готельєра для готельєрів</h2>
+                <h3>Хто стоїть за DuzhTech?</h3>
+                <p>«Мене звати Назар Дужик. Я сам керую готелем «BerBen House» у Ворохті і чудово знаю, що таке хаос у бронюваннях, дзвінки о 2-й ночі та забуті замовлення дров чи сніданків.</p>
+                <p>Я створив DuzhTech, щоб вирішити ці проблеми для себе. А тепер допомагаю іншим власникам вийти з операційки та звільнити час для життя, а не для рутини.»</p>
+                <div class="signature">Назар Дужик</div>
+            </div>
         </div>
     </section>
 
@@ -740,14 +688,15 @@
                     <h3>Пакет "LITE"</h3>
                     <p>Спритний Старт</p>
                     <div class="price-val">10 000 грн</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: none; font-weight: 400;">Базовий набір для тих, хто хоче навести лад у послугах.</p>
                 </div>
                 <ul>
                     <li><strong>Цифрове меню:</strong> Сніданки, послуги, дрова, чани.</li>
-                    <li><strong>Миттєвий зв'язок:</strong> Кнопка в групу адмінів.</li>
-                    <li><strong>База знань:</strong> Wi-Fi, правила, локації 24/7.</li>
+                    <li><strong>Миттєвий зв'язок:</strong> Пряма кнопка в групу адмінів.</li>
+                    <li><strong>База знань:</strong> Wi-Fi, правила проживання, локації поруч 24/7.</li>
                     <li><strong>Розробка:</strong> 3 дні.</li>
                 </ul>
-                <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати пакет</a>
+                <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати LITE</a>
             </div>
 
             <div class="glass-panel price-card featured reveal delay-1">
@@ -755,15 +704,16 @@
                     <h3>Пакет "SMART"</h3>
                     <p>Цифровий Двигун</p>
                     <div class="price-val">15 000 грн</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: none; font-weight: 400;">Найпопулярніший вибір. Повна автоматизація продажів.</p>
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету LITE.</li>
-                    <li><strong>Платіжний міст:</strong> Інтеграція WayForPay / Monobank.</li>
-                    <li><strong>Синхронізація:</strong> Booking, Airbnb, BookMeNow.</li>
-                    <li><strong>Нагадування:</strong> Авто-повідомлення гостям.</li>
+                    <li><strong>Платіжний міст:</strong> Інтеграція WayForPay / Monobank (оплата в боті).</li>
+                    <li><strong>Синхронізація:</strong> Автоматичний обмін даними з Booking, Airbnb, BookMeNow.</li>
+                    <li><strong>Нагадування:</strong> Розумні авто-повідомлення гостям (заїзд/виїзд).</li>
                     <li><strong>Розробка:</strong> 5 днів.</li>
                 </ul>
-                <a href="#contact" class="btn" style="text-align: center;">Обрати пакет</a>
+                <a href="#contact" class="btn" style="text-align: center;">Обрати SMART</a>
             </div>
 
             <div class="glass-panel price-card reveal delay-2">
@@ -771,15 +721,16 @@
                     <h3>Пакет "ULTIMATE"</h3>
                     <p>Бізнес-Імперія</p>
                     <div class="price-val">20 000 грн</div>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; text-transform: none; font-weight: 400;">Для великих об'єктів та тих, хто хоче максимум контролю.</p>
                 </div>
                 <ul>
                     <li style="color: var(--accent); font-weight: bold;">Усе з пакету SMART.</li>
-                    <li><strong>Адмін-панель:</strong> Керуйте меню в реальному часі.</li>
-                    <li><strong>Чек-лист пошкоджень:</strong> Фіксація стану майна.</li>
-                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з календарем.</li>
+                    <li><strong>Smart Адмін-панель:</strong> Керуйте меню та цінами в реальному часі без програміста.</li>
+                    <li><strong>Чек-лист пошкоджень:</strong> Миттєва фіксація стану майна з фото.</li>
+                    <li><strong>Власний Лендинг:</strong> Веб-сторінка з інтегрованим календарем бронювання.</li>
                     <li><strong>Розробка:</strong> 7 днів.</li>
                 </ul>
-                <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати пакет</a>
+                <a href="#contact" class="btn btn-outline" style="text-align: center;">Обрати ULTIMATE</a>
             </div>
         </div>
     </section>
@@ -802,7 +753,7 @@
                 <div class="timeline-content">
                     <div class="timeline-watermark">02</div>
                     <h4>Безкоштовний прототип</h4>
-                    <p>Ми будуємо «скелет» вашого майбутнього бота. Ви клацаєте, тестуєте і закохуєтесь ще до оплати.</p>
+                    <p>Ми будуємо «скелет» вашого майбутнього бота. Ви клацаєте, тестуєте і закохуєтесь ще до першої оплати.</p>
                 </div>
             </div>
             <div class="timeline-item reveal">
@@ -826,7 +777,7 @@
                 <div class="timeline-content" style="border-color: var(--accent);">
                     <div class="timeline-watermark" style="color: rgba(0, 229, 255, 0.08);">05</div>
                     <h4 style="color: var(--accent);">Безпечна гавань (Support)</h4>
-                    <p>Після фінальної оплати ми залишаємось з вами. 1 місяць безкоштовного супроводу — ми поруч, щоб підказати, змінити чи налаштувати.</p>
+                    <p>1 місяць безкоштовного супроводу. Ми поруч, щоб підказати, змінити чи налаштувати під нові запити.</p>
                 </div>
             </div>
         </div>
@@ -835,14 +786,13 @@
     <section id="faq">
         <h2 class="section-title reveal">Відповіді на те, що вас зупиняє</h2>
         <div class="faq-grid">
-            
             <div class="glass-panel faq-item reveal">
                 <div class="faq-header">
                     <h4>Чи зможе мій персонал цим користуватися?</h4>
                     <span class="faq-icon">+</span>
                 </div>
                 <div class="faq-body">
-                    <p>— Якщо вони вміють писати повідомлення в Telegram, вони вже професіонали в нашій системі. Інтерфейс адміністратора максимально інтуїтивний, до того ж ми проводимо повний інструктаж перед запуском.</p>
+                    <p>— Якщо вони вміють писати повідомлення в Telegram, вони вже професіонали. Інтерфейс максимально інтуїтивний.</p>
                 </div>
             </div>
 
@@ -852,17 +802,17 @@
                     <span class="faq-icon">+</span>
                 </div>
                 <div class="faq-body">
-                    <p>— Ми надаємо стильні макети QR-кодів, які ви зможете розмістити в номерах, на рецепції або в меню. Також посилання на бота ідеально додається у вітальне повідомлення при бронюванні.</p>
+                    <p>— Ми надаємо стильні макети QR-кодів для номерів та рецепції.</p>
                 </div>
             </div>
 
             <div class="glass-panel faq-item reveal">
                 <div class="faq-header">
-                    <h4>Чи не буде конфліктів з моїм Booking або Airbnb?</h4>
+                    <h4>Чи не буде конфліктів з Booking/Airbnb?</h4>
                     <span class="faq-icon">+</span>
                 </div>
                 <div class="faq-body">
-                    <p>— Навпаки! Бот працює як єдина екосистема. У тарифах від SMART ми налаштовуємо повну синхронізацію календарів, щоб ви назавжди забули про овербукінг.</p>
+                    <p>— Навпаки, ми налаштовуємо синхронізацію календарів, щоб уникнути помилок овербукінгу.</p>
                 </div>
             </div>
 
@@ -872,7 +822,7 @@
                     <span class="faq-icon">+</span>
                 </div>
                 <div class="faq-body">
-                    <p>— Абсолютно. Ми не зберігаємо платіжні дані. Усі транзакції проходять через офіційні, захищені шлюзи (WayForPay або Monobank) напряму на ваші рахунки.</p>
+                    <p>— Абсолютно. Ми використовуємо захищені шлюзи (WayForPay/Mono). Гроші йдуть прямо вам.</p>
                 </div>
             </div>
 
@@ -882,7 +832,7 @@
                     <span class="faq-icon">+</span>
                 </div>
                 <div class="faq-body">
-                    <p>— Ми передаємо всі ключі вам. Ви стаєте повноправним власником системи. За бажанням, ми можемо продовжити технічне адміністрування за символічні 2000 грн/міс.</p>
+                    <p>— Ви стаєте повноправним власником системи. Підтримка за бажанням — 2000 грн/міс.</p>
                 </div>
             </div>
 
@@ -892,10 +842,9 @@
                     <span class="faq-icon">+</span>
                 </div>
                 <div class="faq-body">
-                    <p>— Ми обожнюємо виклики! Незалежно від того, чи це складна система лояльності, чи інтеграція зі специфічною CRM — напишіть нам, і ми знайдемо технічне рішення.</p>
+                    <p>— Ми обожнюємо виклики! Напишіть нам, і ми знайдемо технічне рішення.</p>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -903,12 +852,12 @@
         <div class="contact-wrapper">
             <div class="contact-info">
                 <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">Готові вивести готель на новий рівень?</h2>
-                <p class="section-subtitle" style="text-align: left; margin: 0 0 40px 0;">Залиште заявку, і ми безкоштовно зберемо інтерактивний прототип вашого майбутнього Telegram-бота. Жодних зобов'язань — просто подивіться, як це працює.</p>
+                <p class="section-subtitle" style="text-align: left; margin: 0 0 40px 0;">Залиште заявку, і ми безкоштовно зберемо прототип вашого бота. Подивіться, як це працює, перш ніж платити.</p>
                 
                 <div class="contact-perks">
-                    <div class="perk"><span class="perk-icon">⚡</span> Швидка відповідь за 15 хвилин</div>
-                    <div class="perk"><span class="perk-icon">📱</span> Демо-версія прямо у вашому телефоні</div>
-                    <div class="perk"><span class="perk-icon">🎁</span> Безкоштовна стратегічна сесія</div>
+                    <div class="perk"><span class="perk-icon">⚡</span> Відповідь за 15 хв</div>
+                    <div class="perk"><span class="perk-icon">📱</span> Демо в телефоні</div>
+                    <div class="perk"><span class="perk-icon">🎁</span> Безкоштовна сесія</div>
                 </div>
             </div>
 
@@ -935,7 +884,7 @@
                         <span class="input-icon">✈️</span>
                     </div>
 
-                    <button type="submit" class="btn btn-submit">Отримати безкоштовний макет</button>
+                    <button type="submit" class="btn btn-submit">ОТРИМАТИ БЕЗКОШТОВНИЙ МАКЕТ</button>
                     <p class="privacy-note">🔒 Ваші дані у безпеці і не передаються третім особам.</p>
                 </form>
             </div>
@@ -958,25 +907,19 @@
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 
     <script>
-        // Lenis Smooth Scroll
-        const lenis = new Lenis({
-            duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical', smooth: true,
-        });
+        // Smooth Scroll
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), direction: 'vertical', smooth: true });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Логіка мобільного меню та Плавний скрол навігації
+        // Mobile Nav
         const mobileToggle = document.querySelector('.mobile-toggle');
         const mobileNavOverlay = document.querySelector('.mobile-nav-overlay');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
         const closeMobileMenu = () => {
             if(mobileToggle) mobileToggle.classList.remove('active');
             if(mobileNavOverlay) mobileNavOverlay.classList.remove('active');
             document.body.style.overflow = '';
         };
-
         if(mobileToggle) {
             mobileToggle.addEventListener('click', () => {
                 mobileToggle.classList.toggle('active');
@@ -984,26 +927,17 @@
                 document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
             });
         }
-
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault(); 
-                closeMobileMenu(); 
+                e.preventDefault(); closeMobileMenu(); 
                 const targetId = this.getAttribute('href');
                 if(targetId === '#') return; 
                 const targetElement = document.querySelector(targetId);
-                
-                if(targetElement) {
-                    lenis.scrollTo(targetElement, {
-                        offset: 0,
-                        duration: 1.5,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
-                    });
-                }
+                if(targetElement) lenis.scrollTo(targetElement, { offset: 0, duration: 1.5 });
             });
         });
 
-        // Reveal Animations
+        // Animations Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
@@ -1011,81 +945,100 @@
 
         // Typewriter
         const textToType = "А ваш готель?";
-        let charIndex = 0;
-        const speed = 100;
-        const typewriterEl = document.getElementById("typewriter");
-
+        let charIndex = 0; const speed = 100; const typewriterEl = document.getElementById("typewriter");
         function typeWriter() {
             if (charIndex < textToType.length) {
-                typewriterEl.innerHTML += textToType.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeWriter, speed);
+                typewriterEl.innerHTML += textToType.charAt(charIndex); charIndex++; setTimeout(typeWriter, speed);
             }
         }
         window.addEventListener('load', () => { setTimeout(typeWriter, 600); });
 
-        // Magnetic Spotlight
+        // Magnetic Panel
         if(window.innerWidth > 900) {
             document.querySelectorAll('.glass-panel').forEach(card => {
                 card.addEventListener('mousemove', e => {
                     const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    card.style.setProperty('--x', `${x}px`);
-                    card.style.setProperty('--y', `${y}px`);
+                    card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--y', `${e.clientY - rect.top}px`);
                 });
             });
         }
 
-        // Timeline Magic
+        // Timeline Scroll Logic
         window.addEventListener('scroll', () => {
             const timeline = document.querySelector('.timeline-container');
             const progressLine = document.getElementById('timeline-line');
             if(timeline && progressLine) {
                 const rect = timeline.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                let progress = (windowHeight / 1.5 - rect.top) / rect.height;
-                progress = Math.max(0, Math.min(1, progress));
+                let progress = Math.max(0, Math.min(1, (window.innerHeight / 1.5 - rect.top) / rect.height));
                 progressLine.style.height = `${progress * 100}%`;
             }
         });
 
-        // FAQ Accordion Logic
+        // FAQ
         document.querySelectorAll('.faq-item').forEach(item => {
             item.addEventListener('click', () => {
                 const isOpen = item.classList.contains('open');
-                document.querySelectorAll('.faq-item').forEach(el => {
-                    el.classList.remove('open');
-                });
-                if (!isOpen) {
-                    item.classList.add('open');
-                }
+                document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
             });
         });
 
-        // --- ДОДАНО: Ініціалізація вибору коду країни ---
+        // ROI Calculator Logic
+        const calcRooms = document.getElementById('calcRooms');
+        const calcCheck = document.getElementById('calcCheck');
+        const calcOrders = document.getElementById('calcOrders');
+        const valRooms = document.getElementById('valRooms');
+        const valCheck = document.getElementById('valCheck');
+        const valOrders = document.getElementById('valOrders');
+        const calcLost = document.getElementById('calcLost');
+        const calcRoi = document.getElementById('calcRoi');
+
+        function updateROI() {
+            const rooms = parseInt(calcRooms.value);
+            const check = parseInt(calcCheck.value);
+            const orders = parseInt(calcOrders.value);
+            
+            valRooms.innerText = rooms;
+            valCheck.innerText = check + ' грн';
+            valOrders.innerText = orders;
+
+            // Логіка втрат: припускаємо, що без бота втрачається 20% замовлень через сором'язливість/лінь гостя
+            const lostRevenueMonth = Math.round(orders * 0.2 * check * 30);
+            
+            // Окупність: беремо середній тариф SMART (15000 грн)
+            const roiDays = lostRevenueMonth > 0 ? Math.ceil(15000 / (lostRevenueMonth / 30)) : 0;
+
+            calcLost.innerText = lostRevenueMonth.toLocaleString('uk-UA') + ' грн';
+            calcRoi.innerText = roiDays + ' днів';
+        }
+
+        calcRooms.addEventListener('input', updateROI);
+        calcCheck.addEventListener('input', updateROI);
+        calcOrders.addEventListener('input', updateROI);
+        updateROI(); // Initial calc
+
+        // Телефон з прапорцями (ВИПРАВЛЕНО!)
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
             initialCountry: "ua",
             preferredCountries: ["ua", "pl", "sk", "ro", "md"],
             utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+            dropdownContainer: document.body // Виносить список поверх усього
         });
 
-        // --- ВІДПРАВКА ФОРМИ В TELEGRAM ---
+        // Відправка форми
         document.getElementById('leadForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
-
-            // 🔴 ТВОЇ ДАНІ TELEGRAM 
             const BOT_TOKEN = '8249032261:AAFN9e6vi4KiHALiIjHcgwjOpTplyiyNHFo'; 
             const CHAT_ID = '563813493'; 
 
             const name = document.getElementById('name').value;
-            // Беремо відформатований номер з кодом країни
             const phone = phoneInput.getNumber(); 
             const tg = document.getElementById('tg').value || 'Не вказано';
-
             const submitBtn = this.querySelector('.btn-submit');
             const originalBtnText = submitBtn.innerText;
+            
             submitBtn.innerText = 'ВІДПРАВКА...';
             submitBtn.disabled = true;
 
@@ -1100,36 +1053,24 @@
                         document.getElementById('leadForm').reset(); 
                     } else {
                         alert('Помилка при відправці. Спробуйте ще раз.');
-                        console.error('Telegram API Error:', data);
                     }
                 })
-                .catch(error => {
-                    alert('Помилка з\'єднання. Перевірте підключення до інтернету.');
-                    console.error('Fetch Error:', error);
-                })
-                .finally(() => {
-                    submitBtn.innerText = originalBtnText;
-                    submitBtn.disabled = false;
-                });
+                .catch(error => { alert('Помилка з\'єднання. Перевірте підключення до інтернету.'); })
+                .finally(() => { submitBtn.innerText = originalBtnText; submitBtn.disabled = false; });
         });
 
-        // --- ЛОГІКА ЗАКРИТТЯ МОДАЛЬНОГО ВІКНА ---
+        // Модальне вікно
         const successModal = document.getElementById('successModal');
         const closeModalBtn = document.getElementById('closeModal');
 
-        // Закриття по кнопці "ОК"
         if (closeModalBtn) {
             closeModalBtn.addEventListener('click', (e) => {
-                e.preventDefault(); // Забороняємо стандартну поведінку кнопки
+                e.preventDefault(); 
                 successModal.classList.remove('active');
             });
         }
-
-        // Закриття при кліку на темний фон поза вікном
         successModal.addEventListener('click', (e) => {
-            if (e.target === successModal) {
-                successModal.classList.remove('active');
-            }
+            if (e.target === successModal) successModal.classList.remove('active');
         });
     </script>
 </body>

@@ -456,6 +456,9 @@
         .pause-overlay.visible:hover .play-icon { transform: scale(1.1); }
 
         /* Модальні вікна Успіху/Помилки */
+        /* Модальні вікна Успіху/Помилки */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-content { text-align: center; max-width: 450px; width: 90%; transform: scale(0.8) translateY(30px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--accent); box-shadow: 0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 20px rgba(0, 229, 255, 0.05); }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
         .modal-icon { font-size: 4rem; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 0 15px var(--accent)); animation: float 3s ease-in-out infinite; }

@@ -195,7 +195,7 @@
         .scan-line { position: absolute; top: -100px; left: 0; width: 100%; height: 50px; background: linear-gradient(to bottom, transparent, rgba(0, 229, 255, 0.2), transparent); opacity: 0.5; animation: scan 4s linear infinite; pointer-events: none; z-index: 0; }
         @keyframes scan { 0% { top: -100px; } 100% { top: 100%; } }
 
-        /* ПРЕМІУМ КЕЙСИ (ПОВЕРНУТО STICKY + КОМПАКТНІСТЬ) */
+        /* ПРЕМІУМ КЕЙСИ */
         .cases-wrapper { display: flex; flex-direction: column; gap: 50px; padding-bottom: 50px; }
         .case-card { 
             position: sticky; 
@@ -274,7 +274,7 @@
         .calc-results .big-num { font-size: 3rem; font-weight: 900; color: #ff4d4d; font-family: 'Montserrat'; line-height: 1; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255, 77, 77, 0.3); }
         .calc-results .roi-num { font-size: 2.5rem; font-weight: 900; color: var(--accent); font-family: 'Montserrat'; line-height: 1; text-shadow: 0 0 20px var(--accent-glow); margin-top: 10px;}
 
-        /* ОСОБИСТИЙ БРЕНД (About) */
+        /* ОСОБИСТИЙ БРЕНД */
         .about-wrapper { display: flex; align-items: center; gap: 50px; background: rgba(15, 23, 42, 0.4); border-radius: 30px; padding: 50px; border: 1px solid rgba(255,255,255,0.05); }
         .about-img-box { flex-shrink: 0; position: relative; width: 300px; height: 300px; border-radius: 20px; overflow: hidden; border: 2px solid var(--border); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
         .about-img-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -324,7 +324,7 @@
         .faq-item.open .faq-icon { transform: rotate(45deg); }
         .faq-item.open .faq-body { max-height: 300px; opacity: 1; visibility: visible; padding-bottom: 25px; }
 
-        /* Преміальний блок Контактів (Форма) */
+        /* Контакти (Форма) */
         #contact { position: relative; }
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; }
         .contact-info .section-title { font-size: clamp(2rem, 3vw, 3.5rem); line-height: 1.2; text-align: left; }
@@ -357,88 +357,129 @@
 
         footer { text-align: center; padding: 60px 8%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; color: var(--text-muted); }
 
-        /* --- УЛЬТРА ВІДЕО ПЛЕЄР --- */
-.video-modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: rgba(2, 6, 15, 0.92); /* Глибший і дорожчий темний фон */
-    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    z-index: 99999; display: flex; justify-content: center; align-items: center;
-    opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.video-modal-overlay.active { opacity: 1; visibility: visible; }
+        /* --- УЛЬТРА ВІДЕО ПЛЕЄР (GLASS TERMINAL) --- */
+        .video-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(2, 6, 15, 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            z-index: 99999; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .video-modal-overlay.active { opacity: 1; visibility: visible; }
 
-/* Обгортка, яка тримає і відео, і хрестик */
-.video-wrapper {
-    position: relative;
-    width: 90%;
-    max-width: 360px; /* Ідеальна ширина під вертикальне відео екрана */
-    transform: scale(0.85) translateY(40px);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.video-modal-overlay.active .video-wrapper { 
-    transform: scale(1) translateY(0); 
-}
+        /* Головна обгортка терміналу */
+        .video-premium-wrapper {
+            position: relative;
+            width: 90%;
+            max-width: 380px; 
+            background: rgba(10, 15, 30, 0.7);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 30px;
+            padding: 15px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.9), inset 0 0 40px rgba(0, 229, 255, 0.05);
+            transform: scale(0.85) translateY(40px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .video-modal-overlay.active .video-premium-wrapper { 
+            transform: scale(1) translateY(0); 
+        }
 
-/* Рамка навколо самого відео (імітація корпусу телефону) */
-.video-modal-content {
-    position: relative;
-    background: #000;
-    padding: 6px; /* Тонка рамка навколо відео */
-    border: 1px solid rgba(0, 229, 255, 0.4);
-    border-radius: 34px; /* Заокруглення як у iPhone */
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9),
-                0 0 40px rgba(0, 229, 255, 0.15),
-                inset 0 0 20px rgba(0, 229, 255, 0.1);
-    overflow: hidden;
-    display: flex;
-}
+        /* Шапка з назвою бота */
+        .video-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px 15px 10px;
+        }
+        .video-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .video-title-text {
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
 
-/* Відео всередині рамки */
-video#customPlayer { 
-    width: 100%; 
-    height: auto; 
-    max-height: 85vh; 
-    outline: none; 
-    background: #000; 
-    border-radius: 28px; /* Внутрішнє заокруглення екрана */
-    object-fit: cover; /* Забирає чорні полоси з боків */
-}
+        /* Кнопка закриття (Нова) */
+        .close-video-btn {
+            width: 36px; height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%; 
+            font-size: 16px; 
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        .close-video-btn:hover { 
+            background: rgba(255, 77, 77, 0.1); 
+            color: #ff4d4d; 
+            border-color: #ff4d4d;
+            transform: rotate(90deg);
+        }
 
-/* Преміальний хрестик закриття */
-.close-video-btn {
-    position: absolute;
-    top: -20px; 
-    right: -20px; /* Виступає за межі рамки */
-    width: 46px; 
-    height: 46px;
-    background: rgba(15, 23, 42, 0.9);
-    color: #fff; 
-    border: 1px solid rgba(0, 229, 255, 0.4);
-    border-radius: 50%; 
-    font-size: 22px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    cursor: pointer; 
-    z-index: 10; 
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 229, 255, 0.2);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.close-video-btn:hover { 
-    background: var(--accent); 
-    color: #000; 
-    transform: rotate(90deg) scale(1.1);
-    box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
-}
+        /* Контейнер самого відео */
+        .video-content-area {
+            position: relative;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
-/* Мобільна адаптація хрестика, щоб не вилазив за екран */
-@media (max-width: 768px) {
-    .close-video-btn {
-        top: -50px;
-        right: 0;
-    }
-}
+        /* Смужка прогресу (Story style) */
+        .story-progress-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 5;
+        }
+        .story-progress-bar {
+            height: 100%; width: 0%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            transition: width 0.1s linear;
+        }
+
+        /* Відео без панелі керування */
+        video#customPlayer { 
+            width: 100%; 
+            height: auto; 
+            max-height: 75vh; 
+            outline: none; 
+            object-fit: cover;
+            cursor: pointer; /* Мишка стає рукою */
+        }
+
+        /* Ефект паузи (Кнопка Play по центру) */
+        .pause-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(3px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+        .pause-overlay.visible {
+            opacity: 1; pointer-events: all; cursor: pointer;
+        }
+        .play-icon {
+            width: 70px; height: 70px;
+            background: rgba(0, 229, 255, 0.2);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; font-size: 28px; padding-left: 5px; /* Вирівнювання трикутника */
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+        }
 
         /* --- Модальні вікна (Успіх та Помилка) --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -514,6 +555,12 @@ video#customPlayer {
             .contact-form-container { padding: 40px 20px; }
             .input-group input { padding: 20px 15px 20px 50px; }
             .input-group label { left: 50px; font-size: 1rem; }
+            
+            /* Мобільна адаптація плеєра */
+            .video-premium-wrapper {
+                padding: 10px;
+                max-width: 95%;
+            }
         }
     </style>
 </head>
@@ -677,7 +724,7 @@ video#customPlayer {
                     <img src="case_gnome.png" alt="Гном Бербен">
                     <h3>BerBen House</h3>
                     <p>Гном Бербен — Символ затишку</p>
-                    <a href="javascript:void(0)" onclick="openVideo('video/berben.mp4')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('berben.mp4', 'BerBen House')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
@@ -705,7 +752,7 @@ video#customPlayer {
                     <img src="case_girl.png" alt="Дівчина Rest Hill">
                     <h3>REST HILL</h3>
                     <p>Господиня котеджу — Символ гостинності</p>
-                    <a href="javascript:void(0)" onclick="openVideo('video/resthill.mp4')" class="btn btn-outline btn-small" style="color: #ff4081; border-color: #ff4081;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('resthill.mp4', 'REST HILL')" class="btn btn-outline btn-small" style="color: #ff4081; border-color: #ff4081;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
@@ -733,7 +780,7 @@ video#customPlayer {
                     <img src="case_hutsul.png" alt="Гуцул GRANЬ">
                     <h3>GRANЬ COTTAGE</h3>
                     <p>Гуцул Дід — Мудрий господар</p>
-                    <a href="javascript:void(0)" onclick="openVideo('video/gran.mp4')" class="btn btn-outline btn-small" style="color: #4caf50; border-color: #4caf50;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('gran.mp4', 'GRANЬ COTTAGE')" class="btn btn-outline btn-small" style="color: #4caf50; border-color: #4caf50;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
@@ -761,7 +808,7 @@ video#customPlayer {
                     <img src="case_captain.png" alt="Капітан BOSO">
                     <h3>BOSO</h3>
                     <p>Капітан Босман — Символ надійності</p>
-                    <a href="javascript:void(0)" onclick="openVideo('video/boso.mp4')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('boso.mp4', 'BOSO System')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
@@ -1062,16 +1109,33 @@ video#customPlayer {
     </footer>
 
     <div id="videoModal" class="video-modal-overlay">
-    <div class="video-wrapper">
-        <button class="close-video-btn" id="closeVideoModalBtn">✕</button>
-        <div class="video-modal-content">
-            <video id="customPlayer" controls playsinline preload="none">
-                <source id="videoSource" src="" type="video/mp4">
-                Ваш браузер не підтримує відео.
-            </video>
+        <div class="video-premium-wrapper">
+            
+            <div class="video-header">
+                <div class="video-status">
+                    <span class="pulse-dot"></span>
+                    <span id="videoTitle" class="video-title-text">Live Demo</span>
+                </div>
+                <button class="close-video-btn" id="closeVideoModalBtn">✕</button>
+            </div>
+            
+            <div class="video-content-area">
+                <div class="story-progress-container">
+                    <div class="story-progress-bar" id="storyProgressBar"></div>
+                </div>
+                
+                <video id="customPlayer" playsinline preload="none">
+                    <source id="videoSource" src="" type="video/mp4">
+                    Ваш браузер не підтримує відео.
+                </video>
+                
+                <div class="pause-overlay" id="pauseOverlay">
+                    <div class="play-icon">▶</div>
+                </div>
+            </div>
+            
         </div>
     </div>
-</div>
 
     <div id="successModal" class="modal-overlay">
         <div class="modal-content glass-panel">
@@ -1130,17 +1194,15 @@ video#customPlayer {
         }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-      // Typewriter (З розумною логікою для мобільних)
+      // Typewriter
         const textToType = "А ваш готель?";
         const typewriterEl = document.getElementById("typewriter");
         const cursorBlink = document.querySelector('.cursor-blink');
 
         if (window.innerWidth <= 1024) {
-            // На мобільному: відразу показуємо текст, без анімації друку
             typewriterEl.innerHTML = textToType;
-            if (cursorBlink) cursorBlink.style.display = 'none'; // Ховаємо блимаючий курсор
+            if (cursorBlink) cursorBlink.style.display = 'none';
         } else {
-            // На ПК: залишаємо гарний ефект друкування
             let charIndex = 0; const speed = 100; 
             function typeWriter() {
                 if (charIndex < textToType.length) {
@@ -1149,6 +1211,7 @@ video#customPlayer {
             }
             window.addEventListener('load', () => { setTimeout(typeWriter, 600); });
         }
+        
         // Magnetic Panel
         if(window.innerWidth > 900) {
             document.querySelectorAll('.glass-panel').forEach(card => {
@@ -1325,34 +1388,69 @@ video#customPlayer {
             if (e.target === errorModal) errorModal.classList.remove('active');
         });
 
-        // --- ЛОГІКА ВІДЕО ПЛЕЄРА ---
-const videoModal = document.getElementById('videoModal');
-const customPlayer = document.getElementById('customPlayer');
-const videoSource = document.getElementById('videoSource');
-const closeVideoBtn = document.getElementById('closeVideoModalBtn'); // Оновлено
+        // --- ЛОГІКА ПРЕМІУМ ВІДЕО ПЛЕЄРА ---
+        const videoModal = document.getElementById('videoModal');
+        const customPlayer = document.getElementById('customPlayer');
+        const videoSource = document.getElementById('videoSource');
+        const videoTitle = document.getElementById('videoTitle');
+        const closeVideoBtn = document.getElementById('closeVideoModalBtn');
+        const storyProgressBar = document.getElementById('storyProgressBar');
+        const pauseOverlay = document.getElementById('pauseOverlay');
 
-// Функція відкриття відео
-window.openVideo = function(videoPath) {
-    videoSource.src = videoPath;
-    customPlayer.load();
-    videoModal.classList.add('active');
-    customPlayer.play();
-    document.body.style.overflow = 'hidden'; 
-};
+        // Функція відкриття відео
+        window.openVideo = function(videoPath, titleText) {
+            videoSource.src = videoPath;
+            videoTitle.innerText = titleText || 'Live Demo';
+            customPlayer.load();
+            videoModal.classList.add('active');
+            customPlayer.play();
+            pauseOverlay.classList.remove('visible'); // Ховаємо паузу при старті
+            document.body.style.overflow = 'hidden'; 
+        };
 
-// Функція закриття відео
-const closeVideoModal = () => {
-    videoModal.classList.remove('active');
-    customPlayer.pause();
-    customPlayer.currentTime = 0; 
-    document.body.style.overflow = ''; 
-};
+        // Оновлення смужки прогресу
+        customPlayer.addEventListener('timeupdate', () => {
+            if (customPlayer.duration) {
+                const percentage = (customPlayer.currentTime / customPlayer.duration) * 100;
+                storyProgressBar.style.width = percentage + '%';
+            }
+        });
 
-if (closeVideoBtn) closeVideoBtn.addEventListener('click', closeVideoModal);
-videoModal.addEventListener('click', (e) => {
-    // Якщо клікнули на темний фон поза плеєром
-    if (e.target === videoModal || e.target.classList.contains('video-wrapper')) closeVideoModal();
-});
+        // Логіка Паузи / Відтворення при кліку на відео
+        const togglePlay = () => {
+            if (customPlayer.paused) {
+                customPlayer.play();
+                pauseOverlay.classList.remove('visible');
+            } else {
+                customPlayer.pause();
+                pauseOverlay.classList.add('visible');
+            }
+        };
+
+        // Вішаємо клік на саме відео та на оверлей паузи
+        customPlayer.addEventListener('click', togglePlay);
+        pauseOverlay.addEventListener('click', togglePlay);
+
+        // Якщо відео закінчилось - показуємо кнопку Play
+        customPlayer.addEventListener('ended', () => {
+            pauseOverlay.classList.add('visible');
+        });
+
+        // Функція закриття відео
+        const closeVideoModal = () => {
+            videoModal.classList.remove('active');
+            customPlayer.pause();
+            customPlayer.currentTime = 0; 
+            document.body.style.overflow = ''; 
+        };
+
+        if (closeVideoBtn) closeVideoBtn.addEventListener('click', closeVideoModal);
+        videoModal.addEventListener('click', (e) => {
+            // Закриваємо плеєр, якщо клікнули на темний фон поза самим відео
+            if (e.target === videoModal || e.target.classList.contains('video-premium-wrapper')) {
+                closeVideoModal();
+            }
+        });
 
     </script>
 </body>

@@ -432,7 +432,7 @@
         video#customPlayer { 
             width: 100%; height: auto; max-height: 75vh;
             outline: none; object-fit: contain; /* Щоб не обрізало твої чорні рамки */
-            cursor: pointer; background: #000;
+            cursor: pointer; background: transparent;
         }
 
         /* Оверлей Паузи (без стандартного таймлайну) */
@@ -667,7 +667,7 @@
                     <img src="case_gnome.png" alt="Гном Бербен">
                     <h3>BerBen House</h3>
                     <p>Гном Бербен — Символ затишку</p>
-                    <a href="javascript:void(0)" onclick="openVideo('berben.mp4', 'BerBen House', 'Автоматизація замовлень дров, кальянів та сніданків. Гість натискає кнопку — ви отримуєте готове замовлення.')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/berben.mp4', 'BerBen House', 'Автоматизація замовлень дров, кальянів та сніданків. Гість натискає кнопку — ви отримуєте готове замовлення.')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
@@ -695,7 +695,7 @@
                     <img src="case_girl.png" alt="Дівчина Rest Hill">
                     <h3>REST HILL</h3>
                     <p>Господиня котеджу — Символ гостинності</p>
-                    <a href="javascript:void(0)" onclick="openVideo('resthill.mp4', 'REST HILL', 'Пряма інтеграція платіжних систем. Гості оплачують послуги миттєво через Apple/Google Pay, а адмін отримує готовий чек.')" class="btn btn-outline btn-small" style="color: #ff4081; border-color: #ff4081;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/resthill.mp4', 'REST HILL', 'Пряма інтеграція платіжних систем. Гості оплачують послуги миттєво через Apple/Google Pay, а адмін отримує готовий чек.')" class="btn btn-outline btn-small" style="color: #ff4081; border-color: #ff4081;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
@@ -723,7 +723,7 @@
                     <img src="case_hutsul.png" alt="Гуцул GRANЬ">
                     <h3>GRANЬ COTTAGE</h3>
                     <p>Гуцул Дід — Мудрий господар</p>
-                    <a href="javascript:void(0)" onclick="openVideo('gran.mp4', 'GRANЬ COTTAGE', 'Smart Адмін-панель для кухні. Додавайте та вимикайте позиції в меню (наприклад, сирники) за лічені секунди.')" class="btn btn-outline btn-small" style="color: #4caf50; border-color: #4caf50;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/gran.mp4', 'GRANЬ COTTAGE', 'Smart Адмін-панель для кухні. Додавайте та вимикайте позиції в меню (наприклад, сирники) за лічені секунди.')" class="btn btn-outline btn-small" style="color: #4caf50; border-color: #4caf50;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
@@ -751,7 +751,7 @@
                     <img src="case_captain.png" alt="Капітан BOSO">
                     <h3>BOSO</h3>
                     <p>Капітан Босман — Символ надійності</p>
-                    <a href="javascript:void(0)" onclick="openVideo('boso.mp4', 'BOSO System', 'Комплексна екосистема. Від перевірки стану котеджу при виселенні до повної синхронізації з Booking.')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/boso.mp4', 'BOSO System', 'Комплексна екосистема. Від перевірки стану котеджу при виселенні до повної синхронізації з Booking.')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
@@ -1072,7 +1072,6 @@
             <div class="demo-video-wrapper">
                 
                 <video id="customPlayer" playsinline preload="auto">
-                    <source id="videoSource" src="" type="video/mp4">
                     Ваш браузер не підтримує відео.
                 </video>
                 
@@ -1308,29 +1307,28 @@
         if (closeErrorModalBtn) closeErrorModalBtn.addEventListener('click', (e) => { e.preventDefault(); errorModal.classList.remove('active'); });
         errorModal.addEventListener('click', (e) => { if (e.target === errorModal) errorModal.classList.remove('active'); });
 
-        // --- ЛОГІКА ПРЕМІУМ ВІДЕО ПЛЕЄРА (БЕЗ ТАЙМЛАЙНУ) ---
+        // --- ЛОГІКА ПРЕМІУМ ВІДЕО ПЛЕЄРА ---
         const videoModal = document.getElementById('videoModal');
         const customPlayer = document.getElementById('customPlayer');
-        const videoSource = document.getElementById('videoSource'); // ЗАЛІЗОБЕТОННЕ ЗАВАНТАЖЕННЯ
         const demoTitle = document.getElementById('demoTitle');
         const demoDesc = document.getElementById('demoDesc');
         const closeVideoBtn = document.getElementById('closeVideoModalBtn');
         const pauseOverlay = document.getElementById('pauseOverlay');
 
-        // Відкриття відео
+        // Відкриття відео (Оновлено для Safari)
         window.openVideo = function(videoPath, titleText, descText) {
             // Динамічний текст
             demoTitle.innerText = titleText || 'Live Demo';
             demoDesc.innerText = descText || 'Інтелектуальний помічник, який автоматизує рутину.';
             
-            // Надійний спосіб завантаження
-            videoSource.src = videoPath; 
+            // Надійний спосіб завантаження для Safari
+            customPlayer.src = videoPath; 
             customPlayer.load();
             
             videoModal.classList.add('active');
             document.body.style.overflow = 'hidden'; 
             
-            // Запуск відео з обробкою помилок Safari
+            // Запуск відео
             const playPromise = customPlayer.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {

@@ -442,8 +442,16 @@
         .pause-overlay.visible { opacity: 1; pointer-events: all; cursor: pointer; }
         .play-icon {
             width: 80px; height: 80px; background: rgba(0, 229, 255, 0.2); border: 2px solid var(--accent); border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; color: #fff; font-size: 32px; padding-left: 6px;
+            display: flex; justify-content: center; align-items: center; 
             box-shadow: 0 0 30px rgba(0, 229, 255, 0.5); transition: transform 0.3s;
+        }
+        /* Новий ідеально рівний трикутник */
+        .play-triangle {
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 14px 0 14px 24px;
+            border-color: transparent transparent transparent #ffffff;
+            margin-left: 6px; /* Оптичне вирівнювання рівно по центру кола */
         }
         .pause-overlay.visible:hover .play-icon { transform: scale(1.1); }
 
@@ -1073,8 +1081,10 @@
                 </video>
                 
                 <div class="pause-overlay" id="pauseOverlay">
-                    <div class="play-icon">▶</div>
-                </div>
+    <div class="play-icon">
+        <div class="play-triangle"></div>
+    </div>
+</div>
             </div>
             
         </div>

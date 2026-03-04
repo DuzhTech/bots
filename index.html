@@ -81,7 +81,7 @@
             border: none;
         }
         .btn:hover { animation: none; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 229, 255, 0.6); }
-        .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+        .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); animation: none; }
         .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
         .btn-small { padding: 12px 24px; font-size: 0.9rem; margin-top: 15px; position: relative; z-index: 5; }
 
@@ -357,6 +357,38 @@
 
         footer { text-align: center; padding: 60px 8%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 100px; color: var(--text-muted); }
 
+        /* --- ВІДЕО ПЛЕЄР --- */
+        .video-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(6, 11, 25, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 99999; display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .video-modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .video-modal-content {
+            position: relative; width: 90%; max-width: 400px; /* Вертикальний розмір під екран телефону */
+            background: #000; /* Чорний фон для злиття з краями */
+            border: 1px solid var(--accent); border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.2);
+            overflow: hidden; transform: scale(0.9) translateY(30px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; /* Прибирає нижній відступ відео */
+        }
+        .video-modal-overlay.active .video-modal-content { transform: scale(1) translateY(0); }
+        
+        video#customPlayer { 
+            width: 100%; height: auto; max-height: 85vh; 
+            outline: none; background: #000; border-radius: 19px; 
+        }
+        
+        .close-video-btn {
+            position: absolute; top: -50px; right: 0;
+            background: transparent; color: #fff; border: none;
+            font-size: 40px; line-height: 1; 
+            cursor: pointer; z-index: 10; transition: 0.3s;
+        }
+        .close-video-btn:hover { color: var(--accent); transform: rotate(90deg); }
+
         /* --- Модальні вікна (Успіх та Помилка) --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(6, 11, 25, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .modal-overlay.active { opacity: 1; visibility: visible; }
@@ -393,15 +425,12 @@
             .hero-features { justify-content: center; margin-bottom: 25px; }
             .hero-text p { max-width: 100%; }
             
-            /* ВИМКНЕННЯ АКТИВНОГО ТЕКСТУ НА МОБІЛЦІ */
-            
             .manifesto-card { text-align: left; }
             .hero-img { order: -1; width: 100%; max-width: 400px; }
             .hero-img img, @keyframes breathe { transform: translateY(0); } 
             @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
             .bento-grid { grid-template-columns: 1fr; gap: 20px; }
             
-            /* ВИМИКАЄМО STICKY НА МОБІЛЬНОМУ */
             .case-card { position: relative !important; top: 0 !important; grid-template-columns: 1fr !important; padding: 30px; gap: 30px; align-items: stretch; }
             .case-visual { order: 1 !important; margin: 0; }
             .case-dashboard { order: 2 !important; margin: 0; }
@@ -597,7 +626,7 @@
                     <img src="case_gnome.png" alt="Гном Бербен">
                     <h3>BerBen House</h3>
                     <p>Гном Бербен — Символ затишку</p>
-                    <a href="#contact" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/berben.mp4')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
@@ -625,7 +654,7 @@
                     <img src="case_girl.png" alt="Дівчина Rest Hill">
                     <h3>REST HILL</h3>
                     <p>Господиня котеджу — Символ гостинності</p>
-                    <a href="#contact" class="btn btn-outline btn-small" style="color: #ff4081; border-color: #ff4081;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/resthill.mp4')" class="btn btn-outline btn-small" style="color: #ff4081; border-color: #ff4081;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
@@ -653,7 +682,7 @@
                     <img src="case_hutsul.png" alt="Гуцул GRANЬ">
                     <h3>GRANЬ COTTAGE</h3>
                     <p>Гуцул Дід — Мудрий господар</p>
-                    <a href="#contact" class="btn btn-outline btn-small" style="color: #4caf50; border-color: #4caf50;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/gran.mp4')" class="btn btn-outline btn-small" style="color: #4caf50; border-color: #4caf50;">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal delay-1">
                     <div class="data-box pain">
@@ -681,7 +710,7 @@
                     <img src="case_captain.png" alt="Капітан BOSO">
                     <h3>BOSO</h3>
                     <p>Капітан Босман — Символ надійності</p>
-                    <a href="#contact" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
+                    <a href="javascript:void(0)" onclick="openVideo('video/boso.mp4')" class="btn btn-outline btn-small">👁️ ДЕТАЛЬНІШЕ ТА ВІДЕО-ДЕМО</a>
                 </div>
                 <div class="case-dashboard reveal">
                     <div class="data-box pain">
@@ -981,6 +1010,16 @@
         <p>© 2026 DuzhTech — Екосистема цифрової гостинності.</p>
     </footer>
 
+    <div id="videoModal" class="video-modal-overlay">
+        <div class="video-modal-content">
+            <button class="close-video-btn">&times;</button>
+            <video id="customPlayer" controls playsinline preload="none">
+                <source id="videoSource" src="" type="video/mp4">
+                Ваш браузер не підтримує відео.
+            </video>
+        </div>
+    </div>
+
     <div id="successModal" class="modal-overlay">
         <div class="modal-content glass-panel">
             <div class="modal-icon">🚀</div>
@@ -1169,7 +1208,7 @@
         document.getElementById('leadForm').addEventListener('submit', function(e) {
             e.preventDefault(); 
 
-            // ПЕРЕВІРКА ТЕЛЕФОНУ (Замість Alert - нове червоне вікно)
+            // ПЕРЕВІРКА ТЕЛЕФОНУ
             if (!phoneInput.isValidNumber()) {
                 document.getElementById('phone').style.borderColor = "#ff4d4d";
                 document.getElementById('errorModal').classList.add('active');
@@ -1232,6 +1271,36 @@
         errorModal.addEventListener('click', (e) => {
             if (e.target === errorModal) errorModal.classList.remove('active');
         });
+
+        // --- ЛОГІКА ВІДЕО ПЛЕЄРА ---
+        const videoModal = document.getElementById('videoModal');
+        const customPlayer = document.getElementById('customPlayer');
+        const videoSource = document.getElementById('videoSource');
+        const closeVideoBtn = document.querySelector('.close-video-btn');
+
+        // Функція відкриття відео
+        window.openVideo = function(videoPath) {
+            videoSource.src = videoPath;
+            customPlayer.load();
+            videoModal.classList.add('active');
+            customPlayer.play();
+            document.body.style.overflow = 'hidden'; // Забороняємо скролити сайт на фоні
+        };
+
+        // Функція закриття відео
+        const closeVideoModal = () => {
+            videoModal.classList.remove('active');
+            customPlayer.pause();
+            customPlayer.currentTime = 0; // Скидаємо відео на початок
+            document.body.style.overflow = ''; // Повертаємо скрол
+        };
+
+        if (closeVideoBtn) closeVideoBtn.addEventListener('click', closeVideoModal);
+        videoModal.addEventListener('click', (e) => {
+            // Закриваємо плеєр, якщо клікнули на темний фон поза самим відео
+            if (e.target === videoModal) closeVideoModal();
+        });
+
     </script>
 </body>
 </html>

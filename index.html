@@ -513,6 +513,71 @@
             .demo-video-wrapper { max-width: 320px; margin: 0 auto; }
             .close-demo-btn { top: 15px; right: 15px; }
         }
+        /* --- КНОПКИ СОЦМЕРЕЖ --- */
+        .social-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 30px;
+            border-radius: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            width: fit-content;
+        }
+        .btn-social svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Instagram Style */
+        .btn-instagram {
+            background: rgba(225, 48, 108, 0.05);
+            color: #fff;
+            border: 1px solid rgba(225, 48, 108, 0.3);
+            box-shadow: 0 0 15px rgba(225, 48, 108, 0.1);
+        }
+        .btn-instagram:hover {
+            background: rgba(225, 48, 108, 0.15);
+            border-color: #E1306C;
+            box-shadow: 0 10px 30px rgba(225, 48, 108, 0.4);
+            transform: translateX(10px);
+        }
+        .btn-instagram:hover svg { transform: scale(1.15) rotate(5deg); color: #E1306C; }
+
+        /* Telegram Style */
+        .btn-telegram {
+            background: rgba(0, 136, 204, 0.05);
+            color: #fff;
+            border: 1px solid rgba(0, 136, 204, 0.3);
+            box-shadow: 0 0 15px rgba(0, 136, 204, 0.1);
+        }
+        .btn-telegram:hover {
+            background: rgba(0, 136, 204, 0.15);
+            border-color: #0088cc;
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.4);
+            transform: translateX(10px);
+        }
+        .btn-telegram:hover svg { transform: scale(1.15) rotate(-5deg); color: #0088cc; }
+
+        @media (max-width: 1024px) {
+            .social-actions { align-items: center; }
+            .btn-social { width: 100%; max-width: 350px; }
+            .btn-social:hover { transform: translateY(-5px); } /* На мобілках краще рух вгору, а не вбік */
+        }
     </style>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JTQVW2QHL3"></script>
@@ -1032,6 +1097,21 @@
                     <div class="perk"><span class="perk-icon">⚡</span> Відповідь за 15 хв</div>
                     <div class="perk"><span class="perk-icon">📱</span> Демо в телефоні</div>
                     <div class="perk"><span class="perk-icon">🎁</span> Безкоштовна сесія</div>
+                </div>
+                <div class="social-actions reveal delay-1">
+                    <a href="https://www.instagram.com/duzh.tech?igsh=b2EyYXVjY3R1aWVh&utm_source=qr" target="_blank" class="btn-social btn-instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.88z"/>
+                        </svg>
+                        <span>Подивитися кейси в Instagram</span>
+                    </a>
+                    
+                    <a href="https://t.me/nazy5555" target="_blank" class="btn-social btn-telegram">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
+                        </svg>
+                        <span>Отримати консультацію в Telegram</span>
+                    </a>
                 </div>
             </div>
 
